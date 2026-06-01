@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | Haven Retreat</title>
+    <meta name="description"
+        content="Oops! The page you're looking for doesn't exist. Return to Haven Retreat homepage.">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dark-mode.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            zoom: 0.9 !important; /* Set zoom to 90% as requested */
+            background-color: #151311 !important; /* Match dark aesthetic and eliminate white gaps */
+            overflow: hidden !important; /* Remove scrolling entirely */
+        }
+
+        .error-page {
+            height: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+            /* Force dark mode colors for luxury contrast */
+            --text-main: #f8f9fa;
+            --text-muted: #ced4da;
+            --border-color: rgba(255, 255, 255, 0.15);
+            overflow: hidden !important; /* Prevent page content from scrolling */
+        }
+
+        .error-inner {
+            max-width: 480px;
+            width: 100%;
+            padding: 3rem 2rem;
+            background: rgba(15, 15, 15, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .error-code {
+            font-family: var(--font-heading);
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0;
+        }
+
+        .error-icon {
+            font-size: 2.2rem;
+            margin: 1rem 0;
+            display: block;
+            color: var(--primary);
+        }
+
+        .error-title {
+            font-size: 1.75rem;
+            margin-bottom: 0.75rem;
+            color: #fff;
+        }
+
+        .error-msg {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            font-size: 0.92rem;
+        }
+
+        .error-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 480px) {
+            .error-page {
+                padding: 1.5rem 1rem;
+            }
+
+            .error-inner {
+                width: 100%;
+                max-width: 360px;
+                padding: 1.25rem 1rem;
+                margin: 0 auto;
+            }
+
+            .error-brand-logo {
+                margin-bottom: 0.75rem !important;
+                gap: 0.3rem !important;
+            }
+
+            .error-brand-logo img {
+                height: 32px !important;
+            }
+
+            .error-brand-logo .logo-name {
+                font-size: 0.95rem !important;
+            }
+
+            .error-brand-logo .logo-sub {
+                font-size: 0.52rem !important;
+                letter-spacing: 1.8px !important;
+                margin-top: 0.15rem !important;
+            }
+
+            .error-code {
+                font-size: 2.2rem;
+            }
+
+            .error-icon {
+                font-size: 1rem;
+                margin: 0.3rem 0;
+            }
+
+            .error-title {
+                font-size: 0.95rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .error-msg {
+                font-size: 0.7rem;
+                margin-bottom: 0.85rem;
+                line-height: 1.45;
+            }
+
+            .error-links {
+                flex-direction: column;
+                gap: 0.4rem;
+                width: 100%;
+            }
+
+            .error-links .btn {
+                width: 100%;
+                padding: 0.45rem 1rem !important;
+                font-size: 0.72rem;
+                min-height: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" style="display: none;">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="../assets/images/logo.svg" alt="Haven Retreat">
+                <span class="logo-text">
+                    <span class="logo-name">Haven Retreat</span>
+                    <span class="logo-sub">Luxury Boutique</span>
+                </span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Toggle Navigation"><i class="fa-solid fa-bars"></i></button>
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="#">Home <i class="fa-solid fa-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html">Home 1</a></li>
+                        <li><a href="index-2.html">Home 2</a></li>
+                    </ul>
+                </li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="rooms.html">Rooms</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="dropdown">
+                    <a href="#">Dashboard <i class="fa-solid fa-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="guest-dashboard.html"><i class="fa-solid fa-user"
+                                    style="margin-right:0.4rem;color:var(--primary);"></i>Guest Dashboard</a></li>
+                        <li><a href="admin-dashboard.html"><i class="fa-solid fa-shield-halved"
+                                    style="margin-right:0.4rem;color:var(--primary);"></i>Admin Dashboard</a></li>
+                    </ul>
+                </li>
+                <li class="nav-appearance-mobile">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:0.88rem;font-weight:500;color:var(--text-main);">Appearance</span>
+                        <div style="display:flex;align-items:center;gap:0.6rem;">
+                            <button id="rtl-toggle" aria-label="Toggle RTL" title="Toggle RTL / LTR"
+                                style="background:none;border:1px solid var(--border-color);border-radius:6px;cursor:pointer;color:var(--text-main);font-size:0.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;padding:0.3rem 0.6rem;font-family:inherit;">RTL</button>
+                            <button id="theme-toggle" aria-label="Toggle Dark Mode"
+                                style="background:none;border:1px solid var(--border-color);border-radius:6px;cursor:pointer;color:var(--text-main);font-size:1rem;display:flex;align-items:center;padding:0.3rem 0.5rem;"><i
+                                    class="fa-solid fa-moon"></i></button>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-utils-mobile">
+                    <a href="login.html" class="btn btn-outline"
+                        style="display:flex;align-items:center;justify-content:center;width:100%;text-align:center;padding:0.7rem 1rem;font-size:0.88rem;font-weight:600;border-radius:8px;margin-bottom:0.75rem;">Login</a>
+                    <a href="booking.html" class="btn btn-primary"
+                        style="display:flex;align-items:center;justify-content:center;width:100%;text-align:center;padding:0.7rem 1rem;font-size:0.88rem;font-weight:700;border-radius:8px;">Book
+                        Now</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 404 Content -->
+    <div class="error-page">
+        <div class="error-inner">
+            <a href="index.html" class="error-brand-logo"
+                style="display: flex; flex-direction: column; align-items: center; gap: 0.4rem; text-decoration: none; margin-bottom: 1.5rem;">
+                <img src="../assets/images/logo.svg" alt="Haven Retreat" style="height: 54px; width: auto;">
+                <span class="logo-text" style="display: flex; flex-direction: column; align-items: center; text-align: center; line-height: 1.2;">
+                    <span class="logo-name" style="color: var(--text-main); font-size: 1.25rem; font-family: var(--font-heading); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">Haven Retreat</span>
+                    <span class="logo-sub" style="color: var(--text-muted); font-size: 0.65rem; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; margin-top: 0.25rem;">Luxury Boutique</span>
+                </span>
+            </a>
+            <div class="error-code">404</div>
+            <span class="error-icon"><i class="fa-solid fa-compass"></i></span>
+            <h1 class="error-title">Lost in the Wilderness?</h1>
+            <p class="error-msg">We couldn't find the page you were looking for. It may have been moved, renamed, or
+                perhaps never existed. Let us guide you back to the comfort of Haven Retreat.</p>
+            <div class="error-links">
+                <a href="index.html" class="btn btn-primary" style="padding:0.875rem 2rem;">Back to Home</a>
+                <a href="contact.html" class="btn btn-outline" style="padding:0.875rem 2rem;">Contact Us</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="display: none;">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="footer-brand">
+                        <img src="../assets/images/logo.svg" alt="Haven Retreat">
+                        <span class="logo-text">
+                            <span class="logo-name">Haven Retreat</span>
+                            <span class="logo-sub">Luxury Boutique</span>
+                        </span>
+                    </a>
+                    <p style="margin-bottom: 1.5rem; line-height: 1.6;">A luxury boutique hotel offering personalized
+                        experiences in the heart of nature. Escape the ordinary and discover your sanctuary.</p>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-x-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="services.html">Spa &amp; Dining</a></li>
+                        <li><a href="gallery.html">Photo Gallery</a></li>
+                        <li><a href="about.html">Our Story</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Guest Information</h4>
+                    <ul>
+                        <li><a href="#">Check-in &amp; Check-out</a></li>
+                        <li><a href="#">Cancellation Policy</a></li>
+                        <li><a href="#">FAQ &amp; Support</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms &amp; Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul style="gap: 0.75rem;">
+                        <li style="display: flex; gap: 0.5rem; align-items: flex-start;"><i
+                                class="fa-solid fa-location-dot" style="margin-top: 4px; color: var(--primary);"></i>
+                            <span>123 Luxury Lane, Nature Valley<br>Nassau, Bahamas</span>
+                        </li>
+                        <li style="display: flex; gap: 0.5rem; align-items: center;"><i class="fa-solid fa-phone"
+                                style="color: var(--primary);"></i> +1 (555) 123-4567</li>
+                        <li style="display: flex; gap: 0.5rem; align-items: center;"><i class="fa-solid fa-envelope"
+                                style="color: var(--primary);"></i> hello@havenretreat.com</li>
+                    </ul>
+                    <a href="#" class="footer-subscribe-btn-sm" id="footer-subscribe-btn"
+                        style="margin-top:1.25rem;display:inline-flex;align-items:center;gap:0.5rem;padding:0.55rem 1.25rem;background:var(--primary);color:#fff;border:none;border-radius:var(--radius-sm);font-size:0.85rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background 0.2s,transform 0.2s;"
+                        onmouseover="this.style.background='var(--primary-hover)';this.style.transform='translateY(-1px)'"
+                        onmouseout="this.style.background='var(--primary)';this.style.transform=''">
+                        <i class="fa-solid fa-envelope"></i> Subscribe Now
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Haven Retreat Boutique Hotel. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+    <link rel="shortcut icon" href="../assets/images/favicon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Haven Retreat</title>
+    <meta name="description"
+        content="Get in touch with Haven Retreat. Make enquiries, request special arrangements, or simply say hello.">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dark-mode.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 4rem;
+            align-items: start;
+            padding: 0 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 1022px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .contact-info-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .contact-info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .contact-info-block {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-info-item {
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+        }
+
+        .contact-info-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .contact-info-text h4 {
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+        }
+
+        .contact-info-text p,
+        .contact-info-text a {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .contact-form {
+            background: var(--bg-secondary);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 560px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--bg-main);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(168, 134, 85, 0.1);
+        }
+
+        .form-control::placeholder {
+            color: var(--text-muted);
+            opacity: 0.6;
+        }
+
+        select.form-control {
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            padding-left: 2.6rem !important;
+        }
+
+        .select-icon-wrap {
+            position: relative;
+        }
+
+        .select-icon-wrap .select-icon {
+            position: absolute;
+            left: 0.9rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 0.95rem;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .select-icon-wrap .select-caret {
+            position: absolute;
+            right: 0.9rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 130px;
+        }
+
+        .form-success {
+            display: none;
+            padding: 1rem;
+            background: rgba(79, 160, 90, 0.1);
+            border: 1px solid rgba(79, 160, 90, 0.3);
+            border-radius: var(--radius-sm);
+            color: #2d7a3a;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+        }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LodgingBusiness",
+      "name": "Haven Retreat",
+      "description": "A luxury boutique hotel offering personalized experiences in the heart of nature.",
+      "url": "https://www.havenretreat.com",
+      "telephone": "+1-555-123-4567",
+      "email": "hello@havenretreat.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "123 Luxury Lane",
+        "addressLocality": "Nature Valley",
+        "addressCountry": "BS"
+      },
+      "starRating": { "@type": "Rating", "ratingValue": "5" },
+      "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "15420" },
+      "amenityFeature": [
+        {"@type": "LocationFeatureSpecification", "name": "Free WiFi", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Spa", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Pool", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Restaurant", "value": true}
+      ]
+    }
+    </script>
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="../assets/images/logo.svg" alt="Haven Retreat">
+                <span class="logo-text">
+                    <span class="logo-name">Haven Retreat</span>
+                    <span class="logo-sub">Luxury Boutique</span>
+                </span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Toggle Navigation"><i class="fa-solid fa-bars"></i></button>
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="#">Home <i class="fa-solid fa-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html">Home 1</a></li>
+                        <li><a href="index-2.html">Home 2</a></li>
+                    </ul>
+                </li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="rooms.html">Rooms</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="dropdown">
+                    <a href="#">Dashboard <i class="fa-solid fa-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="guest-dashboard.html"><i class="fa-solid fa-user"
+                                    style="margin-right:0.4rem;color:var(--primary);"></i>Guest Dashboard</a></li>
+                        <li><a href="admin-dashboard.html"><i class="fa-solid fa-shield-halved"
+                                    style="margin-right:0.4rem;color:var(--primary);"></i>Admin Dashboard</a></li>
+                    </ul>
+                </li>
+                <li class="nav-appearance-mobile">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:0.88rem;font-weight:500;color:var(--text-main);">Appearance</span>
+                        <div style="display:flex;align-items:center;gap:0.6rem;">
+                            <button id="rtl-toggle" aria-label="Toggle RTL" title="Toggle RTL / LTR"
+                                style="background:none;border:1px solid var(--border-color);border-radius:6px;cursor:pointer;color:var(--text-main);font-size:0.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;padding:0.3rem 0.6rem;font-family:inherit;">RTL</button>
+                            <button id="theme-toggle" aria-label="Toggle Dark Mode"
+                                style="background:none;border:1px solid var(--border-color);border-radius:6px;cursor:pointer;color:var(--text-main);font-size:1rem;display:flex;align-items:center;padding:0.3rem 0.5rem;"><i
+                                    class="fa-solid fa-moon"></i></button>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-utils-mobile">
+                    <a href="login.html" class="btn btn-outline"
+                        style="display:flex;align-items:center;justify-content:center;width:100%;text-align:center;padding:0.7rem 1rem;font-size:0.88rem;font-weight:600;border-radius:8px;margin-bottom:0.75rem;">Login</a>
+                    <a href="booking.html" class="btn btn-primary"
+                        style="display:flex;align-items:center;justify-content:center;width:100%;text-align:center;padding:0.7rem 1rem;font-size:0.88rem;font-weight:700;border-radius:8px;">Book
+                        Now</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero"
+        style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&w=1600&q=80'); height: 45vh; min-height: 320px;">
+        <div class="hero-content">
+            <h1>Get in Touch</h1>
+            <p>We'd love to hear from you. Our team is always ready to help.</p>
+        </div>
+    </section>
+
+    <section class="section container">
+        <div class="contact-layout">
+            <!-- Info -->
+            <div class="contact-info-block">
+                <div class="reveal">
+                    <span class="section-tag">Reach Us</span>
+                    <h2 style="margin-top: 0.5rem;">We're Here For You</h2>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem;">Whether you have a booking enquiry, want to
+                        plan a special occasion, or simply want to know more about Haven Retreat our team responds
+                        within 2 hours.</p>
+                </div>
+                <div class="contact-info-grid">
+                    <div class="contact-info-item reveal">
+                        <div class="contact-info-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="contact-info-text">
+                            <h4>Our Address</h4>
+                            <p>123 Luxury Lane, Nature Valley<br>Nassau, Bahamas BS-12345</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item reveal">
+                        <div class="contact-info-icon"><i class="fa-solid fa-phone"></i></div>
+                        <div class="contact-info-text">
+                            <h4>Phone</h4>
+                            <a href="tel:+15551234567">+1 (555) 123-4567</a><br>
+                            <p style="font-size:0.85rem; margin-top:0.25rem;">Available 24/7 for guest support</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item reveal">
+                        <div class="contact-info-icon"><i class="fa-solid fa-envelope"></i></div>
+                        <div class="contact-info-text">
+                            <h4>Email</h4>
+                            <a href="mailto:hello@havenretreat.com">hello@havenretreat.com</a><br>
+                            <a href="mailto:reservations@havenretreat.com">reservations@havenretreat.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-info-item reveal">
+                        <div class="contact-info-icon"><i class="fa-solid fa-clock"></i></div>
+                        <div class="contact-info-text">
+                            <h4>Concierge Hours</h4>
+                            <p>Check-in: 3:00 PM - 11:00 PM<br>Check-out: 8:00 AM - 12:00 PM<br>Front Desk: 24 hours</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <h4 style="margin-bottom: 0.75rem;">Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Instagram"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#" class="social-link" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" class="social-link" aria-label="TripAdvisor"><i class="fa-solid fa-globe"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <div class="contact-form reveal">
+                <h3 style="margin-bottom: 0.5rem;">Send Us a Message</h3>
+                <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 0.9rem;">We typically respond within
+                    2 hours during business hours.</p>
+                <form id="contact-form" novalidate>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cf-name">Full Name *</label>
+                            <input type="text" id="cf-name" class="form-control" placeholder="James Whitmore" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cf-email">Email Address *</label>
+                            <input type="email" id="cf-email" class="form-control" placeholder="you@example.com"
+                                required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cf-phone">Phone Number</label>
+                            <input type="tel" id="cf-phone" class="form-control" placeholder="+1 (555) 000-0000">
+                        </div>
+                        <div class="form-group">
+                            <label for="cf-subject">Subject *</label>
+                            <div class="select-icon-wrap">
+                                <i class="fa-solid fa-tag select-icon"></i>
+                                <select id="cf-subject" class="form-control" required>
+                                    <option value="">Select a topic</option>
+                                    <option>Booking Enquiry</option>
+                                    <option>Special Occasion</option>
+                                    <option>Spa &amp; Wellness</option>
+                                    <option>Feedback</option>
+                                    <option>Other</option>
+                                </select>
+                                <i class="fa-solid fa-chevron-down select-caret"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cf-message">Message *</label>
+                        <textarea id="cf-message" class="form-control" placeholder="Tell us how we can help"
+                            required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="cf-submit"
+                        style="width:100%; font-size:1rem; padding: 1rem;">Send Message &rarr;</button>
+                    <div class="form-success" id="form-success">
+                        <i class="fa-solid fa-circle-check" style="color:#4a9e55"></i> Thank you! Your message has been
+                        sent. We'll be in touch very soon.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map -->
+    <section class="section" style="background-color: var(--bg-secondary); padding-top: 0;">
+        <div class="container">
+            <div class="map-container reveal">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115681.29592731265!2d-77.4771327!3d25.03428!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x892f7c99b981dbc9%3A0x2aef01d3485e50d2!2sNassau%2C%20Bahamas!5e1!3m2!1sen!2sus!4v1698765432100!5m2!1sen!2sus&maptype=satellite"
+                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                    title="Haven Retreat Location"></iframe>
+            </div>
+        </div>
+    </section>
+
+
+
+    <footer>
+        <div class="container">
+
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="footer-brand">
+                        <img src="../assets/images/logo.svg" alt="Haven Retreat">
+                        <span class="logo-text">
+                            <span class="logo-name">Haven Retreat</span>
+                            <span class="logo-sub">Luxury Boutique</span>
+                        </span>
+                    </a>
+                    <p style="margin-bottom: 1.5rem; line-height: 1.6;">A luxury boutique hotel offering personalized
+                        experiences in the heart of nature. Escape the ordinary and discover your sanctuary.</p>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-x-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="services.html">Spa &amp; Dining</a></li>
+                        <li><a href="gallery.html">Photo Gallery</a></li>
+                        <li><a href="about.html">Our Story</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Guest Information</h4>
+                    <ul>
+                        <li><a href="#">Check-in &amp; Check-out</a></li>
+                        <li><a href="#">Cancellation Policy</a></li>
+                        <li><a href="#">FAQ &amp; Support</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms &amp; Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul style="gap: 0.75rem;">
+                        <li style="display: flex; gap: 0.5rem; align-items: flex-start;"><i
+                                class="fa-solid fa-location-dot" style="margin-top: 4px; color: var(--primary);"></i>
+                            <span>123 Luxury Lane, Nature Valley<br>Nassau, Bahamas</span>
+                        </li>
+                        <li style="display: flex; gap: 0.5rem; align-items: center;"><i class="fa-solid fa-phone"
+                                style="color: var(--primary);"></i> +1 (555) 123-4567</li>
+                        <li style="display: flex; gap: 0.5rem; align-items: center;"><i class="fa-solid fa-envelope"
+                                style="color: var(--primary);"></i> hello@havenretreat.com</li>
+                    </ul>
+                    <a href="#" class="footer-subscribe-btn-sm" id="footer-subscribe-btn"
+                        style="margin-top:1.25rem;display:inline-flex;align-items:center;gap:0.5rem;padding:0.55rem 1.25rem;background:var(--primary);color:#fff;border:none;border-radius:var(--radius-sm);font-size:0.85rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background 0.2s,transform 0.2s;"
+                        onmouseover="this.style.background='var(--primary-hover)';this.style.transform='translateY(-1px)'"
+                        onmouseout="this.style.background='var(--primary)';this.style.transform=''">
+                        <i class="fa-solid fa-envelope"></i> Subscribe Now
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Haven Retreat Boutique Hotel. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const btn = document.getElementById('cf-submit');
+            btn.textContent = 'Sending�';
+            btn.disabled = true;
+            setTimeout(() => {
+                document.getElementById('form-success').style.display = 'block';
+                btn.textContent = 'Message Sent ?';
+                btn.style.background = '#4a9e55';
+            }, 1200);
+        });
+    </script>
+    <script>
+        var nlForm = document.getElementById('newsletter-form');
+        if (nlForm) { nlForm.addEventListener('submit', function (e) { e.preventDefault(); var v = document.getElementById('nl-email').value; if (v && v.includes('@')) { document.getElementById('nl-success').style.display = 'block'; nlForm.style.display = 'none'; } }); }
+    </script>
+</body>
+
+</html>

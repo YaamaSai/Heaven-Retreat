@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /assets/
+Disallow: /documentation/
+
+Sitemap: https://www.havenretreat.com/sitemap.xml

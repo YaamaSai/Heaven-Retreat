@@ -1,0 +1,2289 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <script>
+    if (localStorage.getItem('rtl') === 'true') {
+      document.documentElement.setAttribute('dir', 'rtl');
+    }
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>My Dashboard | Haven Retreat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --gold: #A88655;
+      --gold-h: #8A6D44;
+      --gold-l: rgba(168, 134, 85, 0.1);
+      --espresso: #1F1C18;
+      --pearl: #FCFBF9;
+      --taupe: #F4F1EA;
+      --txt: #2A2723;
+      --txt-m: #736E65;
+      --bdr: #E2DCD0;
+      --sh: 0 4px 24px rgba(42, 39, 35, 0.08);
+      --r: 8px;
+      --r2: 12px;
+      --ff-h: 'Playfair Display', serif;
+      --ff-b: 'Inter', sans-serif;
+      --tr: all .25s ease;
+    }
+
+    [data-theme=dark] {
+      --pearl: #151311;
+      --taupe: #1D1A18;
+      --txt: #F4F1EA;
+      --txt-m: #A19B91;
+      --bdr: #38342E;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--ff-b);
+      background: var(--taupe);
+      color: var(--txt);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .sb {
+      width: 260px;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      inset-inline-start: 0;
+      background: var(--pearl);
+      border-inline-end: 1px solid var(--bdr);
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      z-index: 200;
+      transition: transform 0.34s cubic-bezier(0.4, 0, 0.2, 1);
+      --sb-hide: -110%;
+    }
+
+    [dir=rtl] .sb {
+      --sb-hide: 110%;
+    }
+
+    .sb-logo {
+      height: 52px;
+      padding: 0 1.1rem;
+      border-bottom: 1px solid var(--bdr);
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      flex-shrink: 0;
+    }
+
+    .sb-logo img {
+      height: 30px;
+      width: auto;
+      filter: drop-shadow(0 1px 3px rgba(0, 0, 0, .15));
+    }
+
+    .sb-logo-text .n {
+      font-family: var(--ff-h);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--txt);
+    }
+
+    .sb-logo-text .s {
+      font-size: .5rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--txt-m);
+    }
+
+    .sb-nav {
+      flex: 1;
+      padding: 1.25rem 0;
+      overflow-y: auto;
+    }
+
+    .sb-section {
+      padding: .5rem 1.5rem .25rem;
+      font-size: .6rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--txt-m);
+      font-weight: 600;
+      margin-top: .5rem;
+    }
+
+    .sb-link {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      padding: .62rem 1.25rem;
+      color: var(--txt-m);
+      font-size: .83rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--tr);
+      border-inline-start: 3px solid transparent;
+      position: relative;
+    }
+
+    .sb-link i {
+      width: 18px;
+      text-align: center;
+      font-size: .95rem;
+    }
+
+    .sb-link:hover {
+      color: var(--txt);
+      background: var(--taupe);
+    }
+
+    .sb-link.active {
+      color: var(--gold);
+      background: var(--gold-l);
+      border-inline-start-color: var(--gold);
+      font-weight: 600;
+    }
+
+    .sb-badge {
+      margin-inline-start: auto;
+      background: #e5534b;
+      color: #fff;
+      font-size: .65rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+
+    .tb-profile {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .2rem .45rem;
+      border: 1px solid transparent;
+      border-radius: var(--r);
+      cursor: pointer;
+      transition: var(--tr);
+      position: relative;
+    }
+
+    .tb-profile:hover {
+      border-color: var(--gold);
+    }
+
+    .tb-profile::before {
+      content: "";
+      display: block;
+      width: 1px;
+      height: 18px;
+      background: var(--bdr);
+      margin-inline-end: .2rem;
+    }
+
+    .tb-profile-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: var(--gold);
+    }
+
+    .tb-profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .tb-profile-info .tb-pname {
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--txt);
+      line-height: 1.2;
+    }
+
+    .tb-profile-info .tb-prole {
+      font-size: .6rem;
+      color: var(--txt-m);
+    }
+
+    .tb-profile i.chev {
+      font-size: .7rem;
+      color: var(--txt-m);
+      transition: var(--tr);
+    }
+
+
+
+    .main {
+      margin-inline-start: 260px;
+      flex: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      height: 52px;
+      background: var(--pearl);
+      border-bottom: 1px solid var(--bdr);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .sb-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--txt);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .page-title {
+      font-family: var(--ff-h);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--txt);
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .tb-btn {
+      background: none;
+      border: 1px solid var(--bdr);
+      border-radius: var(--r);
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--txt-m);
+      transition: var(--tr);
+      position: relative;
+    }
+
+    .tb-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .tb-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding-inline-end: 0.5rem;
+      border-inline-end: 1px solid var(--bdr);
+      margin-inline-end: 0.15rem;
+    }
+
+    .notif-dot {
+      position: absolute;
+      top: 4px;
+      inset-inline-end: 4px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #e5534b;
+      border: 2px solid var(--pearl);
+    }
+
+    .content {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
+    .tab-panel {
+      display: none;
+      animation: fadeIn .3s ease;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .kpi-card {
+      background: var(--pearl);
+      border: 1px solid var(--bdr);
+      border-radius: var(--r2);
+      padding: 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      box-shadow: var(--sh);
+      transition: var(--tr);
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(42, 39, 35, .12);
+    }
+
+    .kpi-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--r);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .kpi-label {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--txt-m);
+      margin-bottom: .3rem;
+    }
+
+    .kpi-value {
+      font-family: var(--ff-h);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--txt);
+      line-height: 1;
+    }
+
+    .kpi-trend {
+      font-size: .75rem;
+      margin-top: .35rem;
+      font-weight: 600;
+    }
+
+    .up {
+      color: #2d7a3a;
+    }
+
+    .down {
+      color: #e5534b;
+    }
+
+    .neu {
+      color: var(--txt-m);
+    }
+
+    .sc {
+      background: var(--pearl);
+      border: 1px solid var(--bdr);
+      border-radius: var(--r2);
+      padding: 1.5rem;
+      box-shadow: var(--sh);
+      margin-bottom: 1.5rem;
+    }
+
+    .sc-hdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+
+    .sc-title {
+      font-family: var(--ff-h);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--txt);
+    }
+
+    .sc-hdr a,
+    .sc-hdr button {
+      font-size: .8rem;
+      color: var(--gold);
+      font-weight: 600;
+      background: none;
+      border: 1px solid var(--gold);
+      padding: .3rem .8rem;
+      border-radius: var(--r);
+      cursor: pointer;
+      transition: var(--tr);
+    }
+
+    .sc-hdr a:hover,
+    .sc-hdr button:hover {
+      background: var(--gold);
+      color: #fff;
+    }
+
+    .grid2 {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead tr {
+      border-bottom: 2px solid var(--bdr);
+    }
+
+    th {
+      font-size: .7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--txt-m);
+      font-weight: 600;
+      padding: .75rem 1rem;
+      text-align: left;
+    }
+
+    td {
+      padding: .85rem 1rem;
+      font-size: .87rem;
+      border-bottom: 1px solid var(--bdr);
+      color: var(--txt);
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr {
+      transition: var(--tr);
+    }
+
+    tbody tr:hover {
+      background: var(--taupe);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: .68rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: .5px;
+    }
+
+    .b-confirmed {
+      background: rgba(45, 122, 58, .1);
+      color: #2d7a3a;
+    }
+
+    .b-pending {
+      background: rgba(168, 134, 85, .12);
+      color: var(--gold-h);
+    }
+
+    .b-cancelled {
+      background: rgba(229, 83, 75, .1);
+      color: #e5534b;
+    }
+
+    .b-completed {
+      background: rgba(113, 128, 150, .12);
+      color: #4a5568;
+    }
+
+    .qa-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .75rem;
+    }
+
+    .qa {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .75rem;
+      padding: .85rem 1rem;
+      border: 1px solid var(--bdr);
+      border-radius: var(--r);
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--txt);
+      cursor: pointer;
+      transition: var(--tr);
+      background: var(--taupe);
+      text-align: center;
+    }
+
+    .qa:hover {
+      border-color: var(--gold);
+      background: var(--gold-l);
+      color: var(--gold);
+    }
+
+    .qa i {
+      color: var(--gold);
+      font-size: 1rem;
+      width: 18px;
+      text-align: center;
+    }
+
+    .bar-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: .5rem;
+      height: 120px;
+      padding-top: 1.5rem;
+    }
+
+    .bar-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .35rem;
+    }
+
+    .bar {
+      width: 100%;
+      background: var(--bdr);
+      border-radius: 4px 4px 0 0;
+      position: relative;
+      transition: var(--tr);
+      min-height: 4px;
+    }
+
+    .bar::after {
+      content: attr(data-v);
+      position: absolute;
+      top: -1.4rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: .68rem;
+      color: var(--txt-m);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .bar:hover {
+      background: var(--gold-h);
+    }
+
+    .bar.gold {
+      background: var(--gold);
+    }
+
+    .bar-label {
+      font-size: .65rem;
+      color: var(--txt-m);
+      font-weight: 500;
+    }
+
+    .profile-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 220px;
+      background: var(--pearl);
+      border: 1px solid var(--bdr);
+      border-radius: var(--r2);
+      box-shadow: 0 8px 30px rgba(42, 39, 35, .12);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px);
+      transition: var(--tr);
+      z-index: 500;
+      overflow: hidden;
+    }
+
+    .profile-dropdown.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .pd-header {
+      padding: 1rem 1.1rem;
+      border-bottom: 1px solid var(--bdr);
+      background: var(--taupe);
+    }
+
+    .pd-name {
+      font-family: var(--ff-h);
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--txt);
+    }
+
+    .pd-role {
+      font-size: .72rem;
+      color: var(--txt-m);
+      margin-top: .1rem;
+    }
+
+    .pd-item {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .75rem 1.1rem;
+      color: var(--txt-m);
+      font-size: .87rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--tr);
+      border-bottom: 1px solid var(--bdr);
+      text-decoration: none;
+    }
+
+    .pd-item:last-child {
+      border-bottom: none;
+    }
+
+    .pd-item i {
+      width: 16px;
+      text-align: center;
+      font-size: .9rem;
+    }
+
+    .pd-item:hover {
+      background: var(--taupe);
+      color: var(--gold);
+    }
+
+    .pd-item.danger:hover {
+      color: #e5534b;
+    }
+
+    .activity-list {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: flex-start;
+      gap: .85rem;
+      padding: .75rem;
+      border-radius: var(--r);
+      background: var(--taupe);
+      border: 1px solid var(--bdr);
+    }
+
+    .ai-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .85rem;
+      flex-shrink: 0;
+    }
+
+    .ai-body {
+      flex: 1;
+    }
+
+    .ai-title {
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--txt);
+      margin-bottom: .15rem;
+    }
+
+    .ai-time {
+      font-size: .72rem;
+      color: var(--txt-m);
+    }
+
+    .guest-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--gold-l);
+      border: 1.5px solid var(--bdr);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .ga-cell {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .4rem;
+      padding: .45rem .9rem;
+      border-radius: var(--r);
+      font-size: .8rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: var(--tr);
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-h);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .btn-outline:hover {
+      background: var(--gold);
+      color: #fff;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border-color: var(--bdr);
+      color: var(--txt-m);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .form-group {
+      margin-bottom: 1.1rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--txt-m);
+      margin-bottom: .5rem;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: .75rem 1rem;
+      border: 1px solid var(--bdr);
+      border-radius: var(--r);
+      background: var(--taupe);
+      color: var(--txt);
+      font-family: var(--ff-b);
+      font-size: .9rem;
+      transition: var(--tr);
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--gold);
+      background: var(--pearl);
+    }
+
+    .form-input::placeholder {
+      color: var(--txt-m);
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: .85rem 0;
+      border-bottom: 1px solid var(--bdr);
+    }
+
+    .toggle-row:last-child {
+      border-bottom: none;
+    }
+
+    .toggle-info .tl {
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--txt);
+    }
+
+    .toggle-info .ts {
+      font-size: .75rem;
+      color: var(--txt-m);
+      margin-top: .1rem;
+    }
+
+    .toggle {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      inset: 0;
+      background: var(--bdr);
+      border-radius: 24px;
+      cursor: pointer;
+      transition: var(--tr);
+    }
+
+    .slider::before {
+      content: '';
+      position: absolute;
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background: #fff;
+      border-radius: 50%;
+      transition: var(--tr);
+    }
+
+    input:checked+.slider {
+      background: var(--gold);
+    }
+
+    input:checked+.slider::before {
+      transform: translateX(20px);
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .4);
+      z-index: 150;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: var(--r);
+    }
+
+    .table-wrap table {
+      min-width: 580px;
+    }
+
+    .tier-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .25rem .75rem;
+      border-radius: 20px;
+      font-size: .72rem;
+      font-weight: 700;
+    }
+
+    .tier-gold {
+      background: rgba(168, 134, 85, .15);
+      color: var(--gold-h);
+      border: 1px solid var(--gold);
+    }
+
+    .points-bar {
+      height: 10px;
+      background: var(--bdr);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: .5rem 0;
+    }
+
+    .points-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-h));
+      border-radius: 10px;
+    }
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .table-wrap {
+      width: 100%;
+    }
+
+    .table-wrap table {
+      width: 100%;
+      min-width: 600px;
+    }
+
+    @media(min-width:1280px) {
+      .kpi-grid {
+        grid-template-columns: repeat(4, 1fr)
+      }
+    }
+
+    @media(max-width:1280px) and (min-width:1024px) {
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .grid2 {
+        grid-template-columns: 1.3fr 1fr
+      }
+    }
+
+    /* TABLE -> CARDS at tablet & mobile */
+    @media(max-width: 1023px) {
+      .page-title {
+        font-size: 0.78rem;
+        font-weight: 600
+      }
+
+      /* Sidebar: transform-based drawer
+         LTR hidden: translateX(-110%)  RTL hidden: translateX(110%) */
+      .sb {
+        width: calc(100% - 60px);
+        max-width: 320px;
+        height: 100vh;
+        height: 100svh;
+        transform: translateX(var(--sb-hide));
+        transition: transform 0.34s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .sb.open {
+        transform: translateX(0) !important;
+      }
+
+      .overlay.show {
+        display: block
+      }
+
+      .main {
+        margin-inline-start: 0 !important;
+      }
+
+      #rtlBtn {
+        display: flex !important;
+      }
+
+      .sb-toggle {
+        display: flex
+      }
+
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem
+      }
+
+      .grid2 {
+        grid-template-columns: 1fr
+      }
+
+      .settings-grid {
+        grid-template-columns: 1fr
+      }
+
+      .qa-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .content {
+        padding: 1.5rem
+      }
+
+      .topbar {
+        padding: 0 1rem
+      }
+
+      .tb-profile-info {
+        display: none
+      }
+
+      .topbar-right {
+        gap: .6rem
+      }
+
+      .table-wrap {
+        overflow: visible;
+      }
+
+      .table-wrap table,
+      .table-wrap tbody {
+        display: block;
+        width: 100%;
+        min-width: 0;
+      }
+
+      .table-wrap thead {
+        display: none;
+      }
+
+      .table-wrap tr {
+        display: block;
+        background: var(--pearl);
+        border: 1px solid var(--bdr);
+        border-radius: var(--r2);
+        margin-bottom: .85rem;
+        padding: .75rem 1rem;
+        box-shadow: var(--sh);
+      }
+
+      .table-wrap tbody tr:hover {
+        background: var(--pearl);
+      }
+
+      .table-wrap td {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: .45rem 0;
+        border-bottom: 1px solid var(--bdr) !important;
+        font-size: .84rem;
+        min-height: 0;
+      }
+
+      .table-wrap td:last-child {
+        border-bottom: none !important;
+        padding-bottom: 0;
+      }
+
+      .table-wrap td::before {
+        content: attr(data-label);
+        font-size: .65rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--txt-m);
+        flex-shrink: 0;
+        margin-right: .75rem;
+      }
+
+      .table-wrap td .ga-cell {
+        justify-content: flex-end;
+      }
+    }
+
+    @media(max-width:640px) {
+
+      /* Sidebar sizing already handled by the 1150px block — no overrides needed */
+      .kpi-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: .75rem;
+        margin-bottom: 1.25rem
+      }
+
+      .kpi-card {
+        padding: 1rem;
+        gap: .6rem
+      }
+
+      .kpi-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem
+      }
+
+      .kpi-value {
+        font-size: 1.35rem
+      }
+
+      .grid2 {
+        grid-template-columns: 1fr;
+        gap: 1rem
+      }
+
+      .settings-grid {
+        grid-template-columns: 1fr
+      }
+
+      .content {
+        padding: 1rem
+      }
+
+      .topbar {
+        padding: 0 0.9rem;
+        height: 48px
+      }
+
+      .page-title {
+        font-size: 1.1rem
+      }
+
+      .sc {
+        padding: 1rem;
+        margin-bottom: 1rem
+      }
+
+      .sc-title {
+        font-size: .95rem
+      }
+
+      .tb-btn {
+        width: 36px;
+        height: 36px;
+        min-width: 44px
+      }
+
+      .tb-profile {
+        padding: .3rem .5rem;
+        gap: .4rem
+      }
+
+      .tb-profile-info {
+        display: none
+      }
+
+      .tb-profile-avatar {
+        width: 32px;
+        height: 32px
+      }
+
+      .topbar-right {
+        gap: .4rem
+      }
+
+      .tab-panel {
+        animation: none
+      }
+
+      .kpi-card:hover {
+        transform: none
+      }
+
+      .btn {
+        min-height: 44px
+      }
+
+      .qa {
+        min-height: 44px;
+        padding: .65rem .75rem;
+        font-size: .8rem
+      }
+
+      .qa-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      div[style*="grid-template-columns:repeat(4"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: .75rem !important
+      }
+    }
+
+    @media(max-width:420px) {
+      .kpi-grid {
+        grid-template-columns: 1fr
+      }
+
+      .qa-grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    @media(max-width: 1023px) {
+      #mobileActionsContainer {
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid var(--bdr);
+        margin-bottom: 1.5rem !important;
+      }
+
+      #mobileActionsContainer .tb-actions {
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        justify-content: flex-end !important;
+        gap: 0.6rem !important;
+      }
+
+      #mobileActionsContainer .tb-btn {
+        width: auto !important;
+        height: auto !important;
+        padding: 0.3rem 0.6rem !important;
+        border-radius: 6px !important;
+        font-size: 0.72rem !important;
+      }
+      
+      #mobileActionsContainer #themeBtn {
+        font-size: 1rem !important;
+        padding: 0.3rem 0.5rem !important;
+      }
+    }
+
+    .sb-bottom {
+      padding: 1.25rem 1.5rem;
+      border-top: 1px solid var(--bdr);
+    }
+
+    .sb-logout {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      color: var(--txt-m);
+      font-size: .88rem;
+      font-weight: 500;
+      cursor: pointer;
+      padding: .5rem 0;
+      transition: var(--tr);
+    }
+
+    .sb-logout:hover {
+      color: #e5534b;
+    }
+
+    /* ── Global mobile font reduction ── */
+    @media(max-width:768px) {
+      html {
+        font-size: 14.5px;
+      }
+
+      h1 {
+        font-size: 1.5rem !important;
+      }
+
+      h2 {
+        font-size: 1.2rem !important;
+      }
+
+      h3 {
+        font-size: 1rem !important;
+      }
+
+      .kpi-value {
+        font-size: 1.2rem !important;
+      }
+
+      .kpi-label {
+        font-size: 0.7rem !important;
+      }
+
+      .sc-title {
+        font-size: 0.88rem !important;
+      }
+
+      .tab-btn {
+        font-size: 0.76rem !important;
+      }
+
+      p,
+      li,
+      td,
+      th,
+      label {
+        font-size: 0.84rem;
+      }
+
+      .btn {
+        font-size: 0.83rem !important;
+      }
+    }
+
+    /* ── Laptop navbar font boost ── */
+    @media(min-width:769px) {
+      .sb-link {
+        font-size: 0.92rem;
+      }
+
+      .sb-section {
+        font-size: 0.68rem;
+      }
+
+      .sb-logo-text .n {
+        font-size: 1.05rem;
+      }
+
+      .sb-logo-text .s {
+        font-size: 0.58rem;
+      }
+
+      .page-title {
+        font-size: 1.05rem;
+      }
+
+      .tb-pname {
+        font-size: 0.88rem;
+      }
+
+      .tb-prole {
+        font-size: 0.72rem;
+      }
+
+      .sc-title {
+        font-size: 1.15rem;
+      }
+
+      .kpi-label {
+        font-size: 0.75rem;
+      }
+
+      .kpi-value {
+        font-size: 1.85rem;
+      }
+    }
+
+    /* ==========================================================================
+       SCRATCH RTL MIRROR SYSTEM OVERRIDES FOR MOBILE & TABLET (AND GLOBAL)
+       ========================================================================== */
+    [dir="rtl"] {
+      text-align: right;
+    }
+
+    /* Direction-dependent icons mirror dynamically on RTL */
+    [dir="rtl"] i.fa-arrow-right,
+    [dir="rtl"] i.fa-chevron-right {
+      transform: rotate(180deg);
+    }
+    [dir="rtl"] i.fa-arrow-left,
+    [dir="rtl"] i.fa-chevron-left {
+      transform: rotate(180deg);
+    }
+
+    /* Flip Notification dot on RTL */
+    [dir="rtl"] .notif-dot {
+      right: auto;
+      left: 4px;
+    }
+
+    /* Flip Profile Dropdown alignment on RTL */
+    [dir="rtl"] .profile-dropdown {
+      right: auto;
+      left: 0;
+    }
+
+    /* Stacked table ga-cell alignment on RTL */
+    @media(max-width: 1023px) {
+      [dir="rtl"] .table-wrap td .ga-cell {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="overlay" id="overlay"></div>
+  <!-- SIDEBAR -->
+  <aside class="sb" id="sidebar">
+    <a href="index.html" onclick="window.location.href='index.html'" class="sb-logo"
+      style="text-decoration:none;cursor:pointer;">
+      <img src="../assets/images/logo.svg" alt="Logo" onerror="this.style.display='none'">
+      <div class="sb-logo-text">
+        <div class="n">Haven Retreat</div>
+        <div class="s">Luxury Boutique</div>
+      </div>
+    </a>
+    <nav class="sb-nav">
+      <div class="sb-section">My Account</div>
+      <a class="sb-link active" onclick="showTab('overview',this)"><i class="fa-solid fa-house-chimney"></i> My
+        Dashboard</a>
+      <a class="sb-link" onclick="showTab('bookings',this)"><i class="fa-solid fa-calendar-check"></i> My Bookings <span
+          class="sb-badge">2</span></a>
+      <a class="sb-link" onclick="showTab('services',this)"><i class="fa-solid fa-concierge-bell"></i> Services</a>
+      <a class="sb-link" onclick="showTab('loyalty',this)"><i class="fa-solid fa-crown"></i> Loyalty Program</a>
+      <a class="sb-link" onclick="showTab('profile',this)"><i class="fa-solid fa-user"></i> My Profile</a>
+      <!-- Loyalty Widget -->
+      <div
+        style="margin:1.25rem 1rem 0.5rem;padding:1rem;background:var(--taupe);border-radius:var(--r2);border:1px solid var(--bdr);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;">
+          <div style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--txt-m);font-weight:600;">
+            Loyalty Status</div>
+          <span class="tier-badge tier-gold"><i class="fa-solid fa-crown" style="font-size:.6rem;"></i> Gold</span>
+        </div>
+        <div style="font-family:var(--ff-h);font-size:1.5rem;font-weight:700;color:var(--gold);">4,820 <span
+            style="font-size:.75rem;font-weight:400;color:var(--txt-m);">pts</span></div>
+        <div class="points-bar">
+          <div class="points-fill" style="width:68%;"></div>
+        </div>
+        <div style="font-size:.65rem;color:var(--txt-m);text-align:center;">1,180 pts to Platinum</div>
+      </div>
+    </nav>
+    <div class="sb-bottom">
+      <div id="mobileActionsContainer" style="margin-bottom: 1rem; display: none;">
+        <span style="font-size:0.88rem;font-weight:500;color:var(--txt);">Appearance</span>
+      </div>
+      <a class="sb-logout"
+        onclick="showTab('profile',null); if(window.innerWidth <= 1024 && typeof closeSb === 'function') closeSb();"
+        style="margin-bottom: 0.5rem;"><i class="fa-solid fa-gear" style="width:16px;"></i> Settings</a>
+      <a class="sb-logout" href="../pages/login.html"><i class="fa-solid fa-right-from-bracket" style="width:16px;"></i>
+        Sign Out</a>
+    </div>
+  </aside>
+  <!-- MAIN -->
+  <div class="main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="sb-toggle" id="sbToggle"><i class="fa-solid fa-bars"></i></button>
+        <h1 class="page-title" id="pageTitle">My Dashboard</h1>
+      </div>
+      <div class="topbar-right">
+        <div class="tb-actions"><button class="tb-btn" id="rtlBtn" title="Toggle RTL"
+            style="font-size:.6rem;font-weight:700;letter-spacing:.8px;width:auto;padding:0 .5rem;border-radius:var(--r);">RTL</button>
+
+          <button class="tb-btn" id="themeBtn" title="Toggle Dark Mode"><i class="fa-regular fa-moon"></i></button>
+        </div>
+        <div class="tb-profile" id="profileBtn">
+          <div class="tb-profile-avatar">
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80"
+              alt="John Doe">
+          </div>
+          <div class="tb-profile-info">
+            <div class="tb-pname">John Doe</div>
+            <div class="tb-prole">Gold Member</div>
+          </div>
+          <i class="fa-solid fa-chevron-down chev" id="profileChev"></i>
+          <div class="profile-dropdown" id="profileDropdown">
+            <div class="pd-header" style="display:flex;align-items:center;gap:.75rem;">
+              <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80"
+                alt="John Doe"
+                style="width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);flex-shrink:0;">
+              <div>
+                <div class="pd-name">John Doe</div>
+                <div class="pd-role">Gold Member · Haven Retreat</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="content">
+      <!-- OVERVIEW TAB -->
+      <div class="tab-panel active" id="tab-overview">
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:rgba(168,134,85,.12)"><i class="fa-solid fa-calendar"
+                style="color:#A88655"></i></div>
+            <div class="kpi-body">
+              <div class="kpi-label">Next Check-in</div>
+              <div class="kpi-value">Nov 20</div>
+              <div class="kpi-trend neu">Ocean View Suite</div>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:rgba(168,134,85,.12)"><i class="fa-solid fa-crown"
+                style="color:#A88655"></i></div>
+            <div class="kpi-body">
+              <div class="kpi-label">Loyalty Points</div>
+              <div class="kpi-value">4,820</div>
+              <div class="kpi-trend up"><i class="fa-solid fa-arrow-up"></i> +450 this month</div>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:rgba(45,122,58,.1)"><i class="fa-solid fa-moon"
+                style="color:#2d7a3a"></i></div>
+            <div class="kpi-body">
+              <div class="kpi-label">Nights Stayed</div>
+              <div class="kpi-value">24</div>
+              <div class="kpi-trend up"><i class="fa-solid fa-arrow-up"></i> 8 stays total</div>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:rgba(49,130,206,.1)"><i class="fa-solid fa-piggy-bank"
+                style="color:#3182ce"></i></div>
+            <div class="kpi-body">
+              <div class="kpi-label">Total Savings</div>
+              <div class="kpi-value">$620</div>
+              <div class="kpi-trend up"><i class="fa-solid fa-arrow-up"></i> Gold member perks</div>
+            </div>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="sc">
+            <div class="sc-hdr"><span class="sc-title">Upcoming Stay</span><a href="booking.html">Modify</a></div>
+            <div
+              style="background:linear-gradient(135deg,var(--gold),var(--gold-h));border-radius:var(--r2);padding:1.5rem;color:#fff;margin-bottom:1.25rem;">
+              <div style="font-family:var(--ff-h);font-size:1.3rem;font-weight:700;margin-bottom:.4rem;">Ocean View
+                Suite</div>
+              <div style="font-size:.85rem;opacity:.9;margin-bottom:1rem;">Room 301 · Floor 3</div>
+              <div style="display:flex;gap:2rem;">
+                <div>
+                  <div
+                    style="font-size:.65rem;text-transform:uppercase;letter-spacing:1px;opacity:.75;margin-bottom:.2rem;">
+                    Check-in</div>
+                  <div style="font-weight:700;">Nov 20, 2026</div>
+                </div>
+                <div>
+                  <div
+                    style="font-size:.65rem;text-transform:uppercase;letter-spacing:1px;opacity:.75;margin-bottom:.2rem;">
+                    Check-out</div>
+                  <div style="font-weight:700;">Nov 25, 2026</div>
+                </div>
+                <div>
+                  <div
+                    style="font-size:.65rem;text-transform:uppercase;letter-spacing:1px;opacity:.75;margin-bottom:.2rem;">
+                    Nights</div>
+                  <div style="font-weight:700;">5</div>
+                </div>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;">
+              <div style="padding:.85rem;background:var(--taupe);border-radius:var(--r);border:1px solid var(--bdr);">
+                <div style="font-size:.7rem;color:var(--txt-m);margin-bottom:.2rem;">Booking Ref</div>
+                <div style="font-weight:700;font-size:.9rem;">#HR-042</div>
+              </div>
+              <div style="padding:.85rem;background:var(--taupe);border-radius:var(--r);border:1px solid var(--bdr);">
+                <div style="font-size:.7rem;color:var(--txt-m);margin-bottom:.2rem;">Total</div>
+                <div style="font-weight:700;font-size:.9rem;color:var(--gold);">$1,495</div>
+              </div>
+              <div style="padding:.85rem;background:var(--taupe);border-radius:var(--r);border:1px solid var(--bdr);">
+                <div style="font-size:.7rem;color:var(--txt-m);margin-bottom:.2rem;">Guests</div>
+                <div style="font-weight:700;font-size:.9rem;">2 Adults</div>
+              </div>
+              <div style="padding:.85rem;background:var(--taupe);border-radius:var(--r);border:1px solid var(--bdr);">
+                <div style="font-size:.7rem;color:var(--txt-m);margin-bottom:.2rem;">Status</div><span
+                  class="badge b-confirmed">Confirmed</span>
+              </div>
+            </div>
+          </div>
+          <div class="sc">
+            <div class="sc-hdr"><span class="sc-title">Recent Activity</span></div>
+            <div class="activity-list">
+              <div class="activity-item">
+                <div class="ai-icon" style="background:rgba(45,122,58,.1);color:#2d7a3a"><i
+                    class="fa-solid fa-check"></i></div>
+                <div class="ai-body">
+                  <div class="ai-title">Booking confirmed — Ocean View Suite</div>
+                  <div class="ai-time">2 hours ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="ai-icon" style="background:rgba(168,134,85,.12);color:var(--gold)"><i
+                    class="fa-solid fa-crown"></i></div>
+                <div class="ai-body">
+                  <div class="ai-title">Earned 450 loyalty points</div>
+                  <div class="ai-time">After Garden Villa stay · 1 day ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="ai-icon" style="background:rgba(66,153,225,.1);color:#3182ce"><i
+                    class="fa-solid fa-spa"></i></div>
+                <div class="ai-body">
+                  <div class="ai-title">Spa appointment booked</div>
+                  <div class="ai-time">Nov 21, 10:00 AM</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="ai-icon" style="background:rgba(168,134,85,.12);color:var(--gold)"><i
+                    class="fa-solid fa-star"></i></div>
+                <div class="ai-body">
+                  <div class="ai-title">You left a 5★ review</div>
+                  <div class="ai-time">Garden Villa · 3 days ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="ai-icon" style="background:rgba(113,128,150,.1);color:#4a5568"><i
+                    class="fa-solid fa-utensils"></i></div>
+                <div class="ai-body">
+                  <div class="ai-title">Dining reservation confirmed</div>
+                  <div class="ai-time">Nov 22, 7:30 PM · The Terrace</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="sc-hdr"><span class="sc-title">Quick Actions</span></div>
+          <div class="qa-grid" style="grid-template-columns:repeat(4,1fr)">
+            <a class="qa" href="booking.html"><i class="fa-solid fa-plus"></i> New Booking</a>
+            <a class="qa" onclick="showTab('services',null)"><i class="fa-solid fa-concierge-bell"></i> Room Service</a>
+            <a class="qa" onclick="showTab('loyalty',null)"><i class="fa-solid fa-crown"></i> Loyalty Rewards</a>
+            <a class="qa" href="../index.html"><i class="fa-solid fa-globe"></i> View Rooms</a>
+          </div>
+        </div>
+      </div>
+      <!-- BOOKINGS TAB -->
+      <div class="tab-panel" id="tab-bookings">
+        <div class="sc">
+          <div class="sc-hdr"><span class="sc-title">My Bookings</span><a href="booking.html">+ New Booking</a></div>
+          <div style="display:flex;gap:.75rem;margin-bottom:1.25rem;flex-wrap:wrap;">
+            <select class="form-input" style="width:auto;padding:.45rem .85rem;font-size:.82rem;">
+              <option>All Status</option>
+              <option>Confirmed</option>
+              <option>Completed</option>
+              <option>Cancelled</option>
+            </select>
+            <input class="form-input" type="text" placeholder="Search bookings..."
+              style="flex:1;min-width:200px;padding:.45rem .85rem;font-size:.82rem;">
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Room</th>
+                  <th>Check-in</th>
+                  <th>Check-out</th>
+                  <th>Nights</th>
+                  <th>Total</th>
+                  <th>Points</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="color:var(--txt-m);font-size:.75rem">#HR-042</td>
+                  <td>
+                    <div style="font-weight:600;">Ocean View Suite</div>
+                    <div style="font-size:.72rem;color:var(--txt-m)">Room 301</div>
+                  </td>
+                  <td>Nov 20, 2026</td>
+                  <td>Nov 25, 2026</td>
+                  <td>5</td>
+                  <td style="color:var(--gold);font-weight:700;">$1,495</td>
+                  <td style="color:var(--gold);font-weight:600;">+299 pts</td>
+                  <td><span class="badge b-confirmed">Confirmed</span></td>
+                  <td><button class="btn btn-ghost" style="padding:.3rem .6rem;font-size:.75rem"><i
+                        class="fa-solid fa-eye"></i></button></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--txt-m);font-size:.75rem">#HR-038</td>
+                  <td>
+                    <div style="font-weight:600;">Garden Villa</div>
+                    <div style="font-size:.72rem;color:var(--txt-m)">Villa 2</div>
+                  </td>
+                  <td>Oct 10, 2026</td>
+                  <td>Oct 14, 2026</td>
+                  <td>4</td>
+                  <td style="color:var(--gold);font-weight:700;">$1,800</td>
+                  <td style="color:var(--gold);font-weight:600;">+450 pts</td>
+                  <td><span class="badge b-completed">Completed</span></td>
+                  <td><button class="btn btn-ghost" style="padding:.3rem .6rem;font-size:.75rem"><i
+                        class="fa-solid fa-eye"></i></button></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--txt-m);font-size:.75rem">#HR-031</td>
+                  <td>
+                    <div style="font-weight:600;">Deluxe Nature Suite</div>
+                    <div style="font-size:.72rem;color:var(--txt-m)">Room 204</div>
+                  </td>
+                  <td>Aug 5, 2026</td>
+                  <td>Aug 8, 2026</td>
+                  <td>3</td>
+                  <td style="color:var(--gold);font-weight:700;">$1,050</td>
+                  <td style="color:var(--gold);font-weight:600;">+262 pts</td>
+                  <td><span class="badge b-completed">Completed</span></td>
+                  <td><button class="btn btn-ghost" style="padding:.3rem .6rem;font-size:.75rem"><i
+                        class="fa-solid fa-eye"></i></button></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--txt-m);font-size:.75rem">#HR-027</td>
+                  <td>
+                    <div style="font-weight:600;">Executive Loft</div>
+                    <div style="font-size:.72rem;color:var(--txt-m)">Room 412</div>
+                  </td>
+                  <td>Jun 18, 2026</td>
+                  <td>Jun 21, 2026</td>
+                  <td>3</td>
+                  <td style="color:var(--gold);font-weight:700;">$1,140</td>
+                  <td style="color:var(--gold);font-weight:600;">+285 pts</td>
+                  <td><span class="badge b-completed">Completed</span></td>
+                  <td><button class="btn btn-ghost" style="padding:.3rem .6rem;font-size:.75rem"><i
+                        class="fa-solid fa-eye"></i></button></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--txt-m);font-size:.75rem">#HR-019</td>
+                  <td>
+                    <div style="font-weight:600;">Ocean View Suite</div>
+                    <div style="font-size:.72rem;color:var(--txt-m)">Room 301</div>
+                  </td>
+                  <td>Apr 2, 2026</td>
+                  <td>Apr 5, 2026</td>
+                  <td>3</td>
+                  <td style="color:var(--gold);font-weight:700;">$897</td>
+                  <td style="color:var(--gold);font-weight:600;">+224 pts</td>
+                  <td><span class="badge b-completed">Completed</span></td>
+                  <td><button class="btn btn-ghost" style="padding:.3rem .6rem;font-size:.75rem"><i
+                        class="fa-solid fa-eye"></i></button></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--txt-m);font-size:.75rem">#HR-012</td>
+                  <td>
+                    <div style="font-weight:600;">Premium Balcony</div>
+                    <div style="font-size:.72rem;color:var(--txt-m)">Room 508</div>
+                  </td>
+                  <td>Feb 14, 2026</td>
+                  <td>Feb 16, 2026</td>
+                  <td>2</td>
+                  <td style="color:var(--gold);font-weight:700;">$550</td>
+                  <td style="color:var(--gold);font-weight:600;">+137 pts</td>
+                  <td><span class="badge b-completed">Completed</span></td>
+                  <td><button class="btn btn-ghost" style="padding:.3rem .6rem;font-size:.75rem"><i
+                        class="fa-solid fa-eye"></i></button></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--txt-m);font-size:.75rem">#HR-008</td>
+                  <td>
+                    <div style="font-weight:600;">Standard King Room</div>
+                    <div style="font-size:.72rem;color:var(--txt-m)">Room 102</div>
+                  </td>
+                  <td>Dec 25, 2025</td>
+                  <td>Dec 28, 2025</td>
+                  <td>3</td>
+                  <td style="color:var(--gold);font-weight:700;">$675</td>
+                  <td style="color:var(--gold);font-weight:600;">+168 pts</td>
+                  <td><span class="badge b-completed">Completed</span></td>
+                  <td><button class="btn btn-ghost" style="padding:.3rem .6rem;font-size:.75rem"><i
+                        class="fa-solid fa-eye"></i></button></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--txt-m);font-size:.75rem">#HR-003</td>
+                  <td>
+                    <div style="font-weight:600;">Garden Villa</div>
+                    <div style="font-size:.72rem;color:var(--txt-m)">Villa 1</div>
+                  </td>
+                  <td>Sep 10, 2025</td>
+                  <td>Sep 12, 2025</td>
+                  <td>2</td>
+                  <td style="color:var(--txt-m);font-weight:700;text-decoration:line-through;">$900</td>
+                  <td style="color:var(--txt-m);">—</td>
+                  <td><span class="badge b-cancelled">Cancelled</span></td>
+                  <td><button class="btn btn-ghost" style="padding:.3rem .6rem;font-size:.75rem"><i
+                        class="fa-solid fa-eye"></i></button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:1.5rem;">
+          <div class="sc" style="margin-bottom:0;text-align:center;padding:1.25rem;">
+            <div
+              style="font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--txt-m);margin-bottom:.35rem;">
+              Total Stays</div>
+            <div style="font-family:var(--ff-h);font-size:1.75rem;font-weight:700;color:var(--txt);">8</div>
+            <div style="font-size:.72rem;color:var(--txt-m);margin-top:.2rem;">Since 2025</div>
+          </div>
+          <div class="sc" style="margin-bottom:0;text-align:center;padding:1.25rem;">
+            <div
+              style="font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--txt-m);margin-bottom:.35rem;">
+              Total Spent</div>
+            <div style="font-family:var(--ff-h);font-size:1.75rem;font-weight:700;color:var(--gold);">$7,607</div>
+            <div style="font-size:.72rem;color:var(--txt-m);margin-top:.2rem;">Lifetime value</div>
+          </div>
+          <div class="sc" style="margin-bottom:0;text-align:center;padding:1.25rem;">
+            <div
+              style="font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--txt-m);margin-bottom:.35rem;">
+              Nights Total</div>
+            <div style="font-family:var(--ff-h);font-size:1.75rem;font-weight:700;color:var(--txt);">21</div>
+            <div style="font-size:.72rem;color:var(--txt-m);margin-top:.2rem;">Across all stays</div>
+          </div>
+          <div class="sc" style="margin-bottom:0;text-align:center;padding:1.25rem;">
+            <div
+              style="font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--txt-m);margin-bottom:.35rem;">
+              Points Earned</div>
+            <div style="font-family:var(--ff-h);font-size:1.75rem;font-weight:700;color:var(--gold);">1,825</div>
+            <div style="font-size:.72rem;color:var(--txt-m);margin-top:.2rem;">From bookings</div>
+          </div>
+        </div>
+      </div>
+      <!-- SERVICES TAB -->
+      <div class="tab-panel" id="tab-services">
+        <div class="sc">
+          <div class="sc-hdr"><span class="sc-title">Available Services</span><span
+              style="font-size:.78rem;color:var(--txt-m);">For your upcoming stay</span></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;">
+            <div
+              style="padding:1.25rem;background:var(--taupe);border-radius:var(--r2);border:1px solid var(--bdr);text-align:center;cursor:pointer;transition:var(--tr);"
+              onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--bdr)'">
+              <div
+                style="width:52px;height:52px;border-radius:50%;background:var(--gold-l);display:flex;align-items:center;justify-content:center;margin:0 auto .75rem;font-size:1.4rem;color:var(--gold);">
+                <i class="fa-solid fa-utensils"></i>
+              </div>
+              <div style="font-family:var(--ff-h);font-weight:700;margin-bottom:.3rem;">Room Dining</div>
+              <div style="font-size:.78rem;color:var(--txt-m);">Order from our menu to your room</div><button
+                class="btn btn-outline" style="margin-top:.85rem;width:100%;">Order Now</button>
+            </div>
+            <div
+              style="padding:1.25rem;background:var(--taupe);border-radius:var(--r2);border:1px solid var(--bdr);text-align:center;cursor:pointer;transition:var(--tr);"
+              onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--bdr)'">
+              <div
+                style="width:52px;height:52px;border-radius:50%;background:var(--gold-l);display:flex;align-items:center;justify-content:center;margin:0 auto .75rem;font-size:1.4rem;color:var(--gold);">
+                <i class="fa-solid fa-spa"></i>
+              </div>
+              <div style="font-family:var(--ff-h);font-weight:700;margin-bottom:.3rem;">Spa & Wellness</div>
+              <div style="font-size:.78rem;color:var(--txt-m);">Book a treatment or massage</div><button
+                class="btn btn-outline" style="margin-top:.85rem;width:100%;">Book Session</button>
+            </div>
+            <div
+              style="padding:1.25rem;background:var(--taupe);border-radius:var(--r2);border:1px solid var(--bdr);text-align:center;cursor:pointer;transition:var(--tr);"
+              onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--bdr)'">
+              <div
+                style="width:52px;height:52px;border-radius:50%;background:var(--gold-l);display:flex;align-items:center;justify-content:center;margin:0 auto .75rem;font-size:1.4rem;color:var(--gold);">
+                <i class="fa-solid fa-car"></i>
+              </div>
+              <div style="font-family:var(--ff-h);font-weight:700;margin-bottom:.3rem;">Airport Transfer</div>
+              <div style="font-size:.78rem;color:var(--txt-m);">Private car to/from airport</div><button
+                class="btn btn-outline" style="margin-top:.85rem;width:100%;">Arrange</button>
+            </div>
+            <div
+              style="padding:1.25rem;background:var(--taupe);border-radius:var(--r2);border:1px solid var(--bdr);text-align:center;cursor:pointer;transition:var(--tr);"
+              onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--bdr)'">
+              <div
+                style="width:52px;height:52px;border-radius:50%;background:var(--gold-l);display:flex;align-items:center;justify-content:center;margin:0 auto .75rem;font-size:1.4rem;color:var(--gold);">
+                <i class="fa-solid fa-champagne-glasses"></i>
+              </div>
+              <div style="font-family:var(--ff-h);font-weight:700;margin-bottom:.3rem;">Special Events</div>
+              <div style="font-size:.78rem;color:var(--txt-m);">Celebrate with a curated package</div><button
+                class="btn btn-outline" style="margin-top:.85rem;width:100%;">Plan Event</button>
+            </div>
+            <div
+              style="padding:1.25rem;background:var(--taupe);border-radius:var(--r2);border:1px solid var(--bdr);text-align:center;cursor:pointer;transition:var(--tr);"
+              onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--bdr)'">
+              <div
+                style="width:52px;height:52px;border-radius:50%;background:var(--gold-l);display:flex;align-items:center;justify-content:center;margin:0 auto .75rem;font-size:1.4rem;color:var(--gold);">
+                <i class="fa-solid fa-shirt"></i>
+              </div>
+              <div style="font-family:var(--ff-h);font-weight:700;margin-bottom:.3rem;">Laundry Service</div>
+              <div style="font-size:.78rem;color:var(--txt-m);">Same-day wash &amp; press available</div><button
+                class="btn btn-outline" style="margin-top:.85rem;width:100%;">Request</button>
+            </div>
+            <div
+              style="padding:1.25rem;background:var(--taupe);border-radius:var(--r2);border:1px solid var(--bdr);text-align:center;cursor:pointer;transition:var(--tr);"
+              onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--bdr)'">
+              <div
+                style="width:52px;height:52px;border-radius:50%;background:var(--gold-l);display:flex;align-items:center;justify-content:center;margin:0 auto .75rem;font-size:1.4rem;color:var(--gold);">
+                <i class="fa-solid fa-map-location-dot"></i>
+              </div>
+              <div style="font-family:var(--ff-h);font-weight:700;margin-bottom:.3rem;">Tours & Excursions</div>
+              <div style="font-size:.78rem;color:var(--txt-m);">Guided local tours &amp; activities</div><button
+                class="btn btn-outline" style="margin-top:.85rem;width:100%;">Explore</button>
+            </div>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="sc-hdr"><span class="sc-title">Active Requests</span></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Service</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Notes</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:600;">Spa — Swedish Massage</td>
+                  <td>Nov 21, 2026</td>
+                  <td>10:00 AM</td>
+                  <td>60 min session</td>
+                  <td><span class="badge b-confirmed">Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">Dining — The Terrace</td>
+                  <td>Nov 22, 2026</td>
+                  <td>7:30 PM</td>
+                  <td>Table for 2, anniversary</td>
+                  <td><span class="badge b-confirmed">Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">Airport Transfer</td>
+                  <td>Nov 25, 2026</td>
+                  <td>11:00 AM</td>
+                  <td>To City Airport</td>
+                  <td><span class="badge b-pending">Pending</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- LOYALTY TAB -->
+      <div class="tab-panel" id="tab-loyalty">
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:rgba(168,134,85,.12)"><i class="fa-solid fa-coins"
+                style="color:#A88655"></i></div>
+            <div class="kpi-body">
+              <div class="kpi-label">Total Points</div>
+              <div class="kpi-value">4,820</div>
+              <div class="kpi-trend up"><i class="fa-solid fa-arrow-up"></i> +450 this month</div>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:rgba(168,134,85,.12)"><i class="fa-solid fa-crown"
+                style="color:#A88655"></i></div>
+            <div class="kpi-body">
+              <div class="kpi-label">Current Tier</div>
+              <div class="kpi-value" style="font-size:1.3rem;">Gold</div>
+              <div class="kpi-trend neu">Since Jan 2026</div>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:rgba(45,122,58,.1)"><i class="fa-solid fa-gift"
+                style="color:#2d7a3a"></i></div>
+            <div class="kpi-body">
+              <div class="kpi-label">Rewards Available</div>
+              <div class="kpi-value">3</div>
+              <div class="kpi-trend neu">Ready to redeem</div>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:rgba(49,130,206,.1)"><i class="fa-solid fa-arrow-trend-up"
+                style="color:#3182ce"></i></div>
+            <div class="kpi-body">
+              <div class="kpi-label">To Platinum</div>
+              <div class="kpi-value">1,180</div>
+              <div class="kpi-trend neu">Points needed</div>
+            </div>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="sc">
+            <div class="sc-hdr"><span class="sc-title">Tier Progress</span></div>
+            <div style="margin-bottom:1.5rem;">
+              <div style="display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:.5rem;"><span
+                  style="font-weight:600;color:var(--gold);">Gold</span><span style="color:var(--txt-m);">Platinum at
+                  6,000 pts</span></div>
+              <div class="points-bar" style="height:14px;">
+                <div class="points-fill" style="width:80%;"></div>
+              </div>
+              <div
+                style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--txt-m);margin-top:.3rem;">
+                <span>4,820 pts</span><span>6,000 pts</span>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:.75rem;">
+              <div
+                style="display:flex;align-items:center;justify-content:space-between;padding:.85rem 1rem;background:rgba(168,134,85,.06);border-radius:var(--r);border:1px solid var(--gold);">
+                <div>
+                  <div style="font-weight:700;font-size:.9rem;color:var(--gold);">Gold Member</div>
+                  <div style="font-size:.72rem;color:var(--txt-m);">3,000 – 5,999 pts</div>
+                </div><i class="fa-solid fa-check-circle" style="color:var(--gold);font-size:1.2rem;"></i>
+              </div>
+              <div
+                style="display:flex;align-items:center;justify-content:space-between;padding:.85rem 1rem;background:var(--taupe);border-radius:var(--r);border:1px solid var(--bdr);opacity:.6;">
+                <div>
+                  <div style="font-weight:700;font-size:.9rem;">Platinum Member</div>
+                  <div style="font-size:.72rem;color:var(--txt-m);">6,000+ pts · 1,180 pts away</div>
+                </div><i class="fa-solid fa-lock" style="color:var(--txt-m);font-size:1rem;"></i>
+              </div>
+            </div>
+            <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--bdr);">
+              <div style="font-family:var(--ff-h);font-size:.9rem;font-weight:700;margin-bottom:.75rem;">Gold Benefits
+              </div>
+              <div style="display:flex;flex-direction:column;gap:.5rem;">
+                <div style="display:flex;align-items:center;gap:.6rem;font-size:.83rem;"><i class="fa-solid fa-check"
+                    style="color:#2d7a3a;width:16px;"></i> 15% discount on all bookings</div>
+                <div style="display:flex;align-items:center;gap:.6rem;font-size:.83rem;"><i class="fa-solid fa-check"
+                    style="color:#2d7a3a;width:16px;"></i> Early check-in (12 PM)</div>
+                <div style="display:flex;align-items:center;gap:.6rem;font-size:.83rem;"><i class="fa-solid fa-check"
+                    style="color:#2d7a3a;width:16px;"></i> Late check-out (2 PM)</div>
+                <div style="display:flex;align-items:center;gap:.6rem;font-size:.83rem;"><i class="fa-solid fa-check"
+                    style="color:#2d7a3a;width:16px;"></i> Complimentary breakfast</div>
+                <div style="display:flex;align-items:center;gap:.6rem;font-size:.83rem;"><i class="fa-solid fa-check"
+                    style="color:#2d7a3a;width:16px;"></i> Priority spa reservations</div>
+              </div>
+            </div>
+          </div>
+          <div class="sc">
+            <div class="sc-hdr"><span class="sc-title">Redeem Rewards</span></div>
+            <div style="display:flex;flex-direction:column;gap:.85rem;">
+              <div style="padding:1rem;background:var(--taupe);border-radius:var(--r2);border:1px solid var(--bdr);">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem;">
+                  <div style="font-weight:700;font-size:.88rem;">Free Night Stay</div><span
+                    style="font-size:.75rem;color:var(--gold);font-weight:700;">2,000 pts</span>
+                </div>
+                <div style="font-size:.75rem;color:var(--txt-m);margin-bottom:.75rem;">Valid for Standard King or Deluxe
+                  rooms</div>
+                <button class="btn btn-primary" style="width:100%;font-size:.78rem;">Redeem</button>
+              </div>
+              <div style="padding:1rem;background:var(--taupe);border-radius:var(--r2);border:1px solid var(--bdr);">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem;">
+                  <div style="font-weight:700;font-size:.88rem;">Spa Treatment</div><span
+                    style="font-size:.75rem;color:var(--gold);font-weight:700;">800 pts</span>
+                </div>
+                <div style="font-size:.75rem;color:var(--txt-m);margin-bottom:.75rem;">60-minute Swedish or deep tissue
+                </div>
+                <button class="btn btn-primary" style="width:100%;font-size:.78rem;">Redeem</button>
+              </div>
+              <div style="padding:1rem;background:var(--taupe);border-radius:var(--r2);border:1px solid var(--bdr);">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem;">
+                  <div style="font-weight:700;font-size:.88rem;">Fine Dining Voucher</div><span
+                    style="font-size:.75rem;color:var(--gold);font-weight:700;">500 pts</span>
+                </div>
+                <div style="font-size:.75rem;color:var(--txt-m);margin-bottom:.75rem;">$100 credit at The Terrace
+                  restaurant</div>
+                <button class="btn btn-primary" style="width:100%;font-size:.78rem;">Redeem</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sc">
+          <div class="sc-hdr"><span class="sc-title">Points History</span></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Points</th>
+                  <th>Balance</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Oct 14, 2026</td>
+                  <td>Garden Villa stay — 4 nights</td>
+                  <td style="color:#2d7a3a;font-weight:700;">+450</td>
+                  <td>4,820</td>
+                </tr>
+                <tr>
+                  <td>Aug 8, 2026</td>
+                  <td>Deluxe Nature Suite — 3 nights</td>
+                  <td style="color:#2d7a3a;font-weight:700;">+262</td>
+                  <td>4,370</td>
+                </tr>
+                <tr>
+                  <td>Jul 1, 2026</td>
+                  <td>Redeemed — Airport Transfer</td>
+                  <td style="color:#e5534b;font-weight:700;">-200</td>
+                  <td>4,108</td>
+                </tr>
+                <tr>
+                  <td>Jun 21, 2026</td>
+                  <td>Executive Loft — 3 nights</td>
+                  <td style="color:#2d7a3a;font-weight:700;">+285</td>
+                  <td>4,308</td>
+                </tr>
+                <tr>
+                  <td>Apr 5, 2026</td>
+                  <td>Ocean View Suite — 3 nights</td>
+                  <td style="color:#2d7a3a;font-weight:700;">+224</td>
+                  <td>4,023</td>
+                </tr>
+                <tr>
+                  <td>Mar 1, 2026</td>
+                  <td>Gold Tier Bonus</td>
+                  <td style="color:#2d7a3a;font-weight:700;">+500</td>
+                  <td>3,799</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- PROFILE TAB -->
+      <div class="tab-panel" id="tab-profile">
+        <div class="settings-grid">
+          <div class="sc">
+            <div class="sc-hdr"><span class="sc-title">Personal Information</span><button>Save Changes</button></div>
+            <div
+              style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:1.25rem;border-bottom:1px solid var(--bdr);">
+              <div
+                style="width:64px;height:64px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--ff-h);font-size:1.5rem;font-weight:700;color:#fff;">
+                JD</div>
+              <div>
+                <div style="font-family:var(--ff-h);font-size:1.1rem;font-weight:700;">John Doe</div>
+                <div style="font-size:.78rem;color:var(--txt-m);">Gold Member · 4,820 pts</div><button
+                  class="btn btn-ghost" style="margin-top:.5rem;font-size:.75rem;">Change Photo</button>
+              </div>
+            </div>
+            <div class="form-group"><label class="form-label">Full Name</label><input class="form-input" type="text"
+                value="John Doe"></div>
+            <div class="form-group"><label class="form-label">Email Address</label><input class="form-input"
+                type="email" value="john.doe@email.com"></div>
+            <div class="form-group"><label class="form-label">Phone Number</label><input class="form-input" type="tel"
+                value="+1 555 0101"></div>
+            <div class="form-group"><label class="form-label">Date of Birth</label><input class="form-input" type="date"
+                value="1988-03-15"></div>
+            <div class="form-group"><label class="form-label">Nationality</label><input class="form-input" type="text"
+                value="United States"></div>
+            <div class="form-group"><label class="form-label">Passport / ID Number</label><input class="form-input"
+                type="text" value="US-4829110A" placeholder="For international bookings"></div>
+          </div>
+          <div>
+            <div class="sc">
+              <div class="sc-hdr"><span class="sc-title">Stay Preferences</span></div>
+              <div class="form-group"><label class="form-label">Preferred Room Type</label><select class="form-input">
+                  <option>Ocean View Suite</option>
+                  <option>Garden Villa</option>
+                  <option>Deluxe Nature Suite</option>
+                  <option>Executive Loft</option>
+                </select></div>
+              <div class="form-group"><label class="form-label">Pillow Preference</label><select class="form-input">
+                  <option>Soft</option>
+                  <option>Medium</option>
+                  <option>Firm</option>
+                </select></div>
+              <div class="form-group"><label class="form-label">Dietary Requirements</label><select class="form-input">
+                  <option>None</option>
+                  <option>Vegetarian</option>
+                  <option>Vegan</option>
+                  <option>Gluten-Free</option>
+                  <option>Halal</option>
+                </select></div>
+              <div class="toggle-row">
+                <div class="toggle-info">
+                  <div class="tl">Early Check-in Request</div>
+                  <div class="ts">Auto-request when available</div>
+                </div><label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
+              </div>
+              <div class="toggle-row">
+                <div class="toggle-info">
+                  <div class="tl">Late Check-out Request</div>
+                  <div class="ts">Auto-request when available</div>
+                </div><label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
+              </div>
+              <div class="toggle-row">
+                <div class="toggle-info">
+                  <div class="tl">Housekeeping — Do Not Disturb</div>
+                  <div class="ts">Skip daily housekeeping</div>
+                </div><label class="toggle"><input type="checkbox"><span class="slider"></span></label>
+              </div>
+            </div>
+            <div class="sc">
+              <div class="sc-hdr"><span class="sc-title">Notifications</span></div>
+              <div class="toggle-row">
+                <div class="toggle-info">
+                  <div class="tl">Booking Confirmations</div>
+                  <div class="ts">Email &amp; SMS</div>
+                </div><label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
+              </div>
+              <div class="toggle-row">
+                <div class="toggle-info">
+                  <div class="tl">Loyalty Points Updates</div>
+                  <div class="ts">Email only</div>
+                </div><label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
+              </div>
+              <div class="toggle-row">
+                <div class="toggle-info">
+                  <div class="tl">Promotional Offers</div>
+                  <div class="ts">Special deals &amp; packages</div>
+                </div><label class="toggle"><input type="checkbox"><span class="slider"></span></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function showTab(id, el) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+      document.getElementById('tab-' + id).classList.add('active');
+      if (el) { el.classList.add('active'); }
+      const titles = { overview: 'My Dashboard', bookings: 'My Bookings', services: 'Services', loyalty: 'Loyalty Program', profile: 'My Profile' };
+      document.getElementById('pageTitle').textContent = titles[id] || 'Dashboard';
+      if (window.innerWidth <= 1024 && typeof closeSb === 'function') closeSb();
+    }
+    const sbToggle = document.getElementById('sbToggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    function closeSb() { sidebar.classList.remove('open'); overlay.classList.remove('show'); }
+    sbToggle.addEventListener('click', () => { sidebar.classList.toggle('open'); overlay.classList.toggle('show'); });
+    overlay.addEventListener('click', closeSb);
+    const profileBtn = document.getElementById('profileBtn');
+    const profileDropdown = document.getElementById('profileDropdown');
+    const profileChev = document.getElementById('profileChev');
+    function closeDropdown() { profileDropdown.classList.remove('open'); profileChev.style.transform = ''; }
+    profileBtn.addEventListener('click', e => { e.stopPropagation(); profileDropdown.classList.toggle('open'); profileChev.style.transform = profileDropdown.classList.contains('open') ? 'rotate(180deg)' : ''; });
+    document.addEventListener('click', closeDropdown);
+    profileDropdown.addEventListener('click', e => e.stopPropagation());
+    const themeBtn = document.getElementById('themeBtn');
+    function setTheme(dark) { document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light'); themeBtn.innerHTML = dark ? '<i class="fa-regular fa-sun"></i>' : '<i class="fa-regular fa-moon"></i>'; localStorage.setItem('theme', dark ? 'dark' : 'light'); }
+    themeBtn.addEventListener('click', () => setTheme(document.documentElement.getAttribute('data-theme') !== 'dark'));
+    const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    if (savedTheme === 'dark') setTheme(true);
+    const rtlBtn = document.getElementById('rtlBtn');
+    function setRTL(on) { 
+      document.documentElement.setAttribute('dir', on ? 'rtl' : 'ltr'); 
+      rtlBtn.textContent = on ? 'LTR' : 'RTL';
+      rtlBtn.style.color = on ? 'var(--gold)' : ''; 
+      rtlBtn.style.borderColor = on ? 'var(--gold)' : ''; 
+      rtlBtn.style.background = on ? 'var(--gold-l)' : ''; 
+      localStorage.setItem('rtl', on ? 'true' : 'false'); 
+    }
+    rtlBtn.addEventListener('click', () => setRTL(document.documentElement.getAttribute('dir') !== 'rtl'));
+    if (localStorage.getItem('rtl') === 'true') setRTL(true);
+    // Auto-label table cells for responsive card layout
+    document.querySelectorAll('.table-wrap table').forEach(t => { const hs = [...t.querySelectorAll('thead th')].map(h => h.textContent.trim()); t.querySelectorAll('tbody tr').forEach(r => [...r.querySelectorAll('td')].forEach((td, i) => { if (hs[i]) td.setAttribute('data-label', hs[i]); })); });
+
+    // Mobile Actions Mover
+    function initMobileActions() {
+      const tbActions = document.querySelector('.tb-actions');
+      const mobContainer = document.getElementById('mobileActionsContainer');
+      const tbRight = document.querySelector('.topbar-right');
+      const pBtn = document.getElementById('profileBtn');
+
+      function moveActions() {
+        if (window.innerWidth <= 1023) {
+          if (mobContainer && tbActions && tbActions.parentNode !== mobContainer) {
+            mobContainer.appendChild(tbActions);
+          }
+        } else {
+          if (tbRight && tbActions && tbActions.parentNode !== tbRight) {
+            tbRight.insertBefore(tbActions, pBtn);
+          }
+        }
+      }
+      window.addEventListener('resize', moveActions);
+      moveActions();
+    }
+    initMobileActions();
+  </script>
+</body>
+
+</html>

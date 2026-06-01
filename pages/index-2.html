@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+    <link rel="shortcut icon" href="../assets/images/favicon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intimate B&B Experience | Haven Retreat</title>
+    <meta name="description"
+        content="A cozy and intimate Bed & Breakfast experience. Enjoy personalized service, direct booking, and comfortable luxury rooms.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dark-mode.css">
+    <style>
+        /* Luxurious Upgrades */
+        .lux-nav {
+            gap: 1.25rem;
+        }
+
+        .lux-nav>li>a {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 400;
+        }
+
+        .lux-nav .btn-outline {
+            border-width: 1px;
+            padding: 0.45rem 1.1rem;
+            font-size: 0.8rem;
+        }
+
+        .lux-nav .btn-primary {
+            padding: 0.45rem 1.1rem;
+            font-size: 0.8rem;
+        }
+
+        /* Glassmorphism Navbar Removed to match Home 1 */
+        /* Decorative Elements */
+        .gold-line {
+            width: 60px;
+            height: 2px;
+            background-color: var(--primary);
+            margin: 1.5rem auto 2.5rem;
+            border: none;
+        }
+
+        .italic-serif {
+            font-family: var(--font-heading);
+            font-style: italic;
+            font-weight: 400;
+            color: var(--primary);
+        }
+
+        /* Smooth Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Bespoke Services Grid */
+        .bespoke-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .bespoke-item h3 {
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .bespoke-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 300;
+        }
+
+        .bespoke-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LodgingBusiness",
+      "name": "Haven Retreat",
+      "description": "A luxury boutique hotel offering personalized experiences in the heart of nature.",
+      "url": "https://www.havenretreat.com",
+      "telephone": "+1-555-123-4567",
+      "email": "hello@havenretreat.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "123 Luxury Lane",
+        "addressLocality": "Nature Valley",
+        "addressCountry": "BS"
+      },
+      "starRating": { "@type": "Rating", "ratingValue": "5" },
+      "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "15420" },
+      "amenityFeature": [
+        {"@type": "LocationFeatureSpecification", "name": "Free WiFi", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Spa", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Pool", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Restaurant", "value": true}
+      ]
+    }
+    </script>
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="../assets/images/logo.svg" alt="Haven Retreat">
+                <span class="logo-text">
+                    <span class="logo-name">Haven Retreat</span>
+                    <span class="logo-sub">Luxury Boutique</span>
+                </span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Toggle Navigation"><i class="fa-solid fa-bars"></i></button>
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="#">Home <i class="fa-solid fa-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html">Home 1</a></li>
+                        <li><a href="index-2.html">Home 2</a></li>
+                    </ul>
+                </li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="rooms.html">Rooms</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="dropdown">
+                    <a href="#">Dashboard <i class="fa-solid fa-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="guest-dashboard.html"><i class="fa-solid fa-user"
+                                    style="margin-right:0.4rem;color:var(--primary);"></i>Guest Dashboard</a></li>
+                        <li><a href="admin-dashboard.html"><i class="fa-solid fa-shield-halved"
+                                    style="margin-right:0.4rem;color:var(--primary);"></i>Admin Dashboard</a></li>
+                    </ul>
+                </li>
+                <li class="nav-appearance-mobile">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:0.88rem;font-weight:500;color:var(--text-main);">Appearance</span>
+                        <div style="display:flex;align-items:center;gap:0.6rem;">
+                            <button id="rtl-toggle" aria-label="Toggle RTL" title="Toggle RTL / LTR"
+                                style="background:none;border:1px solid var(--border-color);border-radius:6px;cursor:pointer;color:var(--text-main);font-size:0.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;padding:0.3rem 0.6rem;font-family:inherit;">RTL</button>
+                            <button id="theme-toggle" aria-label="Toggle Dark Mode"
+                                style="background:none;border:1px solid var(--border-color);border-radius:6px;cursor:pointer;color:var(--text-main);font-size:1rem;display:flex;align-items:center;padding:0.3rem 0.5rem;"><i
+                                    class="fa-solid fa-moon"></i></button>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-utils-mobile">
+                    <a href="login.html" class="btn btn-outline"
+                        style="display:flex;align-items:center;justify-content:center;width:100%;text-align:center;padding:0.7rem 1rem;font-size:0.88rem;font-weight:600;border-radius:8px;margin-bottom:0.75rem;">Login</a>
+                    <a href="booking.html" class="btn btn-primary"
+                        style="display:flex;align-items:center;justify-content:center;width:100%;text-align:center;padding:0.7rem 1rem;font-size:0.88rem;font-weight:700;border-radius:8px;">Book
+                        Now</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero"
+        style="background-image: url('https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&w=1600&q=80'); background-position: center; background-size: cover !important; min-height: 112vh !important; width: 100%; display: flex; align-items: center; justify-content: center; margin: 0; padding: 0; position: relative;">
+
+        <!-- Dark Overlay over the whole image for better contrast -->
+        <div
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 100%); z-index: 1;">
+        </div>
+
+        <!-- Premium Glassmorphism Content Box -->
+        <div class="hero-content reveal"
+            style="position: relative; z-index: 2; background: rgba(20, 20, 22, 0.45); padding: 4rem 3.5rem; border-radius: 12px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 30px 60px rgba(0,0,0,0.4); text-align: center; max-width: 800px; width: 90%; display: flex; flex-direction: column; align-items: center; margin-top: 80px;">
+            <h1
+                style="font-weight: 300; letter-spacing: 2px; font-size: clamp(2.2rem, 4vw, 4rem); margin-bottom: 1rem; color: #fff; line-height: 1.2;">
+                Your Home <br><span class="italic-serif" style="color: var(--primary); font-weight: 400;">Away From
+                    Home</span></h1>
+            <div class="gold-line"
+                style="margin-bottom: 1.5rem; width: 70px; height: 2px; background-color: var(--primary);"></div>
+            <p
+                style="font-weight: 300; letter-spacing: 0.5px; font-size: clamp(1rem, 1.5vw, 1.15rem); line-height: 1.7; color: #f0f0f0; margin-bottom: 2rem; max-width: 550px;">
+                A charming Bed & Breakfast where boutique luxury meets warm, personalized hospitality.</p>
+            <a href="booking.html" class="btn btn-primary"
+                style="padding: 1rem 3rem; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; font-weight: 600; box-shadow: 0 10px 20px rgba(168,134,85,0.3); transition: transform 0.3s ease, box-shadow 0.3s ease;">Reserve
+                Your Stay</a>
+        </div>
+    </section>
+
+    <!-- The Art of Hospitality -->
+    <section class="section container" style="margin-top: 6rem; margin-bottom: 4rem;">
+        <div class="text-center reveal" style="max-width: 700px; margin: 0 auto;">
+            <h2 style="font-size: 2.5rem; font-weight: 400;">The Art of Hospitality</h2>
+            <div class="gold-line"></div>
+            <p
+                style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem; font-weight: 300; line-height: 1.8;">
+                We invite you to experience our carefully curated rooms and homemade breakfast. By booking directly
+                through our site, you guarantee the best rates and allow us to personalize your stay from the moment you
+                reserve until the moment you depart.
+            </p>
+            <a href="about.html" class="btn btn-outline"
+                style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;">Discover Our Story</a>
+        </div>
+    </section>
+
+    <!-- Bespoke Services -->
+    <section class="section" style="background-color: var(--bg-secondary);">
+        <div class="container reveal">
+            <div class="text-center">
+                <h2 style="font-size: 2rem; font-weight: 400;">Bespoke <span class="italic-serif">Amenities</span></h2>
+                <div class="gold-line"></div>
+            </div>
+
+            <div class="bespoke-grid">
+                <div class="bespoke-item">
+                    <div class="bespoke-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                    <h3>Curated Interiors</h3>
+                    <p>Every room is designed with hand-selected antique furnishings and premium luxury linens.</p>
+                </div>
+                <div class="bespoke-item">
+                    <div class="bespoke-icon"><i class="fa-solid fa-mug-hot"></i></div>
+                    <h3>Gourmet Mornings</h3>
+                    <p>Wake up to the scent of freshly baked pastries and farm-to-table breakfast served on the terrace.
+                    </p>
+                </div>
+                <div class="bespoke-item">
+                    <div class="bespoke-icon"><i class="fa-solid fa-wine-glass"></i></div>
+                    <h3>Evening Reception</h3>
+                    <p>Join us in the lounge every evening for complimentary local wine and artisan cheeses.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Philosophy Section (New Info) -->
+    <section class="section">
+        <div class="container">
+            <div class="text-center reveal" style="margin-bottom: 3rem;">
+                <h2 style="font-size: 2.5rem; font-weight: 400;">Our <span class="italic-serif">Philosophy</span></h2>
+                <div class="gold-line"></div>
+                <p
+                    style="color: var(--text-muted); max-width: 700px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8;">
+                    We believe that true luxury is not defined by excess, but by the space to breathe, connect, and
+                    appreciate the finer details. Every element at our B&B is designed to elevate your wellbeing and
+                    create intimate, lasting memories.</p>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div class="reveal"
+                    style="padding: 2rem; border-radius: var(--radius-md); text-align: center; border: 1px solid var(--border-color);">
+                    <i class="fa-solid fa-leaf"
+                        style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h3
+                        style="margin-bottom: 0.5rem; font-family: var(--font-heading); font-weight: 400; font-size: 1.5rem;">
+                        Eco-Conscious Comfort</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Powered by renewable energy and committed
+                        to zero-waste practices without compromising your comfort.</p>
+                </div>
+                <div class="reveal"
+                    style="padding: 2rem; border-radius: var(--radius-md); text-align: center; border: 1px solid var(--border-color);">
+                    <i class="fa-solid fa-utensils"
+                        style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h3
+                        style="margin-bottom: 0.5rem; font-family: var(--font-heading); font-weight: 400; font-size: 1.5rem;">
+                        Farm-to-Table Dining</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Our chefs craft seasonal menus using
+                        organic ingredients sourced directly from local farmers and our own garden.</p>
+                </div>
+                <div class="reveal"
+                    style="padding: 2rem; border-radius: var(--radius-md); text-align: center; border: 1px solid var(--border-color);">
+                    <i class="fa-solid fa-spa"
+                        style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h3
+                        style="margin-bottom: 0.5rem; font-family: var(--font-heading); font-weight: 400; font-size: 1.5rem;">
+                        Holistic Wellness</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Rejuvenate your mind and body with tailored
+                        spa treatments and daily sunrise yoga sessions.</p>
+                </div>
+                <div class="reveal"
+                    style="padding: 2rem; border-radius: var(--radius-md); text-align: center; border: 1px solid var(--border-color);">
+                    <i class="fa-solid fa-gem"
+                        style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h3
+                        style="margin-bottom: 0.5rem; font-family: var(--font-heading); font-weight: 400; font-size: 1.5rem;">
+                        Artisan Design</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Experience spaces curated with local art,
+                        bespoke furnishings, and materials that reflect the natural beauty around us.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Room Teaser -->
+    <section class="section container reveal">
+        <div class="split-layout"
+            style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+            <div class="skeleton-container"
+                style="border-radius: 4px; overflow: hidden; height: 500px; box-shadow: var(--shadow-lg);">
+                <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&w=800&q=80"
+                    alt="Luxury Suite" class="skeleton" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div style="margin-bottom: 40px">
+                <h2 style="font-size: 2.2rem; font-weight: 400;">A Sanctuary of <span class="italic-serif">Rest</span>
+                </h2>
+                <div class="gold-line" style="margin: 1.5rem 0;"></div>
+                <p style="color: var(--text-muted); font-weight: 300; line-height: 1.8; margin-bottom: 2rem;">
+                    Sleep deeply wrapped in 800-thread-count Egyptian cotton. Wake up to natural light filtering through
+                    the trees, and step onto your private balcony to enjoy the fresh valley air. Our suites are designed
+                    strictly for your ultimate comfort and privacy.
+                </p>
+                <a href="rooms.html" class="btn btn-outline"
+                    style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;">View Our Suites</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+
+
+    <!-- Signature Experiences Section -->
+    <section class="sig-exp-section">
+        <style>
+            /* ── Stats Bar ── */
+            .sig-exp-section {
+                background: var(--bg-main);
+                border-top: 1px solid var(--border-color);
+            }
+
+            .sig-stats-bar {
+                background: var(--primary);
+                padding: 5.5rem 2rem;
+            }
+
+            .sig-stats-wrap {
+                max-width: 1100px;
+                margin: 0 auto;
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .sig-stat-num {
+                font-family: 'Playfair Display', serif;
+                font-size: 2.8rem;
+                font-weight: 700;
+                color: #fff;
+                line-height: 1;
+            }
+
+            .sig-stat-label {
+                font-size: 0.75rem;
+                font-weight: 600;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                color: rgba(255, 255, 255, 0.75);
+                margin-top: 0.4rem;
+            }
+
+            /* ── Header ── */
+            .sig-header {
+                text-align: center;
+                padding: 8rem 2rem 5rem;
+                max-width: 750px;
+                margin: 0 auto;
+            }
+
+            .sig-eyebrow {
+                font-size: 0.72rem;
+                font-weight: 700;
+                letter-spacing: 4px;
+                text-transform: uppercase;
+                color: var(--primary);
+                margin-bottom: 1rem;
+            }
+
+            .sig-title {
+                font-family: 'Playfair Display', serif;
+                font-size: clamp(2rem, 3.5vw, 3rem);
+                font-weight: 700;
+                color: var(--text-main);
+                line-height: 1.25;
+                margin-bottom: 1rem;
+            }
+
+            .sig-subtitle {
+                color: var(--text-muted);
+                font-size: 1rem;
+                line-height: 1.7;
+                font-weight: 300;
+            }
+
+            /* ── Experience Cards ── */
+            .sig-cards-wrap {
+                max-width: 1260px;
+                margin: 0 auto;
+                padding: 3rem 2rem 9rem;
+            }
+
+            .sig-cards-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1.5rem;
+            }
+
+            .sig-card {
+                position: relative;
+                border-radius: 12px;
+                overflow: hidden;
+                height: 460px;
+                cursor: pointer;
+            }
+
+            .sig-card-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                display: block;
+            }
+
+            .sig-card:hover .sig-card-img {
+                transform: scale(1.08);
+            }
+
+            .sig-card-overlay {
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(to top, rgba(10, 8, 5, 0.88) 0%, rgba(10, 8, 5, 0.2) 55%, transparent 100%);
+                transition: background 0.4s;
+            }
+
+            .sig-card:hover .sig-card-overlay {
+                background: linear-gradient(to top, rgba(10, 8, 5, 0.92) 0%, rgba(10, 8, 5, 0.35) 60%, transparent 100%);
+            }
+
+            .sig-card-body {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                padding: 2rem 1.75rem;
+            }
+
+            .sig-card-icon {
+                width: 44px;
+                height: 44px;
+                border-radius: 50%;
+                background: var(--primary);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 1rem;
+                color: #fff;
+                font-size: 1.1rem;
+            }
+
+            .sig-card-title {
+                font-family: 'Playfair Display', serif;
+                font-size: 1.35rem;
+                font-weight: 700;
+                color: #fff;
+                margin-bottom: 0.5rem;
+            }
+
+            .sig-card-desc {
+                font-size: 0.875rem;
+                color: rgba(255, 255, 255, 0.75);
+                line-height: 1.6;
+                font-weight: 300;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease, opacity 0.4s ease;
+                opacity: 0;
+            }
+
+            .sig-card:hover .sig-card-desc {
+                max-height: 120px;
+                opacity: 1;
+            }
+
+            .sig-card-tag {
+                display: inline-block;
+                margin-top: 0.85rem;
+                font-size: 0.7rem;
+                font-weight: 700;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                color: var(--primary);
+                border-top: 1px solid rgba(168, 134, 85, 0.4);
+                padding-top: 0.65rem;
+                width: 100%;
+            }
+
+            /* ── CTA Banner ── */
+            .sig-cta-banner {
+                position: relative;
+                overflow: hidden;
+                min-height: 340px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .sig-cta-bg {
+                position: absolute;
+                inset: 0;
+                background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&w=1600&q=80');
+                background-size: cover;
+                background-position: center;
+                transform: scale(1.05);
+                transition: transform 8s ease;
+            }
+
+            .sig-cta-banner:hover .sig-cta-bg {
+                transform: scale(1);
+            }
+
+            .sig-cta-overlay {
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(135deg, rgba(10, 8, 5, 0.75) 0%, rgba(50, 30, 10, 0.65) 100%);
+            }
+
+            .sig-cta-inner {
+                position: relative;
+                z-index: 2;
+                padding: 4rem 2rem;
+            }
+
+            .sig-cta-inner h2 {
+                font-family: 'Playfair Display', serif;
+                font-size: clamp(1.8rem, 3vw, 2.8rem);
+                font-weight: 700;
+                color: #fff;
+                margin-bottom: 1rem;
+            }
+
+            .sig-cta-inner p {
+                color: rgba(255, 255, 255, 0.8);
+                font-size: 1rem;
+                font-weight: 300;
+                margin-bottom: 2rem;
+                max-width: 520px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .sig-cta-btns {
+                display: flex;
+                gap: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .sig-cta-btns .btn-primary {
+                padding: 0.9rem 2.5rem;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                font-size: 0.82rem;
+                box-shadow: 0 8px 24px rgba(168, 134, 85, 0.35);
+            }
+
+            .sig-cta-btns .btn-outline {
+                padding: 0.9rem 2.5rem;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                font-size: 0.82rem;
+                border-color: rgba(255, 255, 255, 0.5);
+                color: #fff;
+            }
+
+            .sig-cta-btns .btn-outline:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+
+            /* ── Responsive ── */
+            @media (max-width: 1024px) {
+                .sig-cards-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+
+                .sig-card {
+                    height: 380px;
+                }
+            }
+
+            @media (max-width: 640px) {
+                .sig-stats-wrap {
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 2rem;
+                }
+
+                .sig-cards-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .sig-card {
+                    height: 320px;
+                }
+
+                .sig-card-desc {
+                    max-height: 120px;
+                    opacity: 1;
+                }
+            }
+        </style>
+
+        <!-- Stats Bar -->
+        <div class="sig-stats-bar" id="sig-stats-bar">
+            <div class="sig-stats-wrap">
+                <div>
+                    <div class="sig-stat-num" data-target="34" data-suffix="400+" data-simple="false">0</div>
+                    <div class="sig-stat-label">Happy Guests</div>
+                </div>
+                <div>
+                    <div class="sig-stat-num" data-target="49" data-suffix="★" data-decimal="true">0</div>
+                    <div class="sig-stat-label">Average Rating</div>
+                </div>
+                <div>
+                    <div class="sig-stat-num" data-target="18" data-suffix="">0</div>
+                    <div class="sig-stat-label">Luxury Suites</div>
+                </div>
+                <div>
+                    <div class="sig-stat-num" data-target="12" data-suffix="+">0</div>
+                    <div class="sig-stat-label">Years of Excellence</div>
+                </div>
+            </div>
+        </div>
+        <script>
+            (function () {
+                var bar = document.getElementById('sig-stats-bar');
+                var nums = bar ? bar.querySelectorAll('.sig-stat-num[data-target]') : [];
+                var animated = false;
+                function countUp(el) {
+                    var target = parseFloat(el.getAttribute('data-target'));
+                    var suffix = el.getAttribute('data-suffix') || '';
+                    var isDecimal = el.getAttribute('data-decimal') === 'true';
+                    var duration = 1800;
+                    var start = performance.now();
+                    function step(now) {
+                        var progress = Math.min((now - start) / duration, 1);
+                        var ease = 1 - Math.pow(1 - progress, 3);
+                        var val = target * ease;
+                        if (isDecimal) {
+                            el.textContent = (val / 10).toFixed(1) + suffix;
+                        } else {
+                            el.textContent = Math.floor(val).toLocaleString() + suffix;
+                        }
+                        if (progress < 1) requestAnimationFrame(step);
+                    }
+                    requestAnimationFrame(step);
+                }
+                if (bar && nums.length) {
+                    var observer = new IntersectionObserver(function (entries) {
+                        if (entries[0].isIntersecting && !animated) {
+                            animated = true;
+                            nums.forEach(function (el) { countUp(el); });
+                            observer.disconnect();
+                        }
+                    }, { threshold: 0.4 });
+                    observer.observe(bar);
+                }
+            })();
+        </script>
+
+        <!-- Section Header -->
+        <div class="sig-header reveal">
+            <p class="sig-eyebrow">Curated for You</p>
+            <h2 class="sig-title">Signature <em style="font-style:italic;color:var(--primary);">Experiences</em> Await
+            </h2>
+            <p class="sig-subtitle">From sunrise yoga on the terrace to private chef dinners under the stars — every
+                moment at Haven Retreat is crafted to become a memory you carry forever.</p>
+        </div>
+
+        <!-- Experience Cards -->
+        <div class="sig-cards-wrap">
+            <div class="sig-cards-grid">
+                <a href="services.html" class="sig-card reveal" style="text-decoration:none;display:block;">
+                    <img class="sig-card-img"
+                        src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&w=700&q=80"
+                        alt="Spa & Wellness">
+                    <div class="sig-card-overlay"></div>
+                    <div class="sig-card-body">
+                        <div class="sig-card-icon"><i class="fa-solid fa-spa"></i></div>
+                        <div class="sig-card-title">Spa &amp; Wellness</div>
+                        <div class="sig-card-desc">Surrender to tailored treatments by expert therapists using rare
+                            botanical oils and ancient healing rituals.</div>
+                        <div class="sig-card-tag">Explore &rarr;</div>
+                    </div>
+                </a>
+                <a href="services.html" class="sig-card reveal" style="text-decoration:none;display:block;">
+                    <img class="sig-card-img"
+                        src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&w=700&q=80"
+                        alt="Fine Dining">
+                    <div class="sig-card-overlay"></div>
+                    <div class="sig-card-body">
+                        <div class="sig-card-icon"><i class="fa-solid fa-utensils"></i></div>
+                        <div class="sig-card-title">Fine Dining</div>
+                        <div class="sig-card-desc">Savour seasonal menus curated by our Michelin-trained chef, paired
+                            with hand-selected wines from our private cellar.</div>
+                        <div class="sig-card-tag">Explore &rarr;</div>
+                    </div>
+                </a>
+                <a href="gallery.html" class="sig-card reveal" style="text-decoration:none;display:block;">
+                    <img class="sig-card-img"
+                        src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&w=700&q=80"
+                        alt="Nature Escapes">
+                    <div class="sig-card-overlay"></div>
+                    <div class="sig-card-body">
+                        <div class="sig-card-icon"><i class="fa-solid fa-mountain-sun"></i></div>
+                        <div class="sig-card-title">Nature Escapes</div>
+                        <div class="sig-card-desc">Private guided hikes, sunrise kayaking, and stargazing sessions deep
+                            in the valley — reconnect with the wild.</div>
+                        <div class="sig-card-tag">Explore &rarr;</div>
+                    </div>
+                </a>
+                <a href="rooms.html" class="sig-card reveal" style="text-decoration:none;display:block;">
+                    <img class="sig-card-img"
+                        src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&w=700&q=80"
+                        alt="Luxury Suites">
+                    <div class="sig-card-overlay"></div>
+                    <div class="sig-card-body">
+                        <div class="sig-card-icon"><i class="fa-solid fa-bed"></i></div>
+                        <div class="sig-card-title">Luxury Suites</div>
+                        <div class="sig-card-desc">Each suite is a private sanctuary with hand-selected antiques,
+                            rainfall showers and a personal butler on call.</div>
+                        <div class="sig-card-tag">Explore &rarr;</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- CTA Banner -->
+        <div class="sig-cta-banner">
+            <div class="sig-cta-bg"></div>
+            <div class="sig-cta-overlay"></div>
+            <div class="sig-cta-inner reveal">
+                <h2>Ready to Begin Your Story?</h2>
+                <p>Reserve your suite today and let us craft an escape that speaks to your soul. Best rates guaranteed
+                    when you book direct.</p>
+                <div class="sig-cta-btns">
+                    <a href="booking.html" class="btn btn-primary">Reserve Now</a>
+                    <a href="rooms.html" class="btn btn-outline">View Suites</a>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <footer>
+        <div class="container">
+
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="footer-brand">
+                        <img src="../assets/images/logo.svg" alt="Haven Retreat">
+                        <span class="logo-text">
+                            <span class="logo-name">Haven Retreat</span>
+                            <span class="logo-sub">Luxury Boutique</span>
+                        </span>
+                    </a>
+                    <p style="margin-bottom: 1.5rem; line-height: 1.6;">A luxury boutique hotel offering personalized
+                        experiences in the heart of nature. Escape the ordinary and discover your sanctuary.</p>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-x-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="services.html">Spa &amp; Dining</a></li>
+                        <li><a href="gallery.html">Photo Gallery</a></li>
+                        <li><a href="about.html">Our Story</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Guest Information</h4>
+                    <ul>
+                        <li><a href="#">Check-in &amp; Check-out</a></li>
+                        <li><a href="#">Cancellation Policy</a></li>
+                        <li><a href="#">FAQ &amp; Support</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms &amp; Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul style="gap: 0.75rem;">
+                        <li style="display: flex; gap: 0.5rem; align-items: flex-start;"><i
+                                class="fa-solid fa-location-dot" style="margin-top: 4px; color: var(--primary);"></i>
+                            <span>123 Luxury Lane, Nature Valley<br>Nassau, Bahamas</span>
+                        </li>
+                        <li style="display: flex; gap: 0.5rem; align-items: center;"><i class="fa-solid fa-phone"
+                                style="color: var(--primary);"></i> +1 (555) 123-4567</li>
+                        <li style="display: flex; gap: 0.5rem; align-items: center;"><i class="fa-solid fa-envelope"
+                                style="color: var(--primary);"></i> hello@havenretreat.com</li>
+                    </ul>
+                    <a href="#" class="footer-subscribe-btn-sm" id="footer-subscribe-btn"
+                        style="margin-top:1.25rem;display:inline-flex;align-items:center;gap:0.5rem;padding:0.55rem 1.25rem;background:var(--primary);color:#fff;border:none;border-radius:var(--radius-sm);font-size:0.85rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background 0.2s,transform 0.2s;"
+                        onmouseover="this.style.background='var(--primary-hover)';this.style.transform='translateY(-1px)'"
+                        onmouseout="this.style.background='var(--primary)';this.style.transform=''">
+                        <i class="fa-solid fa-envelope"></i> Subscribe Now
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Haven Retreat Boutique Hotel. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main JS & Reveal Script -->
+    <script src="../assets/js/main.js"></script>
+    <script>
+        // Reveal Animations on Scroll
+        document.addEventListener("DOMContentLoaded", function () {
+            const reveals = document.querySelectorAll(".reveal");
+            const revealOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+
+            const revealOnScroll = new IntersectionObserver(function (entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, revealOptions);
+
+            reveals.forEach(reveal => {
+                revealOnScroll.observe(reveal);
+            });
+
+            // Trigger immediately for elements in viewport on load
+            setTimeout(() => {
+                reveals.forEach(reveal => {
+                    const windowHeight = window.innerHeight;
+                    const elementTop = reveal.getBoundingClientRect().top;
+                    if (elementTop < windowHeight - 50) {
+                        reveal.classList.add("active");
+                    }
+                });
+            }, 100);
+        });
+    </script>
+    <script>
+        var nlForm = document.getElementById('newsletter-form');
+        if (nlForm) { nlForm.addEventListener('submit', function (e) { e.preventDefault(); var v = document.getElementById('nl-email').value; if (v && v.includes('@')) { document.getElementById('nl-success').style.display = 'block'; nlForm.style.display = 'none'; } }); }
+    </script>
+</body>
+
+</html>

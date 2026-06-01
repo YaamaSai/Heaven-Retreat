@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+    <link rel="shortcut icon" href="../assets/images/favicon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haven Retreat | Luxury Boutique Hotel</title>
+    <meta name="description"
+        content="Haven Retreat — a luxury boutique hotel nestled in nature. Escape to elegance with our signature rooms, spa, and personalised hospitality.">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dark-mode.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LodgingBusiness",
+      "name": "Haven Retreat",
+      "description": "A luxury boutique hotel offering personalized experiences in the heart of nature.",
+      "url": "https://www.havenretreat.com",
+      "telephone": "+1-555-123-4567",
+      "email": "hello@havenretreat.com",
+      "address": { "@type": "PostalAddress", "streetAddress": "123 Luxury Lane", "addressLocality": "Nature Valley", "addressCountry": "BS" },
+      "starRating": { "@type": "Rating", "ratingValue": "5" },
+      "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "15420" }
+    }
+    </script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+    <style>
+        @media (max-width: 1024px) {
+            .hero {
+                height: 102vh !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="../assets/images/logo.svg" alt="Haven Retreat">
+                <span class="logo-text">
+                    <span class="logo-name">Haven Retreat</span>
+                    <span class="logo-sub">Luxury Boutique</span>
+                </span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Toggle Navigation"><i class="fa-solid fa-bars"></i></button>
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="#">Home <i class="fa-solid fa-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html">Home 1</a></li>
+                        <li><a href="index-2.html">Home 2</a></li>
+                    </ul>
+                </li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="rooms.html">Rooms</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="dropdown">
+                    <a href="#">Dashboard <i class="fa-solid fa-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="guest-dashboard.html"><i class="fa-solid fa-user"
+                                    style="margin-right:0.4rem;color:var(--primary);"></i>Guest Dashboard</a></li>
+                        <li><a href="admin-dashboard.html"><i class="fa-solid fa-shield-halved"
+                                    style="margin-right:0.4rem;color:var(--primary);"></i>Admin Dashboard</a></li>
+                    </ul>
+                </li>
+                <li class="nav-appearance-mobile">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:0.88rem;font-weight:500;color:var(--text-main);">Appearance</span>
+                        <div style="display:flex;align-items:center;gap:0.6rem;">
+                            <button id="rtl-toggle" aria-label="Toggle RTL" title="Toggle RTL / LTR"
+                                style="background:none;border:1px solid var(--border-color);border-radius:6px;cursor:pointer;color:var(--text-main);font-size:0.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;padding:0.3rem 0.6rem;font-family:inherit;">RTL</button>
+                            <button id="theme-toggle" aria-label="Toggle Dark Mode"
+                                style="background:none;border:1px solid var(--border-color);border-radius:6px;cursor:pointer;color:var(--text-main);font-size:1rem;display:flex;align-items:center;padding:0.3rem 0.5rem;"><i
+                                    class="fa-solid fa-moon"></i></button>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-utils-mobile">
+                    <a href="login.html" class="btn btn-outline"
+                        style="display:flex;align-items:center;justify-content:center;width:100%;text-align:center;padding:0.7rem 1rem;font-size:0.88rem;font-weight:600;border-radius:8px;margin-bottom:0.75rem;">Login</a>
+                    <a href="booking.html" class="btn btn-primary"
+                        style="display:flex;align-items:center;justify-content:center;width:100%;text-align:center;padding:0.7rem 1rem;font-size:0.88rem;font-weight:700;border-radius:8px;">Book
+                        Now</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero"
+        style="background-image: url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&w=1600&q=80');">
+        <div class="hero-content">
+            <h1>Escape to Luxury</h1>
+            <p>Experience the perfect blend of modern comfort and rustic charm in the heart of nature.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem;">
+                <a href="booking.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Explore
+                    Booking &amp; Offers</a>
+                <a href="rooms.html" class="btn btn-outline"
+                    style="font-size: 1.1rem; padding: 1rem 2rem; color:#fff; border-color:rgba(255,255,255,0.5);">View
+                    Rooms</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust & Rating Bar -->
+    <div id="trust-bar"
+        style="background-color: var(--bg-secondary); padding: 1.25rem 0; border-bottom: 1px solid var(--border-color);">
+        <div class="container"
+            style="display: flex; justify-content: center; align-items: center; gap: 3rem; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="color: #fbbc04; font-size: 1.15rem;"><i class="fa-solid fa-star"></i><i
+                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                        class="fa-solid fa-star"></i></span>
+                <span style="font-size: 1rem; color: var(--text-main);">Google Rating: <strong
+                        style="font-size: 1.2rem; color: var(--primary);">4.9</strong>/5</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 1rem; color: var(--text-main);">
+                <span>Happy Guests:</span>
+                <strong class="live-counter" data-target="15420"
+                    style="font-size: 1.4rem; color: var(--primary);">0</strong>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 1rem; color: var(--text-main);">
+                <span><i class="fa-solid fa-trophy"></i></span>
+                <span>Best Boutique Hotel 2024 — <strong>Luxury Travel Mag</strong></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Amenities Strip -->
+    <section class="section" style="padding: var(--spacing-5) 0; background-color: var(--bg-secondary);">
+        <div class="container">
+            <div class="text-center reveal" style="margin-bottom: 2rem;">
+                <span class="section-tag">Included in Every Stay</span>
+                <h2>Everything You Need</h2>
+            </div>
+            <div class="amenities-strip">
+                <div class="amenity-strip-item reveal"><span class="amenity-strip-icon"><i
+                            class="fa-solid fa-sun"></i></span>Farm-to-Table Breakfast</div>
+                <div class="amenity-strip-item reveal"><span class="amenity-strip-icon"><i
+                            class="fa-solid fa-spa"></i></span>Spa &amp; Wellness</div>
+                <div class="amenity-strip-item reveal"><span class="amenity-strip-icon"><i
+                            class="fa-solid fa-person-swimming"></i></span>Infinity Pool</div>
+                <div class="amenity-strip-item reveal"><span class="amenity-strip-icon"><i
+                            class="fa-solid fa-wifi"></i></span>High-Speed WiFi</div>
+                <div class="amenity-strip-item reveal"><span class="amenity-strip-icon"><i
+                            class="fa-solid fa-bell-concierge"></i></span>Personal Concierge</div>
+                <div class="amenity-strip-item reveal"><span class="amenity-strip-icon"><i
+                            class="fa-solid fa-car"></i></span>Valet Parking</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Rooms Section -->
+    <section class="section container">
+        <div class="text-center reveal">
+            <span class="section-tag">Accommodations</span>
+            <h2>Our Signature Rooms</h2>
+            <p style="margin-bottom: 3rem; color: var(--text-muted);">Book direct with us for the best rates and
+                exclusive amenities.</p>
+        </div>
+        <div class="rooms-grid">
+            <div class="room-card skeleton-container reveal">
+                <div class="room-img-wrap skeleton"><img
+                        src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&w=800&q=80"
+                        alt="Deluxe Nature Suite" loading="lazy"></div>
+                <div class="room-details">
+                    <h3>Deluxe Nature Suite</h3>
+                    <p class="room-price">From $299 / night</p>
+                    <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1rem;">Forest-facing with
+                        floor-to-ceiling windows &amp; stone fireplace.</p>
+                    <a href="rooms.html" class="room-view-btn"><span>View Room</span> <i
+                            class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="room-card skeleton-container reveal">
+                <div class="room-img-wrap skeleton"><img
+                        src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&w=800&q=80"
+                        alt="Premium Balcony Room" loading="lazy"></div>
+                <div class="room-details">
+                    <h3>Premium Balcony</h3>
+                    <p class="room-price">From $350 / night</p>
+                    <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1rem;">Private balcony with
+                        uninterrupted ocean panorama.</p>
+                    <a href="rooms.html" class="room-view-btn"><span>View Room</span> <i
+                            class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="room-card skeleton-container reveal">
+                <div class="room-img-wrap skeleton"><img
+                        src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&w=800&q=80"
+                        alt="Executive Loft" loading="lazy"></div>
+                <div class="room-details">
+                    <h3>Executive Loft</h3>
+                    <p class="room-price">From $380 / night</p>
+                    <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1rem;">Double-height ceilings,
+                        curated art, and executive workspace.</p>
+                    <a href="rooms.html" class="room-view-btn"><span>View Room</span> <i
+                            class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="room-card skeleton-container reveal">
+                <div class="room-img-wrap skeleton"><img
+                        src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&w=800&q=80"
+                        alt="Spa Retreat Suite" loading="lazy"></div>
+                <div class="room-details">
+                    <h3>Spa Retreat Suite</h3>
+                    <p class="room-price">From $420 / night</p>
+                    <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1rem;">In-room soaking tub,
+                        aromatherapy service &amp; private rain shower.</p>
+                    <a href="rooms.html" class="room-view-btn"><span>View Room</span> <i
+                            class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="room-card skeleton-container reveal">
+                <div class="room-img-wrap skeleton"><img
+                        src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&w=800&q=80"
+                        alt="The Garden Villa" loading="lazy"></div>
+                <div class="room-details">
+                    <h3>The Garden Villa</h3>
+                    <p class="room-price">From $450 / night</p>
+                    <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1rem;">Private villa surrounded
+                        by lush tropical gardens &amp; pool.</p>
+                    <a href="rooms.html" class="room-view-btn"><span>View Room</span> <i
+                            class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="room-card skeleton-container reveal">
+                <div class="room-img-wrap skeleton"><img
+                        src="https://images.unsplash.com/photo-1631049421450-348ccd7f8949?auto=format&w=800&q=80"
+                        alt="Royal Terrace Suite" loading="lazy"></div>
+                <div class="room-details">
+                    <h3>Royal Terrace Suite</h3>
+                    <p class="room-price">From $480 / night</p>
+                    <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1rem;">Wraparound private
+                        terrace with panoramic views &amp; outdoor daybed.</p>
+                    <a href="rooms.html" class="room-view-btn"><span>View Room</span> <i
+                            class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="room-card skeleton-container reveal">
+                <div class="room-img-wrap skeleton"><img
+                        src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&w=800&q=80"
+                        alt="Ocean View Suite" loading="lazy"></div>
+                <div class="room-details">
+                    <h3>Ocean View Suite</h3>
+                    <p class="room-price">From $520 / night</p>
+                    <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1rem;">Perched above the
+                        shoreline with freestanding bath.</p>
+                    <a href="rooms.html" class="room-view-btn"><span>View Room</span> <i
+                            class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="room-card skeleton-container reveal">
+                <div class="room-img-wrap skeleton"><img
+                        src="https://images.unsplash.com/photo-1631049552240-59c37f38802b?auto=format&w=800&q=80"
+                        alt="The Haven Penthouse" loading="lazy"></div>
+                <div class="room-details">
+                    <h3>The Haven Penthouse</h3>
+                    <p class="room-price">From $599 / night</p>
+                    <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1rem;">Entire top floor with
+                        private plunge pool &amp; butler service.</p>
+                    <a href="rooms.html" class="room-view-btn"><span>View Room</span> <i
+                            class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center reveal" style="margin-top: 3rem;">
+            <a href="rooms.html" class="btn btn-outline"
+                style="font-size:1rem; padding:1rem 2.5rem; border-width: 2px;">View All
+                Rooms &amp; Details →</a>
+        </div>
+    </section>
+
+    <!-- Our Philosophy Section (New Info) -->
+    <section class="section">
+        <div class="container">
+            <div class="text-center reveal" style="margin-bottom: 3rem;">
+                <span class="section-tag">Our Philosophy</span>
+                <h2>More Than Just A Stay</h2>
+                <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto;">We believe that true luxury is
+                    not defined by excess, but by the space to breathe, connect, and appreciate the finer details. From
+                    our sustainably sourced linens to our locally inspired cuisine, every element at Haven Retreat is
+                    designed to elevate your wellbeing and create lasting memories.</p>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div class="reveal"
+                    style="background: var(--bg-secondary); padding: 2rem; border-radius: var(--radius-md); text-align: center;">
+                    <i class="fa-solid fa-leaf"
+                        style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h3 style="margin-bottom: 0.5rem;">Eco-Conscious Luxury</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Powered by renewable energy and committed
+                        to zero-waste practices without compromising your comfort.</p>
+                </div>
+                <div class="reveal"
+                    style="background: var(--bg-secondary); padding: 2rem; border-radius: var(--radius-md); text-align: center;">
+                    <i class="fa-solid fa-utensils"
+                        style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h3 style="margin-bottom: 0.5rem;">Farm-to-Table Dining</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Our chefs craft seasonal menus using
+                        organic ingredients sourced directly from local farmers and our own garden.</p>
+                </div>
+                <div class="reveal"
+                    style="background: var(--bg-secondary); padding: 2rem; border-radius: var(--radius-md); text-align: center;">
+                    <i class="fa-solid fa-spa"
+                        style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h3 style="margin-bottom: 0.5rem;">Holistic Wellness</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Rejuvenate your mind and body with tailored
+                        spa treatments and daily sunrise yoga sessions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section" style="background-color: var(--bg-secondary);">
+        <div class="container">
+            <div class="text-center reveal" style="margin-bottom: 0;">
+                <span class="section-tag">Guest Reviews</span>
+                <h2>What Our Guests Say</h2>
+                <p style="color: var(--text-muted);">Over 15,000 guests have made Haven Retreat their home away from
+                    home.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-quote">"</div>
+                    <div class="testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i></div>
+                    <p class="testimonial-text">Absolutely magical. The Nature Suite felt like sleeping inside a
+                        treehouse — but with the most luxurious bed I have ever slept in. The sunrise yoga session was
+                        the perfect start.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" style="background: linear-gradient(135deg,#A88655,#E0C59A);">SJ
+                        </div>
+                        <div>
+                            <div class="testimonial-name">Sophie Johnson</div>
+                            <div class="testimonial-location">London, UK · Google Review</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-quote">"</div>
+                    <div class="testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i></div>
+                    <p class="testimonial-text">Haven Retreat is simply in a class of its own. Our concierge arranged a
+                        surprise anniversary dinner on the beach with fairy lights and a private chef. I cannot
+                        overstate how perfect it was.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" style="background: linear-gradient(135deg,#4A7C59,#8FBC8F);">MK
+                        </div>
+                        <div>
+                            <div class="testimonial-name">Michael &amp; Karen T.</div>
+                            <div class="testimonial-location">New York, USA · TripAdvisor</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="testimonial-quote">"</div>
+                    <div class="testimonial-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i></div>
+                    <p class="testimonial-text">We stayed in the Ocean View Suite and I genuinely did not want to leave.
+                        The staff remembered our names from the moment we arrived. The spa is exceptional — best hot
+                        stone massage of my life.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" style="background: linear-gradient(135deg,#5B6BB5,#A0AFEF);">PR
+                        </div>
+                        <div>
+                            <div class="testimonial-name">Priya Ramesh</div>
+                            <div class="testimonial-location">Mumbai, India · Google Review</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="footer-brand">
+                        <img src="../assets/images/logo.svg" alt="Haven Retreat">
+                        <span class="logo-text">
+                            <span class="logo-name">Haven Retreat</span>
+                            <span class="logo-sub">Luxury Boutique</span>
+                        </span>
+                    </a>
+                    <p style="margin-bottom: 1.5rem; line-height: 1.6;">A luxury boutique hotel offering personalized
+                        experiences in the heart of nature. Escape the ordinary and discover your sanctuary.</p>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-x-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="services.html">Spa &amp; Dining</a></li>
+                        <li><a href="gallery.html">Photo Gallery</a></li>
+                        <li><a href="about.html">Our Story</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Guest Information</h4>
+                    <ul>
+                        <li><a href="#">Check-in &amp; Check-out</a></li>
+                        <li><a href="#">Cancellation Policy</a></li>
+                        <li><a href="#">FAQ &amp; Support</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms &amp; Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul style="gap: 0.75rem;">
+                        <li style="display: flex; gap: 0.5rem; align-items: flex-start;"><i
+                                class="fa-solid fa-location-dot" style="margin-top: 4px; color: var(--primary);"></i>
+                            <span>123 Luxury Lane, Nature Valley<br>Nassau, Bahamas</span>
+                        </li>
+                        <li style="display: flex; gap: 0.5rem; align-items: center;"><i class="fa-solid fa-phone"
+                                style="color: var(--primary);"></i> +1 (555) 123-4567</li>
+                        <li style="display: flex; gap: 0.5rem; align-items: center;"><i class="fa-solid fa-envelope"
+                                style="color: var(--primary);"></i> hello@havenretreat.com</li>
+                    </ul>
+                    <a href="#" class="footer-subscribe-btn-sm" id="footer-subscribe-btn"
+                        style="margin-top:1.25rem;display:inline-flex;align-items:center;gap:0.5rem;padding:0.55rem 1.25rem;background:var(--primary);color:#fff;border:none;border-radius:var(--radius-sm);font-size:0.85rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background 0.2s,transform 0.2s;"
+                        onmouseover="this.style.background='var(--primary-hover)';this.style.transform='translateY(-1px)'"
+                        onmouseout="this.style.background='var(--primary)';this.style.transform=''">
+                        <i class="fa-solid fa-envelope"></i> Subscribe Now
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Haven Retreat Boutique Hotel. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+
+</html>

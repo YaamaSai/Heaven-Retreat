@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+    <link rel="shortcut icon" href="../assets/images/favicon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services & Amenities | Haven Retreat</title>
+    <meta name="description"
+        content="World-class spa, fine dining, concierge, and more at Haven Retreat boutique hotel.">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dark-mode.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LodgingBusiness",
+      "name": "Haven Retreat",
+      "description": "A luxury boutique hotel offering personalized experiences in the heart of nature.",
+      "url": "https://www.havenretreat.com",
+      "telephone": "+1-555-123-4567",
+      "email": "hello@havenretreat.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "123 Luxury Lane",
+        "addressLocality": "Nature Valley",
+        "addressCountry": "BS"
+      },
+      "starRating": { "@type": "Rating", "ratingValue": "5" },
+      "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "15420" },
+      "amenityFeature": [
+        {"@type": "LocationFeatureSpecification", "name": "Free WiFi", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Spa", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Pool", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Restaurant", "value": true}
+      ]
+    }
+    </script>
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="../assets/images/logo.svg" alt="Haven Retreat">
+                <span class="logo-text">
+                    <span class="logo-name">Haven Retreat</span>
+                    <span class="logo-sub">Luxury Boutique</span>
+                </span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Toggle Navigation"><i class="fa-solid fa-bars"></i></button>
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="#">Home <i class="fa-solid fa-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html">Home 1</a></li>
+                        <li><a href="index-2.html">Home 2</a></li>
+                    </ul>
+                </li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="rooms.html">Rooms</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="dropdown">
+                    <a href="#">Dashboard <i class="fa-solid fa-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="guest-dashboard.html"><i class="fa-solid fa-user"
+                                    style="margin-right:0.4rem;color:var(--primary);"></i>Guest Dashboard</a></li>
+                        <li><a href="admin-dashboard.html"><i class="fa-solid fa-shield-halved"
+                                    style="margin-right:0.4rem;color:var(--primary);"></i>Admin Dashboard</a></li>
+                    </ul>
+                </li>
+                <li class="nav-appearance-mobile">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:0.88rem;font-weight:500;color:var(--text-main);">Appearance</span>
+                        <div style="display:flex;align-items:center;gap:0.6rem;">
+                            <button id="rtl-toggle" aria-label="Toggle RTL" title="Toggle RTL / LTR"
+                                style="background:none;border:1px solid var(--border-color);border-radius:6px;cursor:pointer;color:var(--text-main);font-size:0.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;padding:0.3rem 0.6rem;font-family:inherit;">RTL</button>
+                            <button id="theme-toggle" aria-label="Toggle Dark Mode"
+                                style="background:none;border:1px solid var(--border-color);border-radius:6px;cursor:pointer;color:var(--text-main);font-size:1rem;display:flex;align-items:center;padding:0.3rem 0.5rem;"><i
+                                    class="fa-solid fa-moon"></i></button>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-utils-mobile">
+                    <a href="login.html" class="btn btn-outline"
+                        style="display:flex;align-items:center;justify-content:center;width:100%;text-align:center;padding:0.7rem 1rem;font-size:0.88rem;font-weight:600;border-radius:8px;margin-bottom:0.75rem;">Login</a>
+                    <a href="booking.html" class="btn btn-primary"
+                        style="display:flex;align-items:center;justify-content:center;width:100%;text-align:center;padding:0.7rem 1rem;font-size:0.88rem;font-weight:700;border-radius:8px;">Book
+                        Now</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero"
+        style="background-image: url('https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&w=1600&q=80'); height: 55vh; min-height: 380px;">
+        <div class="hero-content">
+            <h1>Services &amp; Amenities</h1>
+            <p>Every detail curated for your ultimate comfort and relaxation.</p>
+        </div>
+    </section>
+
+    <!-- Our Services Title -->
+    <section class="section" style="padding-bottom: 2rem;">
+        <div class="container text-center reveal">
+            <span class="section-tag" style="margin-bottom: 1rem;">Curated Experiences</span>
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Our Services</h2>
+            <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto; font-size: 1.05rem;">All services
+                include personalized attention, premium amenities, and our signature Haven Retreat hospitality.</p>
+        </div>
+    </section>
+
+
+    <!-- Services Grid -->
+    <section class="section" style="padding-top: 2rem;">
+        <div class="container">
+            <style>
+                .services-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+                    gap: 2rem;
+                }
+
+                .service-card {
+                    background: var(--bg-secondary);
+                    border-radius: var(--radius-md);
+                    overflow: hidden;
+                    box-shadow: var(--shadow-sm);
+                    transition: var(--transition);
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .service-card:hover {
+                    transform: translateY(-4px);
+                    box-shadow: var(--shadow-md);
+                }
+
+                .service-img {
+                    width: 100%;
+                    height: 240px;
+                    background-size: cover;
+                    background-position: center;
+                }
+
+                .service-body {
+                    padding: 2rem;
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .service-body h3 {
+                    margin-bottom: 0.75rem;
+                    font-size: 1.4rem;
+                    color: var(--text-main);
+                }
+
+                .service-body p {
+                    color: var(--text-muted);
+                    font-size: 0.95rem;
+                    line-height: 1.6;
+                    margin-bottom: 1.25rem;
+                }
+
+                .service-feature-list {
+                    list-style: none;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+                    margin-top: auto;
+                }
+
+                .service-feature-list li {
+                    color: var(--text-muted);
+                    font-size: 0.88rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                }
+            </style>
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <div class="service-img"
+                        style="background-image: url('https://images.unsplash.com/photo-1493770348161-369560ae357d?auto=format&fit=crop&w=800&q=80');">
+                    </div>
+                    <div class="service-body">
+                        <h3>Gourmet Breakfast</h3>
+                        <p>Farm-to-table breakfast at The Canopy restaurant using produce from our organic gardens.
+                            Seasonal menus, vegan &amp; gluten-free options available.</p>
+                        <ul class="service-feature-list">
+                            <li><i class="fa-solid fa-circle-check" style="color:var(--primary);flex-shrink:0;"></i>
+                                Complimentary for all guests</li>
+                            <li><i class="fa-solid fa-circle-check" style="color:var(--primary);flex-shrink:0;"></i>
+                                Served 7:00 AM &ndash; 10:30 AM</li>
+                            <li><i class="fa-solid fa-circle-check" style="color:var(--primary);flex-shrink:0;"></i>
+                                In-room breakfast available</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-img"
+                        style="background-image: url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&w=800&q=80');">
+                    </div>
+                    <div class="service-body">
+                        <h3>Spa &amp; Wellness Centre</h3>
+                        <p>Our award-winning 3,000 sq ft spa offers treatments rooted in ancient healing traditions
+                            using organic, locally-sourced products.</p>
+                        <ul class="service-feature-list">
+                            <li><i class="fa-solid fa-circle-check" style="color:var(--primary);flex-shrink:0;"></i>
+                                Swedish &amp; deep tissue massage</li>
+                            <li><i class="fa-solid fa-circle-check" style="color:var(--primary);flex-shrink:0;"></i>
+                                Hydrotherapy pool &amp; steam room</li>
+                            <li><i class="fa-solid fa-circle-check" style="color:var(--primary);flex-shrink:0;"></i>
+                                Couples treatment suites</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-img"
+                        style="background-image: url('https://images.unsplash.com/photo-1560662105-57f8ad6ae2d1?auto=format&w=800&q=80');">
+                    </div>
+                    <div class="service-body">
+                        <h3>Personal Concierge</h3>
+                        <p>Your dedicated concierge is available 24/7 to curate bespoke experiences &ndash; from island
+                            tours to helicopter charters and surprise arrangements.</p>
+                        <ul class="service-feature-list">
+                            <li><i class="fa-solid fa-circle-check" style="color:var(--primary);flex-shrink:0;"></i>
+                                Available 24 hours a day</li>
+                            <li><i class="fa-solid fa-circle-check" style="color:var(--primary);flex-shrink:0;"></i>
+                                Local tours &amp; activity bookings</li>
+                            <li><i class="fa-solid fa-circle-check" style="color:var(--primary);flex-shrink:0;"></i>
+                                Special occasion planning</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-img"
+                        style="background-image: url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&w=800&q=80');">
+                    </div>
+                    <div class="service-body">
+                        <h3>Infinity Pool &amp; Beach Club</h3>
+                        <p>Our stunning heated infinity pool is open year-round. Enjoy private cabanas, poolside
+                            cocktails, and direct beach access with sun loungers.</p>
+                        <ul class="service-feature-list">
+                            <li><i class="fa-solid fa-circle-check" style="color:var(--primary);flex-shrink:0;"></i>
+                                Heated pool, open year-round</li>
+                            <li><i class="fa-solid fa-circle-check" style="color:var(--primary);flex-shrink:0;"></i>
+                                Private beach cabanas</li>
+                            <li><i class="fa-solid fa-circle-check" style="color:var(--primary);flex-shrink:0;"></i>
+                                Poolside bar &amp; light bites</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-img"
+                        style="background-image: url('https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&w=800&q=80');">
+                    </div>
+                    <div class="service-body">
+                        <h3>Fine Dining &ndash; The Canopy</h3>
+                        <p>An intimate dining experience on an open-air terrace. Chef Marco's ever-evolving tasting
+                            menus celebrate the finest local produce and seasonal flavours.</p>
+                        <ul class="service-feature-list">
+                            <li><i class="fa-solid fa-circle-check" style="color:var(--primary);flex-shrink:0;"></i>
+                                3-course &amp; 7-course menus</li>
+                            <li><i class="fa-solid fa-circle-check" style="color:var(--primary);flex-shrink:0;"></i>
+                                Curated wine pairings</li>
+                            <li><i class="fa-solid fa-circle-check" style="color:var(--primary);flex-shrink:0;"></i>
+                                Private dining room</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-img"
+                        style="background-image: url('https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&w=800&q=80');">
+                    </div>
+                    <div class="service-body">
+                        <h3>Yoga &amp; Mindfulness</h3>
+                        <p>Daily sunrise yoga on our open-air pavilion, plus evening meditation walks, breathwork
+                            sessions, and private mindfulness coaching for all levels.</p>
+                        <ul class="service-feature-list">
+                            <li><i class="fa-solid fa-circle-check" style="color:var(--primary);flex-shrink:0;"></i>
+                                Daily sunrise yoga (7:00 AM)</li>
+                            <li><i class="fa-solid fa-circle-check" style="color:var(--primary);flex-shrink:0;"></i>
+                                Evening meditation sessions</li>
+                            <li><i class="fa-solid fa-circle-check" style="color:var(--primary);flex-shrink:0;"></i>
+                                Private coaching available</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Amenities -->
+    <section class="section" style="background-color: var(--bg-secondary);">
+        <div class="container">
+            <div class="text-center reveal" style="margin-bottom: 3rem;">
+                <span class="section-tag">Included in Every Stay</span>
+                <h2>Standard Amenities</h2>
+            </div>
+            <style>
+                .amenities-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                    gap: 1.5rem;
+                }
+            </style>
+            <div class="amenities-grid">
+                <div class="amenity-item reveal"><span class="amenity-icon"><i
+                            class="fa-solid fa-wifi"></i></span><span>High-Speed WiFi</span></div>
+                <div class="amenity-item reveal"><span class="amenity-icon"><i
+                            class="fa-solid fa-car"></i></span><span>Complimentary Valet</span></div>
+                <div class="amenity-item reveal"><span class="amenity-icon"><i
+                            class="fa-solid fa-bath"></i></span><span>Premium Toiletries</span></div>
+                <div class="amenity-item reveal"><span class="amenity-icon"><i
+                            class="fa-solid fa-mug-hot"></i></span><span>In-Room Coffee Bar</span></div>
+                <div class="amenity-item reveal"><span class="amenity-icon"><i
+                            class="fa-solid fa-temperature-half"></i></span><span>Climate Control</span></div>
+                <div class="amenity-item reveal"><span class="amenity-icon"><i
+                            class="fa-solid fa-tv"></i></span><span>4K Smart TV</span></div>
+                <div class="amenity-item reveal"><span class="amenity-icon"><i
+                            class="fa-solid fa-pump-soap"></i></span><span>Daily Housekeeping</span></div>
+                <div class="amenity-item reveal"><span class="amenity-icon"><i
+                            class="fa-solid fa-lock"></i></span><span>In-Room Safe</span></div>
+                <div class="amenity-item reveal"><span class="amenity-icon"><i
+                            class="fa-solid fa-bell-concierge"></i></span><span>24/7 Room Service</span></div>
+                <div class="amenity-item reveal"><span class="amenity-icon"><i
+                            class="fa-solid fa-shirt"></i></span><span>Luxury Bathrobes</span></div>
+                <div class="amenity-item reveal"><span class="amenity-icon"><i
+                            class="fa-solid fa-dumbbell"></i></span><span>Fitness Centre Access</span></div>
+                <div class="amenity-item reveal"><span class="amenity-icon"><i
+                            class="fa-solid fa-box"></i></span><span>Luggage Storage</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section" style="background: linear-gradient(135deg, var(--secondary), #3a3228); text-align:center;">
+        <div class="container reveal">
+            <h2 style="color:#fff;">Ready to Indulge?</h2>
+            <p style="color:rgba(255,255,255,0.7); margin:1rem auto 2.5rem; max-width:550px;">Reserve your room and
+                experience every service Haven Retreat has to offer.</p>
+            <a href="booking.html" class="btn btn-primary" style="font-size:1rem; padding:1rem 2.5rem;">Book Your
+                Stay</a>
+        </div>
+    </section>
+
+
+    <!-- Services Custom CTA -->
+    <section class="section" style="padding: 0; background: var(--bg-secondary); overflow: hidden;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; min-height: 500px;">
+            <div
+                style="padding: 6rem 4rem; display: flex; flex-direction: column; justify-content: center; background: var(--bg-main);">
+                <span class="section-tag" style="margin-bottom: 1rem; align-self: flex-start;">Elevate Your
+                    Senses</span>
+                <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--text-main);">Reserve Your Spa or
+                    Dining Experience</h2>
+                <p
+                    style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.7; margin-bottom: 2.5rem; max-width: 450px;">
+                    Whether it's a deep tissue massage at sunset or a Michelin-star dining experience, our world-class
+                    facilities are waiting for you.</p>
+                <div style="display: flex; gap: 1rem;">
+                    <a href="contact.html" class="btn btn-primary" style="padding: 1rem 2rem;">Book a Treatment</a>
+                    <a href="contact.html" class="btn btn-outline" style="padding: 1rem 2rem;">Reserve a Table</a>
+                </div>
+            </div>
+            <div style="position: relative; overflow: hidden;">
+                <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&w=800&q=80"
+                    alt="Luxury Spa"
+                    style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;"
+                    onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';">
+                <div
+                    style="position: absolute; inset: 0; background: linear-gradient(to right, var(--bg-main) 0%, transparent 20%);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer>
+        <div class="container">
+
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="footer-brand">
+                        <img src="../assets/images/logo.svg" alt="Haven Retreat">
+                        <span class="logo-text">
+                            <span class="logo-name">Haven Retreat</span>
+                            <span class="logo-sub">Luxury Boutique</span>
+                        </span>
+                    </a>
+                    <p style="margin-bottom: 1.5rem; line-height: 1.6;">A luxury boutique hotel offering personalized
+                        experiences in the heart of nature. Escape the ordinary and discover your sanctuary.</p>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-x-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="services.html">Spa &amp; Dining</a></li>
+                        <li><a href="gallery.html">Photo Gallery</a></li>
+                        <li><a href="about.html">Our Story</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Guest Information</h4>
+                    <ul>
+                        <li><a href="#">Check-in &amp; Check-out</a></li>
+                        <li><a href="#">Cancellation Policy</a></li>
+                        <li><a href="#">FAQ &amp; Support</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms &amp; Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul style="gap: 0.75rem;">
+                        <li style="display: flex; gap: 0.5rem; align-items: flex-start;"><i
+                                class="fa-solid fa-location-dot" style="margin-top: 4px; color: var(--primary);"></i>
+                            <span>123 Luxury Lane, Nature Valley<br>Nassau, Bahamas</span></li>
+                        <li style="display: flex; gap: 0.5rem; align-items: center;"><i class="fa-solid fa-phone"
+                                style="color: var(--primary);"></i> +1 (555) 123-4567</li>
+                        <li style="display: flex; gap: 0.5rem; align-items: center;"><i class="fa-solid fa-envelope"
+                                style="color: var(--primary);"></i> hello@havenretreat.com</li>
+                    </ul>
+                    <a href="#" class="footer-subscribe-btn-sm" id="footer-subscribe-btn"
+                        style="margin-top:1.25rem;display:inline-flex;align-items:center;gap:0.5rem;padding:0.55rem 1.25rem;background:var(--primary);color:#fff;border:none;border-radius:var(--radius-sm);font-size:0.85rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background 0.2s,transform 0.2s;"
+                        onmouseover="this.style.background='var(--primary-hover)';this.style.transform='translateY(-1px)'"
+                        onmouseout="this.style.background='var(--primary)';this.style.transform=''">
+                        <i class="fa-solid fa-envelope"></i> Subscribe Now
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Haven Retreat Boutique Hotel. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="../assets/js/main.js"></script>
+    <script>
+        var nlForm = document.getElementById('newsletter-form');
+        if (nlForm) { nlForm.addEventListener('submit', function (e) { e.preventDefault(); var v = document.getElementById('nl-email').value; if (v && v.includes('@')) { document.getElementById('nl-success').style.display = 'block'; nlForm.style.display = 'none'; } }); }
+    </script>
+</body>
+
+</html>

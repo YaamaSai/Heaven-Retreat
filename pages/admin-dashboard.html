@@ -1,0 +1,3414 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Admin Dashboard | Haven Retreat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --gold: #A88655;
+      --gold-h: #8A6D44;
+      --gold-l: rgba(168, 134, 85, 0.1);
+      --espresso: #1F1C18;
+      --pearl: #FCFBF9;
+      --taupe: #F4F1EA;
+      --txt: #2A2723;
+      --txt-m: #736E65;
+      --bdr: #E2DCD0;
+      --sh: 0 4px 24px rgba(42, 39, 35, 0.08);
+      --r: 8px;
+      --r2: 12px;
+      --ff-h: 'Playfair Display', serif;
+      --ff-b: 'Inter', sans-serif;
+      --tr: all .25s ease;
+    }
+
+    [data-theme=dark] {
+      --pearl: #151311;
+      --taupe: #1D1A18;
+      --txt: #F4F1EA;
+      --txt-m: #A19B91;
+      --bdr: #38342E;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--ff-b);
+      background: var(--taupe);
+      color: var(--txt);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .sb {
+      width: 260px;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      inset-inline-start: 0;
+      background: var(--pearl);
+      border-inline-end: 1px solid var(--bdr);
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      z-index: 200;
+      transition: transform 0.34s cubic-bezier(0.4, 0, 0.2, 1);
+      --sb-hide: -110%;
+    }
+
+    [dir=rtl] .sb {
+      --sb-hide: 110%;
+    }
+
+    .sb-logo {
+      height: 52px;
+      padding: 0 1.1rem;
+      border-bottom: 1px solid var(--bdr);
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      flex-shrink: 0;
+    }
+
+    .sb-logo img {
+      height: 30px;
+      width: auto;
+      filter: drop-shadow(0 1px 3px rgba(0, 0, 0, .15));
+    }
+
+    .sb-logo-text .n {
+      font-family: var(--ff-h);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--txt);
+    }
+
+    .sb-logo-text .s {
+      font-size: .5rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--txt-m);
+    }
+
+    .sb-nav {
+      flex: 1;
+      padding: 1.25rem 0;
+      overflow-y: auto;
+    }
+
+    .sb-section {
+      padding: .5rem 1.5rem .25rem;
+      font-size: .6rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--txt-m);
+      font-weight: 600;
+      margin-top: .5rem;
+    }
+
+    .sb-link {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      padding: .62rem 1.25rem;
+      color: var(--txt-m);
+      font-size: .83rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--tr);
+      border-inline-start: 3px solid transparent;
+      position: relative;
+    }
+
+    .sb-link i {
+      width: 18px;
+      text-align: center;
+      font-size: .95rem;
+    }
+
+    .sb-link:hover {
+      color: var(--txt);
+      background: var(--taupe);
+    }
+
+    .sb-link.active {
+      color: var(--gold);
+      background: var(--gold-l);
+      border-inline-start-color: var(--gold);
+      font-weight: 600;
+    }
+
+    .sb-badge {
+      margin-inline-start: auto;
+      background: #e5534b;
+      color: #fff;
+      font-size: .65rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+
+    .sb-bottom {
+      padding: 1.25rem 1.5rem;
+      border-top: 1px solid var(--bdr);
+    }
+
+    .sb-logout {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      color: var(--txt-m);
+      font-size: .88rem;
+      font-weight: 500;
+      cursor: pointer;
+      padding: .5rem 0;
+      transition: var(--tr);
+    }
+
+    .sb-logout:hover {
+      color: #e5534b;
+    }
+
+    /* PROFILE CARD IN TOPBAR */
+    .tb-profile {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .2rem .45rem;
+      border: 1px solid var(--bdr);
+      border-radius: var(--r);
+      cursor: pointer;
+      transition: var(--tr);
+      position: relative;
+    }
+
+    .tb-profile:hover {
+      border-color: var(--gold);
+    }
+
+    .tb-profile::before {
+      content: "";
+      display: block;
+      width: 1px;
+      height: 18px;
+      background: var(--bdr);
+      margin-inline-end: .2rem;
+    }
+
+    .tb-profile-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: var(--gold);
+    }
+
+    .tb-profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .tb-profile-info .tb-pname {
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--txt);
+      line-height: 1.2;
+    }
+
+    .tb-profile-info .tb-prole {
+      font-size: .6rem;
+      color: var(--txt-m);
+    }
+
+    .tb-profile i.chev {
+      font-size: .7rem;
+      color: var(--txt-m);
+      transition: var(--tr);
+    }
+
+    /* RTL Global Layout */
+    .main {
+      margin-inline-start: 260px;
+      flex: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      height: 52px;
+      background: var(--pearl);
+      border-bottom: 1px solid var(--bdr);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .sb-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--txt);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .page-title {
+      font-family: var(--ff-h);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--txt);
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .tb-btn {
+      background: none;
+      border: 1px solid var(--bdr);
+      border-radius: var(--r);
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--txt-m);
+      transition: var(--tr);
+      position: relative;
+    }
+
+    .tb-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .tb-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding-inline-end: 0.5rem;
+      border-inline-end: 1px solid var(--bdr);
+      margin-inline-end: 0.15rem;
+    }
+
+    .notif-dot {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #e5534b;
+      border: 2px solid var(--pearl);
+    }
+
+    .tb-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: .95rem;
+      cursor: pointer;
+      border: 2px solid var(--gold-l);
+    }
+
+    /* CONTENT */
+    .content {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
+    /* TAB PANELS */
+    .tab-panel {
+      display: none;
+      animation: fadeIn .3s ease;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    /* KPI CARDS */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .kpi-card {
+      background: var(--pearl);
+      border: 1px solid var(--bdr);
+      border-radius: var(--r2);
+      padding: 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      box-shadow: var(--sh);
+      transition: var(--tr);
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(42, 39, 35, .12);
+    }
+
+    .kpi-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--r);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .kpi-label {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--txt-m);
+      margin-bottom: .3rem;
+    }
+
+    .kpi-value {
+      font-family: var(--ff-h);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--txt);
+      line-height: 1;
+    }
+
+    .kpi-trend {
+      font-size: .75rem;
+      margin-top: .35rem;
+      font-weight: 600;
+    }
+
+    .up {
+      color: #2d7a3a;
+    }
+
+    .down {
+      color: #e5534b;
+    }
+
+    .neu {
+      color: var(--txt-m);
+    }
+
+    /* SECTION CARD */
+    .sc {
+      background: var(--pearl);
+      border: 1px solid var(--bdr);
+      border-radius: var(--r2);
+      padding: 1.5rem;
+      box-shadow: var(--sh);
+      margin-bottom: 1.5rem;
+    }
+
+    .sc-hdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+
+    .sc-title {
+      font-family: var(--ff-h);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--txt);
+    }
+
+    .sc-hdr a,
+    .sc-hdr button {
+      font-size: .8rem;
+      color: var(--gold);
+      font-weight: 600;
+      background: none;
+      border: 1px solid var(--gold);
+      padding: .3rem .8rem;
+      border-radius: var(--r);
+      cursor: pointer;
+      transition: var(--tr);
+    }
+
+    .sc-hdr a:hover,
+    .sc-hdr button:hover {
+      background: var(--gold);
+      color: #fff;
+    }
+
+    /* 2-col grid */
+    .grid2 {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* TABLE */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead tr {
+      border-bottom: 2px solid var(--bdr);
+    }
+
+    th {
+      font-size: .7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--txt-m);
+      font-weight: 600;
+      padding: .75rem 1rem;
+      text-align: left;
+    }
+
+    td {
+      padding: .85rem 1rem;
+      font-size: .87rem;
+      border-bottom: 1px solid var(--bdr);
+      color: var(--txt);
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr {
+      transition: var(--tr);
+    }
+
+    tbody tr:hover {
+      background: var(--taupe);
+    }
+
+    /* BADGES */
+    .badge {
+      display: inline-block;
+      font-size: .68rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: .5px;
+    }
+
+    .b-confirmed {
+      background: rgba(45, 122, 58, .1);
+      color: #2d7a3a;
+    }
+
+    .b-pending {
+      background: rgba(168, 134, 85, .12);
+      color: var(--gold-h);
+    }
+
+    .b-cancelled {
+      background: rgba(229, 83, 75, .1);
+      color: #e5534b;
+    }
+
+    .b-completed {
+      background: rgba(113, 128, 150, .12);
+      color: #4a5568;
+    }
+
+    /* QUICK ACTIONS */
+    .qa-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .75rem;
+    }
+
+    .qa {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .75rem;
+      padding: .85rem 1rem;
+      border: 1px solid var(--bdr);
+      border-radius: var(--r);
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--txt);
+      cursor: pointer;
+      transition: var(--tr);
+      background: var(--taupe);
+      text-align: center;
+    }
+
+    .qa:hover {
+      border-color: var(--gold);
+      background: var(--gold-l);
+      color: var(--gold);
+    }
+
+    .qa i {
+      color: var(--gold);
+      font-size: 1rem;
+      width: 18px;
+      text-align: center;
+    }
+
+    /* CHART BAR */
+    .bar-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: .5rem;
+      height: 120px;
+      padding-top: 1.5rem;
+    }
+
+    .bar-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .35rem;
+    }
+
+    .bar {
+      width: 100%;
+      background: var(--bdr);
+      border-radius: 4px 4px 0 0;
+      position: relative;
+      transition: var(--tr);
+      min-height: 4px;
+    }
+
+    .bar::after {
+      content: attr(data-v);
+      position: absolute;
+      top: -1.4rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: .68rem;
+      color: var(--txt-m);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .bar:hover {
+      background: var(--gold-h);
+    }
+
+    .bar.gold {
+      background: var(--gold);
+    }
+
+    .bar-label {
+      font-size: .65rem;
+      color: var(--txt-m);
+      font-weight: 500;
+    }
+
+    /* PROFILE DROPDOWN */
+    .tb-profile {
+      position: relative;
+    }
+
+    .profile-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 220px;
+      background: var(--pearl);
+      border: 1px solid var(--bdr);
+      border-radius: var(--r2);
+      box-shadow: 0 8px 30px rgba(42, 39, 35, .12);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px);
+      transition: var(--tr);
+      z-index: 500;
+      overflow: hidden;
+    }
+
+    .profile-dropdown.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .pd-header {
+      padding: 1rem 1.1rem;
+      border-bottom: 1px solid var(--bdr);
+      background: var(--taupe);
+    }
+
+    .pd-name {
+      font-family: var(--ff-h);
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--txt);
+    }
+
+    .pd-role {
+      font-size: .72rem;
+      color: var(--txt-m);
+      margin-top: .1rem;
+    }
+
+    .pd-item {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .75rem 1.1rem;
+      color: var(--txt-m);
+      font-size: .87rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--tr);
+      border-bottom: 1px solid var(--bdr);
+      text-decoration: none;
+    }
+
+    .pd-item:last-child {
+      border-bottom: none;
+    }
+
+    .pd-item i {
+      width: 16px;
+      text-align: center;
+      font-size: .9rem;
+    }
+
+    .pd-item:hover {
+      background: var(--taupe);
+      color: var(--gold);
+    }
+
+    .pd-item.danger:hover {
+      color: #e5534b;
+    }
+
+    /* ACTIVITY LIST */
+    .activity-list {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: flex-start;
+      gap: .85rem;
+      padding: .75rem;
+      border-radius: var(--r);
+      background: var(--taupe);
+      border: 1px solid var(--bdr);
+    }
+
+    .ai-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .85rem;
+      flex-shrink: 0;
+    }
+
+    .ai-body {
+      flex: 1;
+    }
+
+    .ai-title {
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--txt);
+      margin-bottom: .15rem;
+    }
+
+    .ai-time {
+      font-size: .72rem;
+      color: var(--txt-m);
+    }
+
+    /* GUEST TABLE */
+    .guest-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--gold-l);
+      border: 1.5px solid var(--bdr);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .ga-cell {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    /* ROOM CARDS */
+    .rooms-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    /* 3-col stats row — responsive */
+    .grid3-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Reports grid */
+    .grid-reports {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .report-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+      padding: .8rem 1rem;
+      background: var(--taupe);
+      border-radius: var(--r);
+      border: 1px solid var(--bdr);
+    }
+
+    .report-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .room-card {
+      background: var(--pearl);
+      border: 1px solid var(--bdr);
+      border-radius: var(--r2);
+      overflow: hidden;
+      box-shadow: var(--sh);
+      transition: var(--tr);
+    }
+
+    .room-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(42, 39, 35, .13);
+    }
+
+    .room-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .room-body {
+      padding: 1.1rem;
+    }
+
+    .room-name {
+      font-family: var(--ff-h);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: .3rem;
+      color: var(--txt);
+    }
+
+    .room-price {
+      color: var(--gold);
+      font-weight: 700;
+      font-size: .95rem;
+      margin-bottom: .6rem;
+    }
+
+    .room-meta {
+      font-size: .75rem;
+      color: var(--txt-m);
+      margin-bottom: .85rem;
+      display: flex;
+      gap: .75rem;
+    }
+
+    .room-actions {
+      display: flex;
+      gap: .5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .45rem .9rem;
+      border-radius: var(--r);
+      font-size: .8rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: var(--tr);
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-h);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .btn-outline:hover {
+      background: var(--gold);
+      color: #fff;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border-color: var(--bdr);
+      color: var(--txt-m);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* SETTINGS */
+    .settings-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.1rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--txt-m);
+      margin-bottom: .5rem;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: .75rem 1rem;
+      border: 1px solid var(--bdr);
+      border-radius: var(--r);
+      background: var(--taupe);
+      color: var(--txt);
+      font-family: var(--ff-b);
+      font-size: .9rem;
+      transition: var(--tr);
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--gold);
+      background: var(--pearl);
+    }
+
+    .form-input::placeholder {
+      color: var(--txt-m);
+    }
+
+    select.form-input {
+      cursor: pointer;
+    }
+
+    /* TOGGLE SWITCH */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: .85rem 0;
+      border-bottom: 1px solid var(--bdr);
+    }
+
+    .toggle-row:last-child {
+      border-bottom: none;
+    }
+
+    .toggle-info .tl {
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--txt);
+    }
+
+    .toggle-info .ts {
+      font-size: .75rem;
+      color: var(--txt-m);
+      margin-top: .1rem;
+    }
+
+    .toggle {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      inset: 0;
+      background: var(--bdr);
+      border-radius: 24px;
+      cursor: pointer;
+      transition: var(--tr);
+    }
+
+    .slider::before {
+      content: '';
+      position: absolute;
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background: #fff;
+      border-radius: 50%;
+      transition: var(--tr);
+    }
+
+    input:checked+.slider {
+      background: var(--gold);
+    }
+
+    input:checked+.slider::before {
+      transform: translateX(20px);
+    }
+
+    /* RESPONSIVE */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .4);
+      z-index: 150;
+    }
+
+    .overlay.show {
+      display: block;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: var(--r);
+    }
+
+    .table-wrap table {
+      width: 100%;
+      min-width: 500px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    .content {
+      max-width: 100%;
+    }
+
+    /* TABLE → CARDS at tablet & mobile */
+    @media(max-width: 1023px) {
+      .page-title {
+        font-size: 0.78rem;
+        font-weight: 600
+      }
+
+      .sb {
+        width: calc(100% - 60px);
+        max-width: 320px;
+        height: 100vh;
+        height: 100svh;
+        transform: translateX(var(--sb-hide));
+        transition: transform 0.34s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .sb.open {
+        transform: translateX(0) !important;
+      }
+
+      .overlay.show {
+        display: block;
+      }
+
+      .main {
+        margin-inline-start: 0 !important;
+      }
+
+      /* RTL button remains visible and fully interactive on mobile/tablet viewports */
+      #rtlBtn {
+        display: flex !important;
+      }
+
+      .sb-toggle {
+        display: flex;
+      }
+
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+
+      .grid3-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .grid-reports {
+        grid-template-columns: 1fr;
+      }
+
+      .grid2 {
+        grid-template-columns: 1fr;
+      }
+
+      .rooms-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .settings-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .qa-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .content {
+        padding: 1rem;
+      }
+
+      .topbar {
+        padding: 0 1rem;
+      }
+
+      .tb-profile-info {
+        display: none;
+      }
+
+      .topbar-right {
+        gap: .5rem;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+        border-radius: var(--r);
+      }
+
+      .table-wrap table {
+        min-width: 0;
+      }
+
+      .table-wrap,
+      .table-wrap tbody {
+        display: block;
+        width: 100%;
+      }
+
+      .table-wrap thead {
+        display: none;
+      }
+
+      .table-wrap tr {
+        display: block;
+        background: var(--pearl);
+        border: 1px solid var(--bdr);
+        border-radius: var(--r2);
+        margin-bottom: .85rem;
+        padding: .75rem 1rem;
+        box-shadow: var(--sh);
+      }
+
+      .table-wrap tbody tr:hover {
+        background: var(--pearl);
+      }
+
+      .table-wrap td {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: .45rem 0;
+        border-bottom: 1px solid var(--bdr) !important;
+        font-size: .84rem;
+      }
+
+      .table-wrap td:last-child {
+        border-bottom: none !important;
+        padding-bottom: 0;
+      }
+
+      /* Stacked labels now mirror perfectly in RTL due to logical margin-inline-end */
+      .table-wrap td::before {
+        content: attr(data-label);
+        font-size: .65rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--txt-m);
+        flex-shrink: 0;
+        margin-inline-end: .75rem;
+      }
+
+      .table-wrap td .ga-cell {
+        justify-content: flex-end;
+      }
+
+      #mobileActionsContainer {
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid var(--bdr);
+        margin-bottom: 1.5rem !important;
+      }
+
+      #mobileActionsContainer .tb-actions {
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        justify-content: flex-end !important;
+        gap: 0.6rem !important;
+      }
+
+      #mobileActionsContainer .tb-btn {
+        width: auto !important;
+        height: auto !important;
+        padding: 0.3rem 0.6rem !important;
+        border-radius: 6px !important;
+        font-size: 0.72rem !important;
+      }
+      
+      #mobileActionsContainer #themeBtn {
+        font-size: 1rem !important;
+        padding: 0.3rem 0.5rem !important;
+      }
+    }
+
+    /* Desktop 1151-1280px */
+    @media(max-width:1280px) and (min-width:1024px) {
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .rooms-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .grid2 {
+        grid-template-columns: 1.3fr 1fr
+      }
+
+      .grid3-stats {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* Mobile < 640px */
+    @media(max-width:640px) {
+      /* Sidebar styling inherited from 1023px block */
+      .main {
+        margin-inline-start: 0 !important;
+      }
+
+      .sb-toggle {
+        display: flex;
+      }
+
+      .kpi-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: .75rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .grid3-stats {
+        grid-template-columns: 1fr;
+        gap: .85rem;
+      }
+
+      .grid-reports {
+        grid-template-columns: 1fr;
+      }
+
+      .kpi-card {
+        padding: 1rem;
+        gap: .6rem;
+      }
+
+      .kpi-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+      }
+
+      .kpi-value {
+        font-size: 1.35rem;
+      }
+
+      .grid2 {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .rooms-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .qa-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: .5rem;
+      }
+
+      .settings-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .content {
+        padding: 1rem;
+      }
+
+      .topbar {
+        padding: 0 1rem;
+        height: 56px;
+      }
+
+      .page-title {
+        font-size: 1.1rem;
+      }
+
+      .sc {
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .sc-title {
+        font-size: .95rem;
+      }
+
+      .tb-btn {
+        width: 36px;
+        height: 36px;
+        min-width: 44px;
+      }
+
+      .tb-profile {
+        padding: .3rem .5rem;
+        gap: .4rem;
+      }
+
+      .tb-profile-info {
+        display: none;
+      }
+
+      .tb-profile-avatar {
+        width: 32px;
+        height: 32px;
+      }
+
+      .topbar-right {
+        gap: .4rem;
+      }
+
+      /* Mobile table: stack cards */
+      .table-wrap {
+        overflow-x: auto;
+        border-radius: var(--r);
+      }
+
+      table {
+        min-width: 0;
+        width: 100%;
+      }
+
+      th,
+      td {
+        padding: .65rem .75rem;
+        font-size: .8rem;
+      }
+
+      /* Stats grids stack to 2-col */
+      div[style*="grid-template-columns:repeat(4"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: .75rem !important;
+      }
+
+      /* Bar chart shrinks */
+      .bar-chart {
+        height: 90px;
+      }
+
+      /* Activity items */
+      .ai-title {
+        font-size: .8rem;
+      }
+
+      .ai-time {
+        font-size: .68rem;
+      }
+
+      /* Reduce animation */
+      .tab-panel {
+        animation: none;
+      }
+
+      .kpi-card:hover {
+        transform: none;
+      }
+
+      /* Room actions */
+      .room-actions {
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        min-height: 44px;
+      }
+
+      /* QA buttons */
+      .qa {
+        min-height: 44px;
+        padding: .65rem .75rem;
+        font-size: .8rem;
+      }
+    }
+
+    /* Small screens <= 420px */
+    @media(max-width:420px) {
+      .kpi-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .qa-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── Global mobile font reduction ── */
+    @media(max-width:768px) {
+      html {
+        font-size: 14.5px;
+      }
+
+      h1 {
+        font-size: 1.5rem !important;
+      }
+
+      h2 {
+        font-size: 1.2rem !important;
+      }
+
+      h3 {
+        font-size: 1rem !important;
+      }
+
+      .kpi-value {
+        font-size: 1.2rem !important;
+      }
+
+      .kpi-label {
+        font-size: 0.7rem !important;
+      }
+
+      .sc-title {
+        font-size: 0.88rem !important;
+      }
+
+      .tab-btn {
+        font-size: 0.76rem !important;
+      }
+
+      p,
+      li,
+      td,
+      th,
+      label {
+        font-size: 0.84rem;
+      }
+
+      .btn {
+        font-size: 0.83rem !important;
+      }
+    }
+
+    /* ── Laptop navbar font boost ── */
+    @media(min-width:769px) {
+      .sb-link {
+        font-size: 0.92rem;
+      }
+
+      .sb-section {
+        font-size: 0.68rem;
+      }
+
+      .sb-logo-text .n {
+        font-size: 1.05rem;
+      }
+
+      .sb-logo-text .s {
+        font-size: 0.58rem;
+      }
+
+      .page-title {
+        font-size: 1.05rem;
+      }
+
+      .tb-pname {
+        font-size: 0.88rem;
+      }
+
+      .tb-prole {
+        font-size: 0.72rem;
+      }
+
+      .sc-title {
+        font-size: 1.15rem;
+      }
+
+      .kpi-label {
+        font-size: 0.75rem;
+      }
+
+      .kpi-value {
+        font-size: 1.85rem;
+      }
+    }
+
+    /* ==========================================================================
+       SCRATCH RTL MIRROR SYSTEM OVERRIDES FOR MOBILE & TABLET (AND GLOBAL)
+       ========================================================================== */
+    [dir="rtl"] {
+      text-align: right;
+    }
+
+    /* Direction-dependent icons mirror dynamically on RTL */
+    [dir="rtl"] i.fa-arrow-right,
+    [dir="rtl"] i.fa-chevron-right {
+      transform: rotate(180deg);
+    }
+    [dir="rtl"] i.fa-arrow-left,
+    [dir="rtl"] i.fa-chevron-left {
+      transform: rotate(180deg);
+    }
+
+    /* Flip Notification dot on RTL */
+    [dir="rtl"] .notif-dot {
+      right: auto;
+      left: 4px;
+    }
+
+    /* Flip Profile Dropdown alignment on RTL */
+    [dir="rtl"] .profile-dropdown {
+      right: auto;
+      left: 0;
+    }
+
+    /* Stacked table ga-cell alignment on RTL */
+    @media(max-width: 1023px) {
+      [dir="rtl"] .table-wrap td .ga-cell {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="overlay" id="overlay"></div>
+  <!-- SIDEBAR -->
+  <aside class="sb" id="sidebar">
+    <a href="index.html" onclick="window.location.href='index.html'" class="sb-logo"
+      style="text-decoration:none;cursor:pointer;">
+      <img src="../assets/images/logo.svg" alt="Logo" onerror="this.style.display='none'">
+      <div class="sb-logo-text">
+        <div class="n">Haven Retreat</div>
+        <div class="s">Luxury Boutique</div>
+      </div>
+    </a>
+    <nav class="sb-nav">
+      <div class="sb-section">Main</div>
+      <a class="sb-link active" onclick="showTab('overview',this)"><i class="fa-solid fa-chart-pie"></i> Overview</a>
+      <a class="sb-link" onclick="showTab('bookings',this)"><i class="fa-solid fa-calendar-check"></i> Bookings <span
+          class="sb-badge">4</span></a>
+      <a class="sb-link" onclick="showTab('guests',this)"><i class="fa-solid fa-users"></i> Guests</a>
+      <a class="sb-link" onclick="showTab('rooms',this)"><i class="fa-solid fa-bed"></i> Rooms</a>
+      <a class="sb-link" onclick="showTab('analytics',this)"><i class="fa-solid fa-chart-line"></i> Analytics</a>
+      <a class="sb-link" onclick="showTab('reports',this)"><i class="fa-solid fa-file-lines"></i> Reports</a>
+      <!-- Mini Stats Widget -->
+      <div
+        style="margin:1.25rem 1rem 0.5rem;padding:1rem;background:var(--taupe);border-radius:var(--r2);border:1px solid var(--bdr);">
+        <div
+          style="font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--txt-m);font-weight:600;margin-bottom:.75rem;">
+          Live Status</div>
+        <div style="display:flex;flex-direction:column;gap:.6rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:.78rem;color:var(--txt-m);"><i class="fa-solid fa-circle"
+                style="color:#2d7a3a;font-size:.45rem;margin-inline-end:.4rem;"></i>Occupied</span>
+            <span style="font-size:.82rem;font-weight:700;color:var(--txt);">14 / 18</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:.78rem;color:var(--txt-m);"><i class="fa-solid fa-circle"
+                style="color:var(--gold);font-size:.45rem;margin-inline-end:.4rem;"></i>Pending</span>
+            <span style="font-size:.82rem;font-weight:700;color:var(--txt);">4 bookings</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:.78rem;color:var(--txt-m);"><i class="fa-solid fa-circle"
+                style="color:#3182ce;font-size:.45rem;margin-inline-end:.4rem;"></i>Check-ins</span>
+            <span style="font-size:.82rem;font-weight:700;color:var(--txt);">3 today</span>
+          </div>
+        </div>
+        <div style="margin-top:.75rem;height:4px;background:var(--bdr);border-radius:4px;">
+          <div style="height:100%;width:78%;background:var(--gold);border-radius:4px;"></div>
+        </div>
+        <div style="font-size:.65rem;color:var(--txt-m);margin-top:.3rem;text-align:center;">78% occupancy rate</div>
+      </div>
+    </nav>
+    <div class="sb-bottom">
+      <div id="mobileActionsContainer" style="margin-bottom: 1rem; display: none;">
+        <span style="font-size:0.88rem;font-weight:500;color:var(--txt);">Appearance</span>
+      </div>
+      <a class="sb-logout"
+        onclick="showTab('settings',null); if(window.innerWidth <= 1024 && typeof closeSb === 'function') closeSb();"
+        style="margin-bottom: 0.5rem;"><i class="fa-solid fa-gear" style="width:16px;"></i> Settings</a>
+      <a class="sb-logout" href="../pages/login.html"><i class="fa-solid fa-right-from-bracket" style="width:16px;"></i>
+        Sign Out</a>
+    </div>
+  </aside>
+  <!-- MAIN -->
+  <div class="main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="sb-toggle" id="sbToggle"><i class="fa-solid fa-bars"></i></button>
+        <h1 class="page-title" id="pageTitle">Overview</h1>
+      </div>
+      <div class="topbar-right">
+        <div class="tb-actions"><button class="tb-btn" id="rtlBtn" title="Toggle RTL"
+            style="font-size:.6rem;font-weight:700;letter-spacing:.8px;width:auto;padding:0 .5rem;border-radius:var(--r);">RTL</button>
+
+          <button class="tb-btn" id="themeBtn" title="Toggle Dark Mode"><i class="fa-regular fa-moon"></i></button>
+        </div>
+        <div class="tb-profile" id="profileBtn">
+          <div class="tb-profile-avatar">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=80&q=80"
+              alt="Admin User">
+          </div>
+          <div class="tb-profile-info">
+            <div class="tb-pname">Admin User</div>
+            <div class="tb-prole">Hotel Manager</div>
+          </div>
+          <i class="fa-solid fa-chevron-down chev" id="profileChev"></i>
+          <!-- Dropdown -->
+          <div class="profile-dropdown" id="profileDropdown">
+            <div class="pd-header" style="display:flex;align-items:center;gap:.75rem;">
+              <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=80&q=80"
+                alt="Admin User"
+                style="width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);flex-shrink:0;">
+              <div>
+                <div class="pd-name">Admin User</div>
+                <div class="pd-role">Hotel Manager · Haven Retreat</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="content">
+      <!-- OVERVIEW TAB -->
+      <div class="tab-panel active" id="tab-overview">
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:rgba(168,134,85,.12)"><i class="fa-solid fa-calendar-check"
+                style="color:#A88655"></i></div>
+            <div class="kpi-body">
+              <div class="kpi-label">Total Bookings</div>
+              <div class="kpi-value">248</div>
+              <div class="kpi-trend up"><i class="fa-solid fa-arrow-up"></i> +12% this month</div>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:rgba(45,122,58,.1)"><i class="fa-solid fa-dollar-sign"
+                style="color:#2d7a3a"></i></div>
+            <div class="kpi-body">
+              <div class="kpi-label">Monthly Revenue</div>
+              <div class="kpi-value">$84,920</div>
+              <div class="kpi-trend up"><i class="fa-solid fa-arrow-up"></i> +8.3% vs last month</div>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:rgba(66,153,225,.1)"><i class="fa-solid fa-users"
+                style="color:#3182ce"></i></div>
+            <div class="kpi-body">
+              <div class="kpi-label">Occupancy Rate</div>
+              <div class="kpi-value">78%</div>
+              <div class="kpi-trend up"><i class="fa-solid fa-arrow-up"></i> +5% this week</div>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:rgba(229,83,75,.1)"><i class="fa-solid fa-star"
+                style="color:#e5534b"></i></div>
+            <div class="kpi-body">
+              <div class="kpi-label">Avg. Rating</div>
+              <div class="kpi-value">4.8</div>
+              <div class="kpi-trend neu"><i class="fa-solid fa-minus"></i> Stable this month</div>
+            </div>
+          </div>
+        </div>
+        <!-- Charts + Activity -->
+        <div class="grid2">
+          <div class="sc">
+            <div class="sc-hdr"><span class="sc-title">Bookings This Week</span><span
+                style="font-size:.75rem;color:var(--txt-m);">Oct 12–18, 2026</span></div>
+            <div class="bar-chart">
+              <div class="bar-wrap">
+                <div class="bar gold" style="height:60%" data-v="18"></div>
+                <div class="bar-label">Mon</div>
+              </div>
+              <div class="bar-wrap">
+                <div class="bar gold" style="height:85%" data-v="26"></div>
+                <div class="bar-label">Tue</div>
+              </div>
+              <div class="bar-wrap">
+                <div class="bar" style="height:50%" data-v="15"></div>
+                <div class="bar-label">Wed</div>
+              </div>
+              <div class="bar-wrap">
+                <div class="bar gold" style="height:90%" data-v="28"></div>
+                <div class="bar-label">Thu</div>
+              </div>
+              <div class="bar-wrap">
+                <div class="bar gold" style="height:100%" data-v="31"></div>
+                <div class="bar-label">Fri</div>
+              </div>
+              <div class="bar-wrap">
+                <div class="bar" style="height:75%" data-v="23"></div>
+                <div class="bar-label">Sat</div>
+              </div>
+              <div class="bar-wrap">
+                <div class="bar" style="height:45%" data-v="14"></div>
+                <div class="bar-label">Sun</div>
+              </div>
+            </div>
+            <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--bdr);display:flex;gap:2rem;">
+              <div>
+                <div
+                  style="font-size:.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--txt-m);margin-bottom:.25rem;">
+                  Total</div>
+                <div style="font-weight:700;font-size:1.1rem;color:var(--txt)">155 bookings</div>
+              </div>
+              <div>
+                <div
+                  style="font-size:.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--txt-m);margin-bottom:.25rem;">
+                  Revenue</div>
+                <div style="font-weight:700;font-size:1.1rem;color:var(--gold)">$21,700</div>
+              </div>
+              <div>
+                <div
+                  style="font-size:.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--txt-m);margin-bottom:.25rem;">
+                  Avg/Night</div>
+                <div style="font-weight:700;font-size:1.1rem;color:var(--txt)">$299</div>
+              </div>
+            </div>
+            <!-- Pending Approvals -->
+            <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--bdr);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.85rem;">
+                <div style="font-family:var(--ff-h);font-size:.9rem;font-weight:700;color:var(--txt);">Pending Approvals
+                </div>
+                <span class="badge b-pending">4 awaiting</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:.6rem;">
+                <div
+                  style="display:flex;justify-content:space-between;align-items:center;padding:.7rem .85rem;background:var(--taupe);border-radius:var(--r);border:1px solid var(--bdr);">
+                  <div>
+                    <div style="font-size:.83rem;font-weight:600;color:var(--txt);">Sarah Miller — Garden Villa</div>
+                    <div style="font-size:.72rem;color:var(--txt-m);margin-top:.1rem;">Oct 20–24 · 4 nights · $1,800
+                    </div>
+                  </div>
+                  <div style="display:flex;gap:.4rem;"><button
+                      style="padding:.3rem .65rem;border:1px solid #2d7a3a;background:rgba(45,122,58,.08);color:#2d7a3a;border-radius:var(--r);font-size:.73rem;font-weight:700;cursor:pointer;"
+                      onclick="this.closest('div[style]').remove()">Approve</button><button
+                      style="padding:.3rem .65rem;border:1px solid #e5534b;background:rgba(229,83,75,.08);color:#e5534b;border-radius:var(--r);font-size:.73rem;font-weight:700;cursor:pointer;"
+                      onclick="this.closest('div[style]').remove()">Decline</button></div>
+                </div>
+                <div
+                  style="display:flex;justify-content:space-between;align-items:center;padding:.7rem .85rem;background:var(--taupe);border-radius:var(--r);border:1px solid var(--bdr);">
+                  <div>
+                    <div style="font-size:.83rem;font-weight:600;color:var(--txt);">Lisa Wong — Standard King Room</div>
+                    <div style="font-size:.72rem;color:var(--txt-m);margin-top:.1rem;">Nov 10–12 · 2 nights · $450</div>
+                  </div>
+                  <div style="display:flex;gap:.4rem;"><button
+                      style="padding:.3rem .65rem;border:1px solid #2d7a3a;background:rgba(45,122,58,.08);color:#2d7a3a;border-radius:var(--r);font-size:.73rem;font-weight:700;cursor:pointer;"
+                      onclick="this.closest('div[style]').remove()">Approve</button><button
+                      style="padding:.3rem .65rem;border:1px solid #e5534b;background:rgba(229,83,75,.08);color:#e5534b;border-radius:var(--r);font-size:.73rem;font-weight:700;cursor:pointer;"
+                      onclick="this.closest('div[style]').remove()">Decline</button></div>
+                </div>
+                <div
+                  style="display:flex;justify-content:space-between;align-items:center;padding:.7rem .85rem;background:var(--taupe);border-radius:var(--r);border:1px solid var(--bdr);">
+                  <div>
+                    <div style="font-size:.83rem;font-weight:600;color:var(--txt);">Marcus Flynn — Ocean View Suite
+                    </div>
+                    <div style="font-size:.72rem;color:var(--txt-m);margin-top:.1rem;">Nov 5–8 · 3 nights · $897</div>
+                  </div>
+                  <div style="display:flex;gap:.4rem;"><button
+                      style="padding:.3rem .65rem;border:1px solid #2d7a3a;background:rgba(45,122,58,.08);color:#2d7a3a;border-radius:var(--r);font-size:.73rem;font-weight:700;cursor:pointer;"
+                      onclick="this.closest('div[style]').remove()">Approve</button><button
+                      style="padding:.3rem .65rem;border:1px solid #e5534b;background:rgba(229,83,75,.08);color:#e5534b;border-radius:var(--r);font-size:.73rem;font-weight:700;cursor:pointer;"
+                      onclick="this.closest('div[style]').remove()">Decline</button></div>
+                </div>
+                <div
+                  style="display:flex;justify-content:space-between;align-items:center;padding:.7rem .85rem;background:var(--taupe);border-radius:var(--r);border:1px solid var(--bdr);">
+                  <div>
+                    <div style="font-size:.83rem;font-weight:600;color:var(--txt);">Priya Sharma — Executive Loft</div>
+                    <div style="font-size:.72rem;color:var(--txt-m);margin-top:.1rem;">Nov 18–21 · 3 nights · $1,140
+                    </div>
+                  </div>
+                  <div style="display:flex;gap:.4rem;"><button
+                      style="padding:.3rem .65rem;border:1px solid #2d7a3a;background:rgba(45,122,58,.08);color:#2d7a3a;border-radius:var(--r);font-size:.73rem;font-weight:700;cursor:pointer;"
+                      onclick="this.closest('div[style]').remove()">Approve</button><button
+                      style="padding:.3rem .65rem;border:1px solid #e5534b;background:rgba(229,83,75,.08);color:#e5534b;border-radius:var(--r);font-size:.73rem;font-weight:700;cursor:pointer;"
+                      onclick="this.closest('div[style]').remove()">Decline</button></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sc">
+            <div class="sc-hdr"><span class="sc-title">Recent Activity</span></div>
+            <div class="activity-list">
+              <div class="activity-item">
+                <div class="ai-icon" style="background:rgba(45,122,58,.1);color:#2d7a3a"><i
+                    class="fa-solid fa-check"></i></div>
+                <div class="ai-body">
+                  <div class="ai-title">New booking — Ocean View Suite</div>
+                  <div class="ai-time">2 minutes ago · John D.</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="ai-icon" style="background:rgba(168,134,85,.12);color:var(--gold)"><i
+                    class="fa-solid fa-star"></i></div>
+                <div class="ai-body">
+                  <div class="ai-title">New 5★ review received</div>
+                  <div class="ai-time">18 minutes ago · Sarah M.</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="ai-icon" style="background:rgba(229,83,75,.1);color:#e5534b"><i
+                    class="fa-solid fa-xmark"></i></div>
+                <div class="ai-body">
+                  <div class="ai-title">Booking cancelled — Garden Villa</div>
+                  <div class="ai-time">1 hour ago · James K.</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="ai-icon" style="background:rgba(66,153,225,.1);color:#3182ce"><i
+                    class="fa-solid fa-bell"></i></div>
+                <div class="ai-body">
+                  <div class="ai-title">Room Service request — Room 204</div>
+                  <div class="ai-time">2 hours ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="ai-icon" style="background:rgba(168,134,85,.12);color:var(--gold)"><i
+                    class="fa-solid fa-user-plus"></i></div>
+                <div class="ai-body">
+                  <div class="ai-title">New guest registered</div>
+                  <div class="ai-time">3 hours ago · Emily R.</div>
+                </div>
+              </div>
+            </div>
+            <!-- Today's Check-ins -->
+            <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--bdr);">
+              <div
+                style="font-family:var(--ff-h);font-size:.9rem;font-weight:700;color:var(--txt);margin-bottom:.85rem;">
+                Today's Check-ins</div>
+              <div style="display:flex;flex-direction:column;gap:.5rem;">
+                <div
+                  style="display:flex;justify-content:space-between;align-items:center;padding:.6rem .75rem;background:var(--taupe);border-radius:var(--r);border:1px solid var(--bdr);">
+                  <div style="display:flex;align-items:center;gap:.6rem;">
+                    <div
+                      style="width:28px;height:28px;border-radius:50%;background:var(--gold-l);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--gold);">
+                      JD</div>
+                    <div>
+                      <div style="font-size:.82rem;font-weight:600;color:var(--txt);">John Doe</div>
+                      <div style="font-size:.7rem;color:var(--txt-m);">Ocean View Suite · Room 301</div>
+                    </div>
+                  </div>
+                  <span class="badge b-confirmed">2:00 PM</span>
+                </div>
+                <div
+                  style="display:flex;justify-content:space-between;align-items:center;padding:.6rem .75rem;background:var(--taupe);border-radius:var(--r);border:1px solid var(--bdr);">
+                  <div style="display:flex;align-items:center;gap:.6rem;">
+                    <div
+                      style="width:28px;height:28px;border-radius:50%;background:var(--gold-l);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--gold);">
+                      ER</div>
+                    <div>
+                      <div style="font-size:.82rem;font-weight:600;color:var(--txt);">Emily Rose</div>
+                      <div style="font-size:.7rem;color:var(--txt-m);">Deluxe Suite · Room 204</div>
+                    </div>
+                  </div>
+                  <span class="badge b-pending">4:30 PM</span>
+                </div>
+                <div
+                  style="display:flex;justify-content:space-between;align-items:center;padding:.6rem .75rem;background:var(--taupe);border-radius:var(--r);border:1px solid var(--bdr);">
+                  <div style="display:flex;align-items:center;gap:.6rem;">
+                    <div
+                      style="width:28px;height:28px;border-radius:50%;background:var(--gold-l);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:var(--gold);">
+                      LW</div>
+                    <div>
+                      <div style="font-size:.82rem;font-weight:600;color:var(--txt);">Lisa Wong</div>
+                      <div style="font-size:.7rem;color:var(--txt-m);">Standard King · Room 108</div>
+                    </div>
+                  </div>
+                  <span class="badge b-confirmed">6:00 PM</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Extended Bookings Stats Row -->
+        <div class="grid3-stats">
+          <!-- Occupancy Ring -->
+          <div class="sc"
+            style="margin-bottom:0;display:flex;flex-direction:column;align-items:center;text-align:center;">
+            <div class="sc-hdr" style="width:100%;margin-bottom:1rem;"><span class="sc-title">Occupancy</span><span
+                style="font-size:.75rem;color:var(--txt-m);">This Week</span></div>
+            <div style="position:relative;width:110px;height:110px;margin-bottom:1rem;">
+              <svg viewBox='0 0 36 36' style='width:110px;height:110px;transform:rotate(-90deg);'>
+                <circle cx='18' cy='18' r='15.9' fill='none' stroke='var(--bdr)' stroke-width='3' />
+                <circle cx='18' cy='18' r='15.9' fill='none' stroke='var(--gold)' stroke-width='3'
+                  stroke-dasharray='78,100' stroke-linecap='round' />
+              </svg>
+              <div
+                style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                <div style="font-family:var(--ff-h);font-size:1.4rem;font-weight:700;color:var(--txt);">78%</div>
+                <div style="font-size:.65rem;color:var(--txt-m);">occupied</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:1.5rem;font-size:.78rem;">
+              <div>
+                <div style="font-weight:700;color:var(--txt);">14</div>
+                <div style="color:var(--txt-m);">Occupied</div>
+              </div>
+              <div>
+                <div style="font-weight:700;color:var(--txt);">4</div>
+                <div style="color:var(--txt-m);">Vacant</div>
+              </div>
+              <div>
+                <div style="font-weight:700;color:var(--txt);">1</div>
+                <div style="color:var(--txt-m);">Maint.</div>
+              </div>
+            </div>
+          </div>
+          <!-- Revenue Breakdown -->
+          <div class="sc" style="margin-bottom:0;">
+            <div class="sc-hdr" style="margin-bottom:1rem;"><span class="sc-title">Revenue Split</span></div>
+            <div style="display:flex;flex-direction:column;gap:0;">
+
+              <!-- Row -->
+              <div style="padding:.65rem 0;border-bottom:1px solid var(--bdr);">
+                <div
+                  style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.35rem;gap:.5rem;">
+                  <span style="font-size:.78rem;color:var(--txt-m);white-space:nowrap;">Room Bookings</span>
+                  <span style="font-size:.8rem;font-weight:700;color:var(--txt);flex-shrink:0;">$16,400</span>
+                </div>
+                <div style="height:5px;background:var(--bdr);border-radius:4px;">
+                  <div style="height:100%;width:75%;background:var(--gold);border-radius:4px;"></div>
+                </div>
+              </div>
+
+              <div style="padding:.65rem 0;border-bottom:1px solid var(--bdr);">
+                <div
+                  style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.35rem;gap:.5rem;">
+                  <span style="font-size:.78rem;color:var(--txt-m);white-space:nowrap;">Dining &amp; Bar</span>
+                  <span style="font-size:.8rem;font-weight:700;color:var(--txt);flex-shrink:0;">$3,200</span>
+                </div>
+                <div style="height:5px;background:var(--bdr);border-radius:4px;">
+                  <div style="height:100%;width:15%;background:#3182ce;border-radius:4px;"></div>
+                </div>
+              </div>
+
+              <div style="padding:.65rem 0;border-bottom:1px solid var(--bdr);">
+                <div
+                  style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.35rem;gap:.5rem;">
+                  <span style="font-size:.78rem;color:var(--txt-m);white-space:nowrap;">Spa &amp; Wellness</span>
+                  <span style="font-size:.8rem;font-weight:700;color:var(--txt);flex-shrink:0;">$1,450</span>
+                </div>
+                <div style="height:5px;background:var(--bdr);border-radius:4px;">
+                  <div style="height:100%;width:6%;background:#2d7a3a;border-radius:4px;"></div>
+                </div>
+              </div>
+
+              <div style="padding:.65rem 0;border-bottom:1px solid var(--bdr);">
+                <div
+                  style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.35rem;gap:.5rem;">
+                  <span style="font-size:.78rem;color:var(--txt-m);white-space:nowrap;">Events &amp; Tours</span>
+                  <span style="font-size:.8rem;font-weight:700;color:var(--txt);flex-shrink:0;">$650</span>
+                </div>
+                <div style="height:5px;background:var(--bdr);border-radius:4px;">
+                  <div style="height:100%;width:4%;background:#e5534b;border-radius:4px;"></div>
+                </div>
+              </div>
+
+              <!-- Total -->
+              <div style="padding:.7rem 0 0;display:flex;justify-content:space-between;align-items:center;">
+                <span
+                  style="font-size:.75rem;color:var(--txt-m);font-weight:600;text-transform:uppercase;letter-spacing:.5px;">Total
+                  Week</span>
+                <span style="font-weight:700;font-size:1rem;color:var(--gold);">$21,700</span>
+              </div>
+
+            </div>
+          </div>
+          <!-- Top Performing Rooms -->
+          <div class="sc" style="margin-bottom:0;">
+            <div class="sc-hdr" style="margin-bottom:1rem;">
+              <span class="sc-title">Top Rooms</span>
+              <span style="font-size:.72rem;color:var(--txt-m);">by bookings</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:0;">
+
+              <div
+                style="display:flex;align-items:center;gap:.75rem;padding:.6rem 0;border-bottom:1px solid var(--bdr);">
+                <div
+                  style="font-family:var(--ff-h);font-size:.9rem;font-weight:700;color:var(--gold);width:18px;flex-shrink:0;text-align:center;">
+                  1</div>
+                <div style="flex:1;min-width:0;">
+                  <div
+                    style="font-size:.8rem;font-weight:600;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                    Ocean View Suite</div>
+                  <div style="font-size:.68rem;color:var(--txt-m);white-space:nowrap;">28 bookings this month</div>
+                </div>
+                <span class="badge b-confirmed" style="flex-shrink:0;">$299</span>
+              </div>
+
+              <div
+                style="display:flex;align-items:center;gap:.75rem;padding:.6rem 0;border-bottom:1px solid var(--bdr);">
+                <div
+                  style="font-family:var(--ff-h);font-size:.9rem;font-weight:700;color:var(--txt-m);width:18px;flex-shrink:0;text-align:center;">
+                  2</div>
+                <div style="flex:1;min-width:0;">
+                  <div
+                    style="font-size:.8rem;font-weight:600;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                    Garden Villa</div>
+                  <div style="font-size:.68rem;color:var(--txt-m);white-space:nowrap;">21 bookings this month</div>
+                </div>
+                <span class="badge b-pending" style="flex-shrink:0;">$450</span>
+              </div>
+
+              <div
+                style="display:flex;align-items:center;gap:.75rem;padding:.6rem 0;border-bottom:1px solid var(--bdr);">
+                <div
+                  style="font-family:var(--ff-h);font-size:.9rem;font-weight:700;color:var(--txt-m);width:18px;flex-shrink:0;text-align:center;">
+                  3</div>
+                <div style="flex:1;min-width:0;">
+                  <div
+                    style="font-size:.8rem;font-weight:600;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                    Deluxe Nature Suite</div>
+                  <div style="font-size:.68rem;color:var(--txt-m);white-space:nowrap;">18 bookings this month</div>
+                </div>
+                <span class="badge b-completed" style="flex-shrink:0;">$349</span>
+              </div>
+
+              <div
+                style="display:flex;align-items:center;gap:.75rem;padding:.6rem 0;border-bottom:1px solid var(--bdr);">
+                <div
+                  style="font-family:var(--ff-h);font-size:.9rem;font-weight:700;color:var(--txt-m);width:18px;flex-shrink:0;text-align:center;">
+                  4</div>
+                <div style="flex:1;min-width:0;">
+                  <div
+                    style="font-size:.8rem;font-weight:600;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                    Executive Loft</div>
+                  <div style="font-size:.68rem;color:var(--txt-m);white-space:nowrap;">14 bookings this month</div>
+                </div>
+                <span class="badge b-completed" style="flex-shrink:0;">$380</span>
+              </div>
+
+              <div style="display:flex;align-items:center;gap:.75rem;padding:.6rem 0;">
+                <div
+                  style="font-family:var(--ff-h);font-size:.9rem;font-weight:700;color:var(--txt-m);width:18px;flex-shrink:0;text-align:center;">
+                  5</div>
+                <div style="flex:1;min-width:0;">
+                  <div
+                    style="font-size:.8rem;font-weight:600;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                    Premium Balcony</div>
+                  <div style="font-size:.68rem;color:var(--txt-m);white-space:nowrap;">11 bookings this month</div>
+                </div>
+                <span class="badge b-completed" style="flex-shrink:0;">$275</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Guest Satisfaction -->
+          <div class="sc" style="margin-bottom:0;">
+            <div class="sc-hdr" style="margin-bottom:1rem;">
+              <span class="sc-title">Guest Satisfaction</span>
+              <span style="font-size:.72rem;color:var(--txt-m);">This Month</span>
+            </div>
+            <div
+              style="display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid var(--bdr);">
+              <div>
+                <div style="font-family:var(--ff-h);font-size:2rem;font-weight:700;color:var(--txt);line-height:1;">4.9
+                </div>
+                <div style="display:flex;gap:2px;margin-top:.25rem;">
+                  <i class="fa-solid fa-star" style="color:var(--gold);font-size:.75rem;"></i>
+                  <i class="fa-solid fa-star" style="color:var(--gold);font-size:.75rem;"></i>
+                  <i class="fa-solid fa-star" style="color:var(--gold);font-size:.75rem;"></i>
+                  <i class="fa-solid fa-star" style="color:var(--gold);font-size:.75rem;"></i>
+                  <i class="fa-solid fa-star-half-stroke" style="color:var(--gold);font-size:.75rem;"></i>
+                </div>
+                <div style="font-size:.68rem;color:var(--txt-m);margin-top:.2rem;">248 reviews</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:.7rem;color:var(--txt-m);margin-bottom:.3rem;">NPS Score</div>
+                <div style="font-family:var(--ff-h);font-size:1.5rem;font-weight:700;color:#2d7a3a;">82</div>
+                <div style="font-size:.65rem;color:#2d7a3a;font-weight:600;">&#8593; Excellent</div>
+              </div>
+            </div>
+            <div
+              style="display:flex;flex-direction:column;gap:.4rem;padding:.6rem 0;border-bottom:1px solid var(--bdr);">
+              <div style="display:flex;align-items:center;gap:.5rem;">
+                <span style="font-size:.68rem;color:var(--txt-m);width:60px;flex-shrink:0;">Cleanliness</span>
+                <div style="flex:1;height:4px;background:var(--bdr);border-radius:4px;">
+                  <div style="height:100%;width:97%;background:var(--gold);border-radius:4px;"></div>
+                </div>
+                <span style="font-size:.68rem;font-weight:700;color:var(--txt);width:22px;text-align:right;">4.9</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:.5rem;">
+                <span style="font-size:.68rem;color:var(--txt-m);width:60px;flex-shrink:0;">Service</span>
+                <div style="flex:1;height:4px;background:var(--bdr);border-radius:4px;">
+                  <div style="height:100%;width:96%;background:var(--gold);border-radius:4px;"></div>
+                </div>
+                <span style="font-size:.68rem;font-weight:700;color:var(--txt);width:22px;text-align:right;">4.8</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:.5rem;">
+                <span style="font-size:.68rem;color:var(--txt-m);width:60px;flex-shrink:0;">Comfort</span>
+                <div style="flex:1;height:4px;background:var(--bdr);border-radius:4px;">
+                  <div style="height:100%;width:94%;background:var(--gold);border-radius:4px;"></div>
+                </div>
+                <span style="font-size:.68rem;font-weight:700;color:var(--txt);width:22px;text-align:right;">4.7</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:.5rem;">
+                <span style="font-size:.68rem;color:var(--txt-m);width:60px;flex-shrink:0;">Location</span>
+                <div style="flex:1;height:4px;background:var(--bdr);border-radius:4px;">
+                  <div style="height:100%;width:98%;background:#2d7a3a;border-radius:4px;"></div>
+                </div>
+                <span style="font-size:.68rem;font-weight:700;color:var(--txt);width:22px;text-align:right;">4.9</span>
+              </div>
+            </div>
+            <div style="padding:.6rem 0;">
+              <div
+                style="font-size:.68rem;color:var(--txt-m);margin-bottom:.35rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;">
+                Latest Review</div>
+              <div style="font-size:.78rem;color:var(--txt);font-style:italic;line-height:1.45;">"Absolutely
+                breathtaking stay. The staff went above and beyond every single day."</div>
+              <div style="font-size:.68rem;color:var(--txt-m);margin-top:.3rem;">&#8212; Sarah M. &nbsp;&middot;&nbsp;
+                Ocean View Suite</div>
+            </div>
+          </div>
+        </div>
+        <!-- Quick Actions -->
+        <div class="sc">
+          <div class="sc-hdr"><span class="sc-title">Quick Actions</span></div>
+          <div class="qa-grid" style="grid-template-columns:repeat(4,1fr)">
+            <a class="qa" href="booking.html"><i class="fa-solid fa-plus"></i> New Booking</a>
+            <a class="qa" href="rooms.html"><i class="fa-solid fa-bed"></i> Manage Rooms</a>
+            <a class="qa" href="contact.html"><i class="fa-solid fa-envelope"></i> Messages</a>
+            <a class="qa" href="../index.html"><i class="fa-solid fa-eye"></i> View Website</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOOKINGS TAB -->
+      <div class="tab-panel" id="tab-bookings">
+        <div class="sc">
+          <div class="sc-hdr">
+            <span class="sc-title">All Bookings</span>
+            <a href="booking.html">+ New Booking</a>
+          </div>
+          <div style="display:flex;gap:.75rem;margin-bottom:1.25rem;flex-wrap:wrap;">
+            <select class="form-input" style="width:auto;padding:.45rem .85rem;font-size:.82rem;">
+              <option>All Status</option>
+              <option>Confirmed</option>
+              <option>Pending</option>
+              <option>Completed</option>
+              <option>Cancelled</option>
+            </select>
+            <input class="form-input" type="text" placeholder="Search guest or room..."
+              style="flex:1;min-width:200px;padding:.45rem .85rem;font-size:.82rem;">
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Guest</th>
+                  <th>Room</th>
+                  <th>Check-in</th>
+                  <th>Check-out</th>
+                  <th>Nights</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="color:var(--txt-m);font-size:.75rem">#HR-001</td>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">JD</div>John Doe
+                    </div>
+                  </td>
+                  <td>Ocean View Suite</td>
+                  <td>Oct 15, 2026</td>
+                  <td>Oct 18, 2026</td>
+                  <td>3</td>
+                  <td>$897</td>
+                  <td><span class="badge b-confirmed">Confirmed</span></td>
+                  <td><button class="btn btn-ghost" style="padding:.3rem .6rem;font-size:.75rem"><i
+                        class="fa-solid fa-eye"></i></button></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--txt-m);font-size:.75rem">#HR-002</td>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">SM</div>Sarah Miller
+                    </div>
+                  </td>
+                  <td>Garden Villa</td>
+                  <td>Oct 20, 2026</td>
+                  <td>Oct 24, 2026</td>
+                  <td>4</td>
+                  <td>$1,800</td>
+                  <td><span class="badge b-pending">Pending</span></td>
+                  <td><button class="btn btn-ghost" style="padding:.3rem .6rem;font-size:.75rem"><i
+                        class="fa-solid fa-eye"></i></button></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--txt-m);font-size:.75rem">#HR-003</td>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">JK</div>James King
+                    </div>
+                  </td>
+                  <td>Executive Loft</td>
+                  <td>Oct 10, 2026</td>
+                  <td>Oct 12, 2026</td>
+                  <td>2</td>
+                  <td>$760</td>
+                  <td><span class="badge b-cancelled">Cancelled</span></td>
+                  <td><button class="btn btn-ghost" style="padding:.3rem .6rem;font-size:.75rem"><i
+                        class="fa-solid fa-eye"></i></button></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--txt-m);font-size:.75rem">#HR-004</td>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">ER</div>Emily Rose
+                    </div>
+                  </td>
+                  <td>Deluxe Nature Suite</td>
+                  <td>Nov 2, 2026</td>
+                  <td>Nov 5, 2026</td>
+                  <td>3</td>
+                  <td>$1,050</td>
+                  <td><span class="badge b-confirmed">Confirmed</span></td>
+                  <td><button class="btn btn-ghost" style="padding:.3rem .6rem;font-size:.75rem"><i
+                        class="fa-solid fa-eye"></i></button></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--txt-m);font-size:.75rem">#HR-005</td>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">AB</div>Alex Brown
+                    </div>
+                  </td>
+                  <td>Premium Balcony</td>
+                  <td>Sep 28, 2026</td>
+                  <td>Oct 1, 2026</td>
+                  <td>3</td>
+                  <td>$1,050</td>
+                  <td><span class="badge b-completed">Completed</span></td>
+                  <td><button class="btn btn-ghost" style="padding:.3rem .6rem;font-size:.75rem"><i
+                        class="fa-solid fa-eye"></i></button></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--txt-m);font-size:.75rem">#HR-006</td>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">LW</div>Lisa Wong
+                    </div>
+                  </td>
+                  <td>Standard King Room</td>
+                  <td>Nov 10, 2026</td>
+                  <td>Nov 12, 2026</td>
+                  <td>2</td>
+                  <td>$450</td>
+                  <td><span class="badge b-pending">Pending</span></td>
+                  <td><button class="btn btn-ghost" style="padding:.3rem .6rem;font-size:.75rem"><i
+                        class="fa-solid fa-eye"></i></button></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--txt-m);font-size:.75rem">#HR-007</td>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">MF</div>Marcus Flynn
+                    </div>
+                  </td>
+                  <td>Ocean View Suite</td>
+                  <td>Nov 5, 2026</td>
+                  <td>Nov 8, 2026</td>
+                  <td>3</td>
+                  <td>$897</td>
+                  <td><span class="badge b-pending">Pending</span></td>
+                  <td><button class="btn btn-ghost" style="padding:.3rem .6rem;font-size:.75rem"><i
+                        class="fa-solid fa-eye"></i></button></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--txt-m);font-size:.75rem">#HR-008</td>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">PS</div>Priya Sharma
+                    </div>
+                  </td>
+                  <td>Executive Loft</td>
+                  <td>Nov 18, 2026</td>
+                  <td>Nov 21, 2026</td>
+                  <td>3</td>
+                  <td>$1,140</td>
+                  <td><span class="badge b-pending">Pending</span></td>
+                  <td><button class="btn btn-ghost" style="padding:.3rem .6rem;font-size:.75rem"><i
+                        class="fa-solid fa-eye"></i></button></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--txt-m);font-size:.75rem">#HR-009</td>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">RK</div>Ravi Kumar
+                    </div>
+                  </td>
+                  <td>Deluxe Nature Suite</td>
+                  <td>Dec 1, 2026</td>
+                  <td>Dec 5, 2026</td>
+                  <td>4</td>
+                  <td>$1,396</td>
+                  <td><span class="badge b-confirmed">Confirmed</span></td>
+                  <td><button class="btn btn-ghost" style="padding:.3rem .6rem;font-size:.75rem"><i
+                        class="fa-solid fa-eye"></i></button></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--txt-m);font-size:.75rem">#HR-010</td>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">CN</div>Claire Nguyen
+                    </div>
+                  </td>
+                  <td>Garden Villa</td>
+                  <td>Nov 28, 2026</td>
+                  <td>Dec 2, 2026</td>
+                  <td>4</td>
+                  <td>$1,800</td>
+                  <td><span class="badge b-confirmed">Confirmed</span></td>
+                  <td><button class="btn btn-ghost" style="padding:.3rem .6rem;font-size:.75rem"><i
+                        class="fa-solid fa-eye"></i></button></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--txt-m);font-size:.75rem">#HR-011</td>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">TO</div>Thomas O'Brien
+                    </div>
+                  </td>
+                  <td>Premium Balcony</td>
+                  <td>Oct 5, 2026</td>
+                  <td>Oct 8, 2026</td>
+                  <td>3</td>
+                  <td>$825</td>
+                  <td><span class="badge b-completed">Completed</span></td>
+                  <td><button class="btn btn-ghost" style="padding:.3rem .6rem;font-size:.75rem"><i
+                        class="fa-solid fa-eye"></i></button></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--txt-m);font-size:.75rem">#HR-012</td>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">FA</div>Fatima Al-Rashid
+                    </div>
+                  </td>
+                  <td>Ocean View Suite</td>
+                  <td>Dec 10, 2026</td>
+                  <td>Dec 15, 2026</td>
+                  <td>5</td>
+                  <td>$1,495</td>
+                  <td><span class="badge b-confirmed">Confirmed</span></td>
+                  <td><button class="btn btn-ghost" style="padding:.3rem .6rem;font-size:.75rem"><i
+                        class="fa-solid fa-eye"></i></button></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--txt-m);font-size:.75rem">#HR-013</td>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">GS</div>George Santos
+                    </div>
+                  </td>
+                  <td>Standard King Room</td>
+                  <td>Sep 15, 2026</td>
+                  <td>Sep 17, 2026</td>
+                  <td>2</td>
+                  <td>$450</td>
+                  <td><span class="badge b-completed">Completed</span></td>
+                  <td><button class="btn btn-ghost" style="padding:.3rem .6rem;font-size:.75rem"><i
+                        class="fa-solid fa-eye"></i></button></td>
+                </tr>
+                <tr>
+                  <td style="color:var(--txt-m);font-size:.75rem">#HR-014</td>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">YM</div>Yuki Matsuda
+                    </div>
+                  </td>
+                  <td>Garden Villa</td>
+                  <td>Oct 8, 2026</td>
+                  <td>Oct 10, 2026</td>
+                  <td>2</td>
+                  <td>$900</td>
+                  <td><span class="badge b-cancelled">Cancelled</span></td>
+                  <td><button class="btn btn-ghost" style="padding:.3rem .6rem;font-size:.75rem"><i
+                        class="fa-solid fa-eye"></i></button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- Booking Stats -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:1.5rem;">
+          <div class="sc" style="margin-bottom:0;text-align:center;padding:1.25rem;">
+            <div
+              style="font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--txt-m);margin-bottom:.35rem;">
+              Confirmed</div>
+            <div style="font-family:var(--ff-h);font-size:1.75rem;font-weight:700;color:#2d7a3a;">142</div>
+            <div style="font-size:.72rem;color:var(--txt-m);margin-top:.2rem;">57% of total</div>
+          </div>
+          <div class="sc" style="margin-bottom:0;text-align:center;padding:1.25rem;">
+            <div
+              style="font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--txt-m);margin-bottom:.35rem;">
+              Pending</div>
+            <div style="font-family:var(--ff-h);font-size:1.75rem;font-weight:700;color:var(--gold);">38</div>
+            <div style="font-size:.72rem;color:var(--txt-m);margin-top:.2rem;">15% of total</div>
+          </div>
+          <div class="sc" style="margin-bottom:0;text-align:center;padding:1.25rem;">
+            <div
+              style="font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--txt-m);margin-bottom:.35rem;">
+              Completed</div>
+            <div style="font-family:var(--ff-h);font-size:1.75rem;font-weight:700;color:var(--txt);">56</div>
+            <div style="font-size:.72rem;color:var(--txt-m);margin-top:.2rem;">23% of total</div>
+          </div>
+          <div class="sc" style="margin-bottom:0;text-align:center;padding:1.25rem;">
+            <div
+              style="font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--txt-m);margin-bottom:.35rem;">
+              Cancelled</div>
+            <div style="font-family:var(--ff-h);font-size:1.75rem;font-weight:700;color:#e5534b;">12</div>
+            <div style="font-size:.72rem;color:var(--txt-m);margin-top:.2rem;">5% of total</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GUESTS TAB -->
+      <div class="tab-panel" id="tab-guests">
+        <div class="sc">
+          <div class="sc-hdr"><span class="sc-title">Guest Directory</span></div>
+          <div style="display:flex;gap:.75rem;margin-bottom:1.25rem;flex-wrap:wrap;">
+            <input class="form-input" type="text" placeholder="Search by name or email..."
+              style="flex:1;min-width:200px;padding:.45rem .85rem;font-size:.82rem;">
+            <select class="form-input" style="width:auto;padding:.45rem .85rem;font-size:.82rem;">
+              <option>All Members</option>
+              <option>Gold</option>
+              <option>Silver</option>
+              <option>Regular</option>
+            </select>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Guest</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Stays</th>
+                  <th>Spent</th>
+                  <th>Member Tier</th>
+                  <th>Last Stay</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">JD</div>
+                      <div>
+                        <div style="font-weight:600;font-size:.87rem;">John Doe</div>
+                        <div style="font-size:.72rem;color:var(--txt-m)">Room 301</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>john.doe@email.com</td>
+                  <td>+1 555 0101</td>
+                  <td>8</td>
+                  <td>$12,400</td>
+                  <td><span class="badge b-confirmed">Gold</span></td>
+                  <td>Oct 15, 2026</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">SM</div>
+                      <div>
+                        <div style="font-weight:600;font-size:.87rem;">Sarah Miller</div>
+                        <div style="font-size:.72rem;color:var(--txt-m)">Room 205</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>sarah.miller@email.com</td>
+                  <td>+1 555 0202</td>
+                  <td>5</td>
+                  <td>$8,200</td>
+                  <td><span class="badge b-pending">Silver</span></td>
+                  <td>Oct 20, 2026</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">ER</div>
+                      <div>
+                        <div style="font-weight:600;font-size:.87rem;">Emily Rose</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>emily.rose@email.com</td>
+                  <td>+1 555 0303</td>
+                  <td>2</td>
+                  <td>$3,100</td>
+                  <td><span class="badge b-completed">Regular</span></td>
+                  <td>Nov 2, 2026</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">AB</div>
+                      <div>
+                        <div style="font-weight:600;font-size:.87rem;">Alex Brown</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>alex.brown@email.com</td>
+                  <td>+1 555 0404</td>
+                  <td>11</td>
+                  <td>$19,500</td>
+                  <td><span class="badge b-confirmed">Gold</span></td>
+                  <td>Sep 30, 2026</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">LW</div>
+                      <div>
+                        <div style="font-weight:600;font-size:.87rem;">Lisa Wong</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>lisa.wong@email.com</td>
+                  <td>+1 555 0505</td>
+                  <td>3</td>
+                  <td>$4,750</td>
+                  <td><span class="badge b-completed">Regular</span></td>
+                  <td>Nov 10, 2026</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">MF</div>
+                      <div>
+                        <div style="font-weight:600;font-size:.87rem;">Marcus Flynn</div>
+                        <div style="font-size:.72rem;color:var(--txt-m)">Room 412</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>marcus.f@email.com</td>
+                  <td>+1 555 0606</td>
+                  <td>4</td>
+                  <td>$6,100</td>
+                  <td><span class="badge b-pending">Silver</span></td>
+                  <td>Nov 5, 2026</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">PS</div>
+                      <div>
+                        <div style="font-weight:600;font-size:.87rem;">Priya Sharma</div>
+                        <div style="font-size:.72rem;color:var(--txt-m)">Room 108</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>priya.s@email.com</td>
+                  <td>+91 98765 43210</td>
+                  <td>3</td>
+                  <td>$5,300</td>
+                  <td><span class="badge b-completed">Regular</span></td>
+                  <td>Nov 18, 2026</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">RK</div>
+                      <div>
+                        <div style="font-weight:600;font-size:.87rem;">Ravi Kumar</div>
+                        <div style="font-size:.72rem;color:var(--txt-m)">Room 215</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>ravi.kumar@email.com</td>
+                  <td>+91 99887 76655</td>
+                  <td>6</td>
+                  <td>$9,800</td>
+                  <td><span class="badge b-pending">Silver</span></td>
+                  <td>Dec 1, 2026</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">CN</div>
+                      <div>
+                        <div style="font-weight:600;font-size:.87rem;">Claire Nguyen</div>
+                        <div style="font-size:.72rem;color:var(--txt-m)">Room 320</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>claire.n@email.com</td>
+                  <td>+1 555 0707</td>
+                  <td>7</td>
+                  <td>$11,200</td>
+                  <td><span class="badge b-confirmed">Gold</span></td>
+                  <td>Nov 28, 2026</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">FA</div>
+                      <div>
+                        <div style="font-weight:600;font-size:.87rem;">Fatima Al-Rashid</div>
+                        <div style="font-size:.72rem;color:var(--txt-m)">Room 501</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>fatima.r@email.com</td>
+                  <td>+971 50 123 4567</td>
+                  <td>9</td>
+                  <td>$16,400</td>
+                  <td><span class="badge b-confirmed">Gold</span></td>
+                  <td>Dec 10, 2026</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">TO</div>
+                      <div>
+                        <div style="font-weight:600;font-size:.87rem;">Thomas O'Brien</div>
+                        <div style="font-size:.72rem;color:var(--txt-m)">Room 102</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>thomas.ob@email.com</td>
+                  <td>+44 7700 900123</td>
+                  <td>2</td>
+                  <td>$1,650</td>
+                  <td><span class="badge b-completed">Regular</span></td>
+                  <td>Oct 5, 2026</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">YM</div>
+                      <div>
+                        <div style="font-weight:600;font-size:.87rem;">Yuki Matsuda</div>
+                        <div style="font-size:.72rem;color:var(--txt-m)">Room 406</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>yuki.m@email.com</td>
+                  <td>+81 90 1234 5678</td>
+                  <td>1</td>
+                  <td>$900</td>
+                  <td><span class="badge b-completed">Regular</span></td>
+                  <td>Oct 8, 2026</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- Guest Loyalty Stats -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:1.5rem;">
+          <div class="sc" style="margin-bottom:0;text-align:center;padding:1.25rem;">
+            <div
+              style="font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--txt-m);margin-bottom:.35rem;">
+              Total Guests</div>
+            <div style="font-family:var(--ff-h);font-size:1.75rem;font-weight:700;color:var(--txt);">1,284</div>
+            <div style="font-size:.72rem;color:var(--txt-m);margin-top:.2rem;">+24 this month</div>
+          </div>
+          <div class="sc" style="margin-bottom:0;text-align:center;padding:1.25rem;">
+            <div
+              style="font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--txt-m);margin-bottom:.35rem;">
+              Gold Members</div>
+            <div style="font-family:var(--ff-h);font-size:1.75rem;font-weight:700;color:var(--gold);">312</div>
+            <div style="font-size:.72rem;color:var(--txt-m);margin-top:.2rem;">24% of guests</div>
+          </div>
+          <div class="sc" style="margin-bottom:0;text-align:center;padding:1.25rem;">
+            <div
+              style="font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--txt-m);margin-bottom:.35rem;">
+              Avg. Lifetime Value</div>
+            <div style="font-family:var(--ff-h);font-size:1.75rem;font-weight:700;color:var(--txt);">$4,820</div>
+            <div style="font-size:.72rem;color:var(--txt-m);margin-top:.2rem;">per guest</div>
+          </div>
+          <div class="sc" style="margin-bottom:0;text-align:center;padding:1.25rem;">
+            <div
+              style="font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--txt-m);margin-bottom:.35rem;">
+              Return Rate</div>
+            <div style="font-family:var(--ff-h);font-size:1.75rem;font-weight:700;color:#2d7a3a;">68%</div>
+            <div style="font-size:.72rem;color:var(--txt-m);margin-top:.2rem;">book again</div>
+          </div>
+        </div>
+        <!-- Top Spenders -->
+        <div class="sc" style="margin-top:1.5rem;">
+          <div class="sc-hdr"><span class="sc-title">Top Spenders This Month</span></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Guest</th>
+                  <th>Stays</th>
+                  <th>Total Spent</th>
+                  <th>Favourite Room</th>
+                  <th>Last Visit</th>
+                  <th>Tier</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">AB</div>
+                      <div>
+                        <div style="font-weight:600;font-size:.87rem;">Alex Brown</div>
+                        <div style="font-size:.72rem;color:var(--txt-m)">alex.brown@email.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>11</td>
+                  <td style="font-weight:700;color:var(--gold);">$19,500</td>
+                  <td>Ocean View Suite</td>
+                  <td>Sep 30, 2026</td>
+                  <td><span class="badge b-confirmed">Gold</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">JD</div>
+                      <div>
+                        <div style="font-weight:600;font-size:.87rem;">John Doe</div>
+                        <div style="font-size:.72rem;color:var(--txt-m)">john.doe@email.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>8</td>
+                  <td style="font-weight:700;color:var(--gold);">$12,400</td>
+                  <td>Ocean View Suite</td>
+                  <td>Oct 15, 2026</td>
+                  <td><span class="badge b-confirmed">Gold</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">SM</div>
+                      <div>
+                        <div style="font-weight:600;font-size:.87rem;">Sarah Miller</div>
+                        <div style="font-size:.72rem;color:var(--txt-m)">sarah.miller@email.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>5</td>
+                  <td style="font-weight:700;">$8,200</td>
+                  <td>Garden Villa</td>
+                  <td>Oct 20, 2026</td>
+                  <td><span class="badge b-pending">Silver</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">MF</div>
+                      <div>
+                        <div style="font-weight:600;font-size:.87rem;">Marcus Flynn</div>
+                        <div style="font-size:.72rem;color:var(--txt-m)">marcus.f@email.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>4</td>
+                  <td style="font-weight:700;">$6,100</td>
+                  <td>Executive Loft</td>
+                  <td>Nov 5, 2026</td>
+                  <td><span class="badge b-pending">Silver</span></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="ga-cell">
+                      <div class="guest-avatar">PS</div>
+                      <div>
+                        <div style="font-weight:600;font-size:.87rem;">Priya Sharma</div>
+                        <div style="font-size:.72rem;color:var(--txt-m)">priya.s@email.com</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>3</td>
+                  <td style="font-weight:700;">$5,300</td>
+                  <td>Deluxe Nature Suite</td>
+                  <td>Nov 18, 2026</td>
+                  <td><span class="badge b-completed">Regular</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ANALYTICS TAB -->
+      <div class="tab-panel" id="tab-analytics">
+        <div class="kpi-grid" style="margin-bottom:1.5rem;">
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:rgba(168,134,85,.12)"><i class="fa-solid fa-chart-line"
+                style="color:#A88655"></i></div>
+            <div class="kpi-body">
+              <div class="kpi-label">Page Views</div>
+              <div class="kpi-value">18,420</div>
+              <div class="kpi-trend up"><i class="fa-solid fa-arrow-up"></i> +22% this month</div>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:rgba(49,130,206,.1)"><i class="fa-solid fa-users"
+                style="color:#3182ce"></i></div>
+            <div class="kpi-body">
+              <div class="kpi-label">Unique Visitors</div>
+              <div class="kpi-value">6,814</div>
+              <div class="kpi-trend up"><i class="fa-solid fa-arrow-up"></i> +15% this month</div>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:rgba(45,122,58,.1)"><i class="fa-solid fa-percent"
+                style="color:#2d7a3a"></i></div>
+            <div class="kpi-body">
+              <div class="kpi-label">Conversion Rate</div>
+              <div class="kpi-value">3.6%</div>
+              <div class="kpi-trend up"><i class="fa-solid fa-arrow-up"></i> +0.4% vs last month</div>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon" style="background:rgba(229,83,75,.1)"><i class="fa-solid fa-stopwatch"
+                style="color:#e5534b"></i></div>
+            <div class="kpi-body">
+              <div class="kpi-label">Avg. Session</div>
+              <div class="kpi-value">4m 12s</div>
+              <div class="kpi-trend neu"><i class="fa-solid fa-minus"></i> Stable</div>
+            </div>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="sc">
+            <div class="sc-hdr"><span class="sc-title">Monthly Revenue Trend</span><span
+                style="font-size:.75rem;color:var(--txt-m);">Last 6 months</span></div>
+            <div class="bar-chart" style="height:140px;">
+              <div class="bar-wrap">
+                <div class="bar" style="height:55%" data-v="$52k"></div>
+                <div class="bar-label">May</div>
+              </div>
+              <div class="bar-wrap">
+                <div class="bar gold" style="height:65%" data-v="$61k"></div>
+                <div class="bar-label">Jun</div>
+              </div>
+              <div class="bar-wrap">
+                <div class="bar gold" style="height:80%" data-v="$74k"></div>
+                <div class="bar-label">Jul</div>
+              </div>
+              <div class="bar-wrap">
+                <div class="bar" style="height:70%" data-v="$66k"></div>
+                <div class="bar-label">Aug</div>
+              </div>
+              <div class="bar-wrap">
+                <div class="bar gold" style="height:90%" data-v="$84k"></div>
+                <div class="bar-label">Sep</div>
+              </div>
+              <div class="bar-wrap">
+                <div class="bar gold" style="height:100%" data-v="$92k"></div>
+                <div class="bar-label">Oct</div>
+              </div>
+            </div>
+            <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--bdr);display:flex;gap:2rem;">
+              <div>
+                <div
+                  style="font-size:.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--txt-m);margin-bottom:.2rem;">
+                  Best Month</div>
+                <div style="font-weight:700;color:var(--gold);">October — $92k</div>
+              </div>
+              <div>
+                <div
+                  style="font-size:.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--txt-m);margin-bottom:.2rem;">
+                  6M Total</div>
+                <div style="font-weight:700;color:var(--txt);">$429,000</div>
+              </div>
+              <div>
+                <div
+                  style="font-size:.7rem;letter-spacing:1px;text-transform:uppercase;color:var(--txt-m);margin-bottom:.2rem;">
+                  YoY Growth</div>
+                <div style="font-weight:700;color:#2d7a3a;">+18.4%</div>
+              </div>
+            </div>
+          </div>
+          <div class="sc">
+            <div class="sc-hdr"><span class="sc-title">Traffic Sources</span></div>
+            <div style="display:flex;flex-direction:column;gap:.85rem;">
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:.3rem;"><span
+                    style="font-weight:600;">Direct</span><span style="color:var(--txt-m);">42% · 2,862</span></div>
+                <div style="height:7px;background:var(--bdr);border-radius:4px;">
+                  <div style="height:100%;width:42%;background:var(--gold);border-radius:4px;"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:.3rem;"><span
+                    style="font-weight:600;">Organic Search</span><span style="color:var(--txt-m);">28% · 1,908</span>
+                </div>
+                <div style="height:7px;background:var(--bdr);border-radius:4px;">
+                  <div style="height:100%;width:28%;background:#3182ce;border-radius:4px;"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:.3rem;"><span
+                    style="font-weight:600;">Social Media</span><span style="color:var(--txt-m);">18% · 1,227</span>
+                </div>
+                <div style="height:7px;background:var(--bdr);border-radius:4px;">
+                  <div style="height:100%;width:18%;background:#2d7a3a;border-radius:4px;"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:.3rem;"><span
+                    style="font-weight:600;">Referral</span><span style="color:var(--txt-m);">8% · 545</span></div>
+                <div style="height:7px;background:var(--bdr);border-radius:4px;">
+                  <div style="height:100%;width:8%;background:#805ad5;border-radius:4px;"></div>
+                </div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:.3rem;"><span
+                    style="font-weight:600;">Email Campaign</span><span style="color:var(--txt-m);">4% · 272</span>
+                </div>
+                <div style="height:7px;background:var(--bdr);border-radius:4px;">
+                  <div style="height:100%;width:4%;background:#e5534b;border-radius:4px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Top Pages -->
+        <div class="sc">
+          <div class="sc-hdr"><span class="sc-title">Top Performing Pages</span><span
+              style="font-size:.75rem;color:var(--txt-m);">This month</span></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Page</th>
+                  <th>Views</th>
+                  <th>Avg. Time</th>
+                  <th>Bounce Rate</th>
+                  <th>Conversions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:600;">/rooms</td>
+                  <td>5,420</td>
+                  <td>3m 45s</td>
+                  <td>28%</td>
+                  <td style="color:#2d7a3a;font-weight:700;">214</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">/booking</td>
+                  <td>4,180</td>
+                  <td>5m 12s</td>
+                  <td>18%</td>
+                  <td style="color:#2d7a3a;font-weight:700;">186</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">/ (Home)</td>
+                  <td>3,960</td>
+                  <td>2m 30s</td>
+                  <td>42%</td>
+                  <td style="color:#2d7a3a;font-weight:700;">98</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">/spa-wellness</td>
+                  <td>2,140</td>
+                  <td>4m 02s</td>
+                  <td>31%</td>
+                  <td style="color:#2d7a3a;font-weight:700;">64</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:600;">/gallery</td>
+                  <td>1,820</td>
+                  <td>1m 55s</td>
+                  <td>55%</td>
+                  <td style="color:var(--txt-m);font-weight:700;">12</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- REPORTS TAB -->
+      <div class="tab-panel" id="tab-reports">
+        <!-- Header -->
+        <div class="sc-hdr" style="margin-bottom:1.5rem;flex-wrap:wrap;gap:.75rem;">
+          <span class="sc-title">Reports Center</span>
+          <button class="btn btn-primary"><i class="fa-solid fa-download"></i> Export All</button>
+        </div>
+
+        <!-- 2-col grid → stacks on tablet/mobile -->
+        <div class="grid-reports">
+
+          <!-- Monthly Summary -->
+          <div class="sc" style="margin-bottom:0;">
+            <div class="sc-hdr">
+              <span class="sc-title">Monthly Summary</span>
+              <span style="font-size:.75rem;color:var(--txt-m);">October 2026</span>
+            </div>
+            <div style="display:flex;flex-direction:column;">
+              <div
+                style="display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--bdr);">
+                <span style="font-size:.85rem;color:var(--txt-m);">Total Bookings</span>
+                <span style="font-weight:700;">248</span>
+              </div>
+              <div
+                style="display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--bdr);">
+                <span style="font-size:.85rem;color:var(--txt-m);">Total Revenue</span>
+                <span style="font-weight:700;color:var(--gold);">$84,920</span>
+              </div>
+              <div
+                style="display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--bdr);">
+                <span style="font-size:.85rem;color:var(--txt-m);">Avg. Booking Value</span>
+                <span style="font-weight:700;">$342</span>
+              </div>
+              <div
+                style="display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--bdr);">
+                <span style="font-size:.85rem;color:var(--txt-m);">New Guests</span>
+                <span style="font-weight:700;">24</span>
+              </div>
+              <div
+                style="display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--bdr);">
+                <span style="font-size:.85rem;color:var(--txt-m);">Returning Guests</span>
+                <span style="font-weight:700;">186</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;">
+                <span style="font-size:.85rem;color:var(--txt-m);">Cancellation Rate</span>
+                <span style="font-weight:700;color:#e5534b;">4.8%</span>
+              </div>
+            </div>
+            <button class="btn btn-outline" style="width:100%;margin-top:1rem;justify-content:center;">
+              <i class="fa-solid fa-file-pdf"></i> Download PDF
+            </button>
+          </div>
+
+          <!-- Scheduled Reports -->
+          <div class="sc" style="margin-bottom:0;">
+            <div class="sc-hdr"><span class="sc-title">Scheduled Reports</span></div>
+            <div style="display:flex;flex-direction:column;gap:.75rem;">
+
+              <div class="report-row">
+                <div class="report-info">
+                  <div style="font-size:.85rem;font-weight:600;color:var(--txt);">Weekly Occupancy Report</div>
+                  <div style="font-size:.72rem;color:var(--txt-m);margin-top:.2rem;">Every Monday · Email</div>
+                </div>
+                <span class="badge b-confirmed">Active</span>
+              </div>
+
+              <div class="report-row">
+                <div class="report-info">
+                  <div style="font-size:.85rem;font-weight:600;color:var(--txt);">Monthly Revenue Summary</div>
+                  <div style="font-size:.72rem;color:var(--txt-m);margin-top:.2rem;">1st of month · Email + PDF</div>
+                </div>
+                <span class="badge b-confirmed">Active</span>
+              </div>
+
+              <div class="report-row">
+                <div class="report-info">
+                  <div style="font-size:.85rem;font-weight:600;color:var(--txt);">Guest Satisfaction Report</div>
+                  <div style="font-size:.72rem;color:var(--txt-m);margin-top:.2rem;">Bi-weekly · Email</div>
+                </div>
+                <span class="badge b-pending">Paused</span>
+              </div>
+
+              <div class="report-row">
+                <div class="report-info">
+                  <div style="font-size:.85rem;font-weight:600;color:var(--txt);">Annual Financial Statement</div>
+                  <div style="font-size:.72rem;color:var(--txt-m);margin-top:.2rem;">Jan 1 · PDF only</div>
+                </div>
+                <span class="badge b-completed">Scheduled</span>
+              </div>
+
+            </div>
+          </div>
+
+        </div><!-- /grid-reports -->
+      </div>
+
+      <!-- ROOMS TAB -->
+      <div class="tab-panel" id="tab-rooms">
+        <div class="sc-hdr" style="margin-bottom:1.25rem;"><span class="sc-title">Room Inventory</span><a
+            href="rooms.html" class="btn btn-primary">View Public Listing</a></div>
+        <div class="rooms-grid">
+          <div class="room-card">
+            <img class="room-img"
+              src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=600&q=80"
+              alt="Ocean View Suite">
+            <div class="room-body">
+              <div class="room-name">Ocean View Suite</div>
+              <div class="room-price">$299 <span style="font-weight:400;font-size:.8rem;color:var(--txt-m)">/
+                  night</span></div>
+              <div class="room-meta"><span><i class="fa-solid fa-expand"></i> 65m²</span><span><i
+                    class="fa-solid fa-user"></i> 2 Adults</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;"><span
+                  class="badge b-confirmed">Available</span><span style="font-size:.75rem;color:var(--txt-m)">Floor 3 ·
+                  Room 301</span></div>
+              <div class="room-actions"><button class="btn btn-primary" style="flex:1">Edit</button><button
+                  class="btn btn-ghost">Block</button></div>
+            </div>
+          </div>
+          <div class="room-card">
+            <img class="room-img"
+              src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=600&q=80"
+              alt="Deluxe Nature Suite">
+            <div class="room-body">
+              <div class="room-name">Deluxe Nature Suite</div>
+              <div class="room-price">$349 <span style="font-weight:400;font-size:.8rem;color:var(--txt-m)">/
+                  night</span></div>
+              <div class="room-meta"><span><i class="fa-solid fa-expand"></i> 80m²</span><span><i
+                    class="fa-solid fa-user"></i> 2 Adults</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;"><span
+                  class="badge b-pending">Occupied</span><span style="font-size:.75rem;color:var(--txt-m)">Floor 2 ·
+                  Room 204</span></div>
+              <div class="room-actions"><button class="btn btn-primary" style="flex:1">Edit</button><button
+                  class="btn btn-ghost">Block</button></div>
+            </div>
+          </div>
+          <div class="room-card">
+            <img class="room-img"
+              src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=600&q=80"
+              alt="Garden Villa">
+            <div class="room-body">
+              <div class="room-name">Garden Villa</div>
+              <div class="room-price">$450 <span style="font-weight:400;font-size:.8rem;color:var(--txt-m)">/
+                  night</span></div>
+              <div class="room-meta"><span><i class="fa-solid fa-expand"></i> 120m²</span><span><i
+                    class="fa-solid fa-user"></i> 4 Adults</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;"><span
+                  class="badge b-confirmed">Available</span><span style="font-size:.75rem;color:var(--txt-m)">Villa Wing
+                  · V2</span></div>
+              <div class="room-actions"><button class="btn btn-primary" style="flex:1">Edit</button><button
+                  class="btn btn-ghost">Block</button></div>
+            </div>
+          </div>
+          <div class="room-card">
+            <img class="room-img"
+              src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=600&q=80"
+              alt="Executive Loft">
+            <div class="room-body">
+              <div class="room-name">Executive Loft</div>
+              <div class="room-price">$380 <span style="font-weight:400;font-size:.8rem;color:var(--txt-m)">/
+                  night</span></div>
+              <div class="room-meta"><span><i class="fa-solid fa-expand"></i> 90m²</span><span><i
+                    class="fa-solid fa-user"></i> 2 Adults</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;"><span
+                  class="badge b-cancelled">Maintenance</span><span style="font-size:.75rem;color:var(--txt-m)">Floor 4
+                  · Room 401</span></div>
+              <div class="room-actions"><button class="btn btn-primary" style="flex:1">Edit</button><button
+                  class="btn btn-ghost">Block</button></div>
+            </div>
+          </div>
+          <div class="room-card">
+            <img class="room-img"
+              src="https://images.unsplash.com/photo-1560347876-aeef00ee58a1?auto=format&fit=crop&w=600&q=80"
+              alt="Premium Balcony">
+            <div class="room-body">
+              <div class="room-name">Premium Balcony Room</div>
+              <div class="room-price">$275 <span style="font-weight:400;font-size:.8rem;color:var(--txt-m)">/
+                  night</span></div>
+              <div class="room-meta"><span><i class="fa-solid fa-expand"></i> 55m²</span><span><i
+                    class="fa-solid fa-user"></i> 2 Adults</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;"><span
+                  class="badge b-confirmed">Available</span><span style="font-size:.75rem;color:var(--txt-m)">Floor 2 ·
+                  Room 210</span></div>
+              <div class="room-actions"><button class="btn btn-primary" style="flex:1">Edit</button><button
+                  class="btn btn-ghost">Block</button></div>
+            </div>
+          </div>
+          <div class="room-card">
+            <img class="room-img"
+              src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=600&q=80"
+              alt="Standard King">
+            <div class="room-body">
+              <div class="room-name">Standard King Room</div>
+              <div class="room-price">$225 <span style="font-weight:400;font-size:.8rem;color:var(--txt-m)">/
+                  night</span></div>
+              <div class="room-meta"><span><i class="fa-solid fa-expand"></i> 42m²</span><span><i
+                    class="fa-solid fa-user"></i> 2 Adults</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;"><span
+                  class="badge b-pending">Occupied</span><span style="font-size:.75rem;color:var(--txt-m)">Floor 1 ·
+                  Room 108</span></div>
+              <div class="room-actions"><button class="btn btn-primary" style="flex:1">Edit</button><button
+                  class="btn btn-ghost">Block</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETTINGS TAB -->
+      <div class="tab-panel" id="tab-settings">
+        <div class="settings-grid">
+          <div class="sc">
+            <div class="sc-hdr"><span class="sc-title">Hotel Information</span></div>
+            <div class="form-group"><label class="form-label">Hotel Name</label><input class="form-input" type="text"
+                value="Haven Retreat"></div>
+            <div class="form-group"><label class="form-label">Email Address</label><input class="form-input"
+                type="email" value="contact@havenretreat.com"></div>
+            <div class="form-group"><label class="form-label">Phone Number</label><input class="form-input" type="tel"
+                value="+1 (800) 123-4567"></div>
+            <div class="form-group"><label class="form-label">Address</label><input class="form-input" type="text"
+                value="1 Oceanfront Drive, Malibu, CA"></div>
+            <div class="form-group"><label class="form-label">Check-in Time</label><input class="form-input" type="time"
+                value="15:00"></div>
+            <div class="form-group"><label class="form-label">Check-out Time</label><input class="form-input"
+                type="time" value="11:00"></div>
+            <button class="btn btn-primary" style="width:100%;margin-top:.5rem">Save Changes</button>
+          </div>
+          <div>
+            <div class="sc" style="margin-bottom:1.5rem;">
+              <div class="sc-hdr"><span class="sc-title">Notifications</span></div>
+              <div class="toggle-row">
+                <div class="toggle-info">
+                  <div class="tl">New Bookings</div>
+                  <div class="ts">Alert on every new booking</div>
+                </div><label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
+              </div>
+              <div class="toggle-row">
+                <div class="toggle-info">
+                  <div class="tl">Cancellations</div>
+                  <div class="ts">Alert on booking cancellations</div>
+                </div><label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
+              </div>
+              <div class="toggle-row">
+                <div class="toggle-info">
+                  <div class="tl">Guest Reviews</div>
+                  <div class="ts">Notify when review is posted</div>
+                </div><label class="toggle"><input type="checkbox"><span class="slider"></span></label>
+              </div>
+              <div class="toggle-row">
+                <div class="toggle-info">
+                  <div class="tl">Room Service</div>
+                  <div class="ts">Notify on room service requests</div>
+                </div><label class="toggle"><input type="checkbox" checked><span class="slider"></span></label>
+              </div>
+            </div>
+            <div class="sc">
+              <div class="sc-hdr"><span class="sc-title">Display</span></div>
+              <div class="toggle-row">
+                <div class="toggle-info">
+                  <div class="tl">Dark Mode</div>
+                  <div class="ts">Switch dashboard appearance</div>
+                </div><label class="toggle"><input type="checkbox" id="dmToggle"><span class="slider"></span></label>
+              </div>
+              <div class="toggle-row">
+                <div class="toggle-info">
+                  <div class="tl">Compact View</div>
+                  <div class="ts">Reduce spacing for more content</div>
+                </div><label class="toggle"><input type="checkbox"><span class="slider"></span></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+  <script>
+    function showTab(id, el) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+      document.getElementById('tab-' + id).classList.add('active');
+      if (el) { el.classList.add('active'); }
+      const titles = { overview: 'Overview', bookings: 'Bookings', guests: 'Guests', rooms: 'Rooms', settings: 'Settings', analytics: 'Analytics', reports: 'Reports' };
+      document.getElementById('pageTitle').textContent = titles[id] || 'Dashboard';
+      if (window.innerWidth <= 1024 && typeof closeSb === 'function') closeSb();
+    }
+    // Sidebar toggle (mobile)
+    const sbToggle = document.getElementById('sbToggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    function closeSb() { sidebar.classList.remove('open'); overlay.classList.remove('show'); }
+    sbToggle.addEventListener('click', () => { sidebar.classList.toggle('open'); overlay.classList.toggle('show'); });
+    overlay.addEventListener('click', closeSb);
+    // Profile dropdown
+    const profileBtn = document.getElementById('profileBtn');
+    const profileDropdown = document.getElementById('profileDropdown');
+    const profileChev = document.getElementById('profileChev');
+    function closeDropdown() { profileDropdown.classList.remove('open'); profileChev.style.transform = ''; }
+    profileBtn.addEventListener('click', e => { e.stopPropagation(); profileDropdown.classList.toggle('open'); profileChev.style.transform = profileDropdown.classList.contains('open') ? 'rotate(180deg)' : ''; });
+    document.addEventListener('click', closeDropdown);
+    profileDropdown.addEventListener('click', e => e.stopPropagation());
+    // Theme toggle
+    const themeBtn = document.getElementById('themeBtn');
+    const dmToggle = document.getElementById('dmToggle');
+    function setTheme(dark) {
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+      themeBtn.innerHTML = dark ? '<i class="fa-regular fa-sun"></i>' : '<i class="fa-regular fa-moon"></i>';
+      if (dmToggle) dmToggle.checked = dark;
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+    }
+    themeBtn.addEventListener('click', () => setTheme(document.documentElement.getAttribute('data-theme') !== 'dark'));
+    if (dmToggle) dmToggle.addEventListener('change', e => setTheme(e.target.checked));
+    const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    if (savedTheme === 'dark') setTheme(true);
+    // RTL toggle
+    const rtlBtn = document.getElementById('rtlBtn');
+    function setRTL(on) {
+      document.documentElement.setAttribute('dir', on ? 'rtl' : 'ltr');
+      document.documentElement.setAttribute('lang', on ? 'ar' : 'en');
+      rtlBtn.textContent = on ? 'LTR' : 'RTL';
+      rtlBtn.style.color = on ? 'var(--gold)' : '';
+      rtlBtn.style.borderColor = on ? 'var(--gold)' : '';
+      rtlBtn.style.background = on ? 'var(--gold-l)' : '';
+      localStorage.setItem('hr-admin-rtl', on ? '1' : '0');
+    }
+    rtlBtn.addEventListener('click', () => setRTL(document.documentElement.getAttribute('dir') !== 'rtl'));
+    if (localStorage.getItem('hr-admin-rtl') === '1') setRTL(true);
+    // Auto-label table cells for responsive card layout
+    document.querySelectorAll('.table-wrap table').forEach(t => { const hs = [...t.querySelectorAll('thead th')].map(h => h.textContent.trim()); t.querySelectorAll('tbody tr').forEach(r => [...r.querySelectorAll('td')].forEach((td, i) => { if (hs[i]) td.setAttribute('data-label', hs[i]); })); });
+
+    // Mobile Actions Mover
+    function initMobileActions() {
+      const tbActions = document.querySelector('.tb-actions');
+      const mobContainer = document.getElementById('mobileActionsContainer');
+      const tbRight = document.querySelector('.topbar-right');
+      const pBtn = document.getElementById('profileBtn');
+
+      function moveActions() {
+        if (window.innerWidth <= 1023) {
+          if (mobContainer && tbActions && tbActions.parentNode !== mobContainer) {
+            mobContainer.appendChild(tbActions);
+          }
+        } else {
+          if (tbRight && tbActions && tbActions.parentNode !== tbRight) {
+            tbRight.insertBefore(tbActions, pBtn);
+          }
+        }
+      }
+      window.addEventListener('resize', moveActions);
+      moveActions();
+    }
+    initMobileActions();
+  </script>
+</body>
+
+</html>

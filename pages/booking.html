@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+    <link rel="shortcut icon" href="../assets/images/favicon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking & Offers | Haven Retreat</title>
+    <!-- Cache busting parameter added to CSS -->
+    <link rel="stylesheet" href="../assets/css/style.css?v=2">
+    <link rel="stylesheet" href="../assets/css/dark-mode.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        .navbar {
+            position: relative;
+            background: var(--bg-main);
+            box-shadow: none;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .exclusive-offers-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .dining-card {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        @media (max-width: 900px) {
+            .exclusive-offers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dining-card {
+                grid-template-columns: 1fr;
+            }
+
+            .dining-card .m-offer-img {
+                height: 250px !important;
+                min-height: 250px !important;
+            }
+
+            .dining-card .m-offer-body {
+                padding: 2rem;
+            }
+        }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LodgingBusiness",
+      "name": "Haven Retreat",
+      "description": "A luxury boutique hotel offering personalized experiences in the heart of nature.",
+      "url": "https://www.havenretreat.com",
+      "telephone": "+1-555-123-4567",
+      "email": "hello@havenretreat.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "123 Luxury Lane",
+        "addressLocality": "Nature Valley",
+        "addressCountry": "BS"
+      },
+      "starRating": { "@type": "Rating", "ratingValue": "5" },
+      "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "15420" },
+      "amenityFeature": [
+        {"@type": "LocationFeatureSpecification", "name": "Free WiFi", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Spa", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Pool", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Restaurant", "value": true}
+      ]
+    }
+    </script>
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+</head>
+
+<body>
+
+
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="../assets/images/logo.svg" alt="Haven Retreat">
+                <span class="logo-text">
+                    <span class="logo-name">Haven Retreat</span>
+                    <span class="logo-sub">Luxury Boutique</span>
+                </span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Toggle Navigation"><i class="fa-solid fa-bars"></i></button>
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="#">Home <i class="fa-solid fa-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html">Home 1</a></li>
+                        <li><a href="index-2.html">Home 2</a></li>
+                    </ul>
+                </li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="rooms.html">Rooms</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="dropdown">
+                    <a href="#">Dashboard <i class="fa-solid fa-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="guest-dashboard.html"><i class="fa-solid fa-user"
+                                    style="margin-right:0.4rem;color:var(--primary);"></i>Guest Dashboard</a></li>
+                        <li><a href="admin-dashboard.html"><i class="fa-solid fa-shield-halved"
+                                    style="margin-right:0.4rem;color:var(--primary);"></i>Admin Dashboard</a></li>
+                    </ul>
+                </li>
+                <li class="nav-appearance-mobile">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:0.88rem;font-weight:500;color:var(--text-main);">Appearance</span>
+                        <div style="display:flex;align-items:center;gap:0.6rem;">
+                            <button id="rtl-toggle" aria-label="Toggle RTL" title="Toggle RTL / LTR"
+                                style="background:none;border:1px solid var(--border-color);border-radius:6px;cursor:pointer;color:var(--text-main);font-size:0.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;padding:0.3rem 0.6rem;font-family:inherit;">RTL</button>
+                            <button id="theme-toggle" aria-label="Toggle Dark Mode"
+                                style="background:none;border:1px solid var(--border-color);border-radius:6px;cursor:pointer;color:var(--text-main);font-size:1rem;display:flex;align-items:center;padding:0.3rem 0.5rem;"><i
+                                    class="fa-solid fa-moon"></i></button>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-utils-mobile">
+                    <a href="login.html" class="btn btn-outline"
+                        style="display:flex;align-items:center;justify-content:center;width:100%;text-align:center;padding:0.7rem 1rem;font-size:0.88rem;font-weight:600;border-radius:8px;margin-bottom:0.75rem;">Login</a>
+                    <a href="booking.html" class="btn btn-primary"
+                        style="display:flex;align-items:center;justify-content:center;width:100%;text-align:center;padding:0.7rem 1rem;font-size:0.88rem;font-weight:700;border-radius:8px;">Book
+                        Now</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Slider Area -->
+    <section class="hero"
+        style="background-image: url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&w=1600&q=80'); height: 60vh; min-height: 450px;">
+        <div class="hero-content" style="background: rgba(0,0,0,0.4); padding: 3rem; border-radius: 8px;">
+            <h1 style="font-size: 3.5rem; text-shadow: 0 4px 10px rgba(0,0,0,0.5);">Let Your Mind Travel</h1>
+            <p style="font-size: 1.25rem;">Discover our boutique destination and save up to 20% on extended stays.</p>
+        </div>
+    </section>
+
+    <!-- Marriott Style Search Bar -->
+    <div class="container">
+        <div class="marriott-search">
+            <div class="m-field">
+                <label>Destination</label>
+                <input type="text" value="Nature Valley, NV" readonly>
+            </div>
+            <div class="m-field">
+                <label>Dates</label>
+                <input type="text" value="Nov 15 - Nov 20" readonly>
+            </div>
+            <div class="m-field">
+                <label>Rooms & Guests</label>
+                <input type="text" value="1 Room, 2 Guests" readonly>
+            </div>
+            <div>
+                <button class="m-btn" style="width: 100%;">Find Hotels</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabbed Experiences (Working Buttons) -->
+    <section class="section container">
+        <div class="text-center" style="margin-bottom: 3rem;">
+            <h2 style="font-size: 2.5rem; font-weight: 400;">Explore the Retreat</h2>
+        </div>
+
+        <div class="m-tabs">
+            <button class="m-tab active" data-target="tab-rooms">Accommodations</button>
+            <button class="m-tab" data-target="tab-dining">Dining</button>
+            <button class="m-tab" data-target="tab-wellness">Wellness</button>
+        </div>
+
+        <!-- Rooms Tab -->
+        <div id="tab-rooms" class="m-tab-content active">
+            <div class="m-offer-grid">
+                <div class="m-offer-card">
+                    <img src="https://images.unsplash.com/photo-1631049552240-59c37f38802b?auto=format&w=800&q=80"
+                        alt="Suite" class="m-offer-img">
+                    <div class="m-offer-body">
+                        <h3>Premium Suites</h3>
+                        <p>Elevate your stay with our most spacious suites offering panoramic valley views, luxury
+                            linens, and dedicated service.</p>
+                        <a href="rooms.html" class="m-link">Explore Suites</a>
+                    </div>
+                </div>
+                <div class="m-offer-card">
+                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&w=800&q=80"
+                        alt="Guest Room" class="m-offer-img">
+                    <div class="m-offer-body">
+                        <h3>Guest Rooms</h3>
+                        <p>Find your balance in our signature guest rooms. Comfortably appointed with all the boutique
+                            amenities you desire.</p>
+                        <a href="rooms.html" class="m-link">Explore Rooms</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dining Tab -->
+        <div id="tab-dining" class="m-tab-content">
+            <div class="m-offer-grid">
+                <div class="m-offer-card dining-card" style="grid-column: 1 / -1; display: grid; gap: 0;">
+                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&w=1600&q=80"
+                        alt="Dining" class="m-offer-img" style="height: 100%; min-height: 300px;">
+                    <div class="m-offer-body" style="display: flex; flex-direction: column; justify-content: center;">
+                        <h3>Farm-to-Table Dining</h3>
+                        <p>Indulge in our locally sourced, seasonal menus crafted by executive chefs. Whether it's a
+                            romantic dinner or a hearty morning breakfast, every meal is an experience.</p>
+                        <a href="services.html" class="m-link">View Menus</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wellness Tab -->
+        <div id="tab-wellness" class="m-tab-content">
+            <div class="m-offer-grid">
+                <div class="m-offer-card">
+                    <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&w=800&q=80"
+                        alt="Spa" class="m-offer-img">
+                    <div class="m-offer-body">
+                        <h3>Tranquil Spa</h3>
+                        <p>Restore your body and mind with our signature massage therapies and holistic wellness
+                            treatments.</p>
+                        <a href="services.html" class="m-link">Discover Spa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promotional Section -->
+    <section class="section" style="background-color: var(--bg-secondary);">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Exclusive Offers</h2>
+            <div class="m-offer-grid exclusive-offers-grid">
+                <div class="m-offer-card">
+                    <img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&w=800&q=80"
+                        alt="Offer" class="m-offer-img" style="height: 200px;">
+                    <div class="m-offer-body">
+                        <h3 style="font-size: 1.25rem;">Stay Longer & Save</h3>
+                        <p style="font-size: 0.9rem;">Book 3 or more consecutive nights and save up to 20% on your
+                            entire stay.</p>
+                        <a href="#" class="m-link">Book Now</a>
+                    </div>
+                </div>
+                <div class="m-offer-card">
+                    <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&w=800&q=80"
+                        alt="Offer" class="m-offer-img" style="height: 200px;">
+                    <div class="m-offer-body">
+                        <h3 style="font-size: 1.25rem;">Romance Package</h3>
+                        <p style="font-size: 0.9rem;">Includes champagne on arrival, late checkout, and complimentary
+                            breakfast in bed.</p>
+                        <a href="#" class="m-link">View Details</a>
+                    </div>
+                </div>
+                <div class="m-offer-card">
+                    <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&w=800&q=80"
+                        alt="Offer" class="m-offer-img" style="height: 200px;">
+                    <div class="m-offer-body">
+                        <h3 style="font-size: 1.25rem;">Member Rates</h3>
+                        <p style="font-size: 0.9rem;">Join our guest portal for free and unlock instant savings and
+                            exclusive perks.</p>
+                        <a href="guest-dashboard.html" class="m-link">Join Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+
+
+    <footer>
+        <div class="container">
+
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="footer-brand">
+                        <img src="../assets/images/logo.svg" alt="Haven Retreat">
+                        <span class="logo-text">
+                            <span class="logo-name">Haven Retreat</span>
+                            <span class="logo-sub">Luxury Boutique</span>
+                        </span>
+                    </a>
+                    <p style="margin-bottom: 1.5rem; line-height: 1.6;">A luxury boutique hotel offering personalized
+                        experiences in the heart of nature. Escape the ordinary and discover your sanctuary.</p>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-x-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="services.html">Spa &amp; Dining</a></li>
+                        <li><a href="gallery.html">Photo Gallery</a></li>
+                        <li><a href="about.html">Our Story</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Guest Information</h4>
+                    <ul>
+                        <li><a href="#">Check-in &amp; Check-out</a></li>
+                        <li><a href="#">Cancellation Policy</a></li>
+                        <li><a href="#">FAQ &amp; Support</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms &amp; Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul style="gap: 0.75rem;">
+                        <li style="display: flex; gap: 0.5rem; align-items: flex-start;"><i
+                                class="fa-solid fa-location-dot" style="margin-top: 4px; color: var(--primary);"></i>
+                            <span>123 Luxury Lane, Nature Valley<br>Nassau, Bahamas</span></li>
+                        <li style="display: flex; gap: 0.5rem; align-items: center;"><i class="fa-solid fa-phone"
+                                style="color: var(--primary);"></i> +1 (555) 123-4567</li>
+                        <li style="display: flex; gap: 0.5rem; align-items: center;"><i class="fa-solid fa-envelope"
+                                style="color: var(--primary);"></i> hello@havenretreat.com</li>
+                    </ul>
+                    <a href="#" class="footer-subscribe-btn-sm" id="footer-subscribe-btn"
+                        style="margin-top:1.25rem;display:inline-flex;align-items:center;gap:0.5rem;padding:0.55rem 1.25rem;background:var(--primary);color:#fff;border:none;border-radius:var(--radius-sm);font-size:0.85rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background 0.2s,transform 0.2s;"
+                        onmouseover="this.style.background='var(--primary-hover)';this.style.transform='translateY(-1px)'"
+                        onmouseout="this.style.background='var(--primary)';this.style.transform=''">
+                        <i class="fa-solid fa-envelope"></i> Subscribe Now
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Haven Retreat Boutique Hotel. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main JS -->
+    <script src="../assets/js/main.js"></script>
+    <script>
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.m-tab');
+            const contents = document.querySelectorAll('.m-tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+
+                    tab.classList.add('active');
+                    const targetId = tab.getAttribute('data-target');
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+        });
+    </script>
+    <script>
+        var nlForm = document.getElementById('newsletter-form');
+        if (nlForm) { nlForm.addEventListener('submit', function (e) { e.preventDefault(); var v = document.getElementById('nl-email').value; if (v && v.includes('@')) { document.getElementById('nl-success').style.display = 'block'; nlForm.style.display = 'none'; } }); }
+    </script>
+</body>
+
+</html>

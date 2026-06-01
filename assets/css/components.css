@@ -1,0 +1,28 @@
+/*
+ * Haven Retreat — Enhanced Form Validation
+ * Client-side validation with user-friendly error messages
+ */
+
+/* Validation styles */
+.field-group { position: relative; margin-bottom: 1.25rem; }
+.field-group label { display: block; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 0.5rem; }
+.field-group .form-control { width: 100%; padding: 0.875rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-sm); background: var(--bg-main); color: var(--text-main); font-family: var(--font-body); font-size: 1rem; transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
+.field-group .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(168,134,85,0.12); }
+.field-group .form-control.is-invalid { border-color: #e05555; box-shadow: 0 0 0 3px rgba(224,85,85,0.1); }
+.field-group .form-control.is-valid { border-color: #4a9e55; box-shadow: 0 0 0 3px rgba(74,158,85,0.1); }
+.field-error { display: none; color: #e05555; font-size: 0.8rem; margin-top: 0.35rem; display: flex; align-items: center; gap: 0.35rem; }
+.field-error.visible { display: flex; }
+.field-hint { color: var(--text-muted); font-size: 0.78rem; margin-top: 0.25rem; }
+.char-count { position: absolute; bottom: 0.75rem; right: 1rem; font-size: 0.75rem; color: var(--text-muted); pointer-events: none; }
+
+/* Newsletter section */
+.newsletter-section { background: linear-gradient(135deg, var(--secondary) 0%, #3a3228 100%); padding: var(--spacing-5) 0; }
+.newsletter-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+.newsletter-text h3 { color: #fff; font-size: 1.5rem; margin-bottom: 0.35rem; }
+.newsletter-text p { color: rgba(255,255,255,0.65); font-size: 0.95rem; }
+.newsletter-form { display: flex; gap: 0; border-radius: var(--radius-sm); overflow: hidden; min-width: 340px; box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+@media(max-width:640px){ .newsletter-form{ min-width:100%; flex-direction:column; border-radius: var(--radius-sm); } .newsletter-inner{ flex-direction:column; text-align:center; } }
+.newsletter-input { flex: 1; padding: 0.9rem 1.25rem; border: none; background: rgba(255,255,255,0.95); color: #1a1a1a; font-family: var(--font-body); font-size: 0.95rem; outline: none; }
+.newsletter-btn { padding: 0.9rem 1.5rem; background: var(--primary); color: #fff; border: none; font-family: var(--font-body); font-weight: 600; cursor: pointer; white-space: nowrap; transition: background 0.3s; }
+.newsletter-btn:hover { background: var(--primary-hover); }
+.newsletter-success { color: #a0f0b0; font-size: 0.9rem; margin-top: 0.5rem; display: none; }

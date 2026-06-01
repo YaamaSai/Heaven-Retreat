@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+    <link rel="shortcut icon" href="../assets/images/favicon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooms | Haven Retreat</title>
+    <meta name="description"
+        content="Browse all 6 luxury rooms and suites at Haven Retreat — from cosy nature retreats to our iconic penthouse.">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dark-mode.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        .rooms-filter {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .rooms-filter-btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .rooms-filter-btn.active,
+        .rooms-filter-btn:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        .room-card-full {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            background: var(--bg-main);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            margin-bottom: 2.5rem;
+            transition: var(--transition);
+        }
+
+        .room-card-full:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-3px);
+        }
+
+        .room-card-full.reverse {
+            direction: rtl;
+        }
+
+        .room-card-full.reverse>* {
+            direction: ltr;
+        }
+
+        @media(max-width:768px) {
+
+            .room-card-full,
+            .room-card-full.reverse {
+                grid-template-columns: 1fr;
+                direction: ltr;
+            }
+        }
+
+        .room-card-full-img {
+            position: relative;
+            overflow: hidden;
+            min-height: 320px;
+            display: flex;
+        }
+
+        .room-card-full-img img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            display: block;
+        }
+
+        .room-card-full:hover .room-card-full-img img {
+            transform: scale(1.04);
+        }
+
+        .room-card-full-body {
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .room-badge {
+            display: inline-block;
+            align-self: flex-start;
+            padding: 0.25rem 0.85rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .badge-luxury {
+            background: rgba(168, 134, 85, 0.12);
+            color: var(--primary);
+        }
+
+        .badge-featured {
+            background: rgba(74, 158, 85, 0.12);
+            color: #2d7a3a;
+        }
+
+        .badge-exclusive {
+            background: rgba(91, 107, 181, 0.12);
+            color: #3d4fa0;
+        }
+
+        .room-card-full-body h2 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .room-card-full-body .room-price {
+            font-size: 1.4rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .room-card-full-body .room-price span {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .room-desc {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .room-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .room-feature-tag {
+            padding: 0.3rem 0.75rem;
+            background: var(--bg-secondary);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+        }
+
+        .room-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: nowrap;
+        }
+
+        .room-actions .btn {
+            flex: 1;
+            justify-content: center;
+            padding: 0.75rem 0.5rem;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            min-width: 0;
+        }
+
+        .room-card-full-img .img-overlay-tag {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            background: rgba(0, 0, 0, 0.55);
+            color: #fff;
+            padding: 0.3rem 0.85rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            backdrop-filter: blur(4px);
+        }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LodgingBusiness",
+      "name": "Haven Retreat",
+      "description": "A luxury boutique hotel offering personalized experiences in the heart of nature.",
+      "url": "https://www.havenretreat.com",
+      "telephone": "+1-555-123-4567",
+      "email": "hello@havenretreat.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "123 Luxury Lane",
+        "addressLocality": "Nature Valley",
+        "addressCountry": "BS"
+      },
+      "starRating": { "@type": "Rating", "ratingValue": "5" },
+      "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "15420" },
+      "amenityFeature": [
+        {"@type": "LocationFeatureSpecification", "name": "Free WiFi", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Spa", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Pool", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Restaurant", "value": true}
+      ]
+    }
+    </script>
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="../assets/images/logo.svg" alt="Haven Retreat">
+                <span class="logo-text">
+                    <span class="logo-name">Haven Retreat</span>
+                    <span class="logo-sub">Luxury Boutique</span>
+                </span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Toggle Navigation"><i class="fa-solid fa-bars"></i></button>
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="#">Home <i class="fa-solid fa-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html">Home 1</a></li>
+                        <li><a href="index-2.html">Home 2</a></li>
+                    </ul>
+                </li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="rooms.html">Rooms</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="dropdown">
+                    <a href="#">Dashboard <i class="fa-solid fa-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="guest-dashboard.html"><i class="fa-solid fa-user"
+                                    style="margin-right:0.4rem;color:var(--primary);"></i>Guest Dashboard</a></li>
+                        <li><a href="admin-dashboard.html"><i class="fa-solid fa-shield-halved"
+                                    style="margin-right:0.4rem;color:var(--primary);"></i>Admin Dashboard</a></li>
+                    </ul>
+                </li>
+                <li class="nav-appearance-mobile">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:0.88rem;font-weight:500;color:var(--text-main);">Appearance</span>
+                        <div style="display:flex;align-items:center;gap:0.6rem;">
+                            <button id="rtl-toggle" aria-label="Toggle RTL" title="Toggle RTL / LTR"
+                                style="background:none;border:1px solid var(--border-color);border-radius:6px;cursor:pointer;color:var(--text-main);font-size:0.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;padding:0.3rem 0.6rem;font-family:inherit;">RTL</button>
+                            <button id="theme-toggle" aria-label="Toggle Dark Mode"
+                                style="background:none;border:1px solid var(--border-color);border-radius:6px;cursor:pointer;color:var(--text-main);font-size:1rem;display:flex;align-items:center;padding:0.3rem 0.5rem;"><i
+                                    class="fa-solid fa-moon"></i></button>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-utils-mobile">
+                    <a href="login.html" class="btn btn-outline"
+                        style="display:flex;align-items:center;justify-content:center;width:100%;text-align:center;padding:0.7rem 1rem;font-size:0.88rem;font-weight:600;border-radius:8px;margin-bottom:0.75rem;">Login</a>
+                    <a href="booking.html" class="btn btn-primary"
+                        style="display:flex;align-items:center;justify-content:center;width:100%;text-align:center;padding:0.7rem 1rem;font-size:0.88rem;font-weight:700;border-radius:8px;">Book
+                        Now</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero"
+        style="background-image: url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&w=1600&q=80'); height: 50vh; min-height: 340px;">
+        <div class="hero-content">
+            <h1>Rooms</h1>
+            <p>Six exceptional spaces, each a sanctuary of its own.</p>
+        </div>
+    </section>
+
+    <section class="section container">
+        <div class="text-center reveal" style="margin-bottom: 1.5rem;">
+            <span class="section-tag">Find Your Perfect Space</span>
+            <h2>Our Accommodations</h2>
+            <p style="color: var(--text-muted);">All rooms include complimentary breakfast, high-speed WiFi, and 24/7
+                concierge service.</p>
+        </div>
+
+        <!-- Filter -->
+        <div class="rooms-filter" id="rooms-filter">
+            <button class="rooms-filter-btn active" data-filter="all">All Rooms</button>
+            <button class="rooms-filter-btn" data-filter="suite">Suites</button>
+            <button class="rooms-filter-btn" data-filter="villa">Villas</button>
+            <button class="rooms-filter-btn" data-filter="penthouse">Penthouse</button>
+        </div>
+
+        <!-- Room 1 -->
+        <div class="room-card-full reveal" data-room="suite">
+            <div class="room-card-full-img">
+                <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&w=800&q=80"
+                    alt="Deluxe Nature Suite" loading="lazy">
+                <span class="img-overlay-tag"><i class="fa-solid fa-leaf"></i> Forest View</span>
+            </div>
+            <div class="room-card-full-body">
+                <span class="room-badge badge-luxury">Luxury Suite</span>
+                <h2>Deluxe Nature Suite</h2>
+                <div class="room-price">From $299 <span>/ night</span></div>
+                <p class="room-desc">Immerse yourself in the tranquility of our forest-facing suite. Floor-to-ceiling
+                    windows frame a living canvas of ancient trees, while the hand-carved wooden interior and stone
+                    fireplace create a warmth that feels both primal and refined.</p>
+                <div class="room-features">
+                    <span class="room-feature-tag">Max 2 guests</span>
+                    <span class="room-feature-tag">45 m²</span>
+                    <span class="room-feature-tag"><i class="fa-solid fa-bed"></i> King bed</span>
+                    <span class="room-feature-tag">Rain shower</span>
+                    <span class="room-feature-tag"><i class="fa-solid fa-leaf"></i> Forest view</span>
+                    <span class="room-feature-tag">🔥 Fireplace</span>
+                </div>
+                <div class="room-actions">
+                    <a href="booking.html" class="btn btn-primary">Book Direct</a>
+                    <a href="gallery.html" class="btn btn-outline">View Photos</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Room 2 -->
+        <div class="room-card-full reverse reveal" data-room="suite">
+            <div class="room-card-full-img">
+                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&w=800&q=80"
+                    alt="Premium Balcony Room" loading="lazy">
+                <span class="img-overlay-tag">Ocean Vista</span>
+            </div>
+            <div class="room-card-full-body">
+                <span class="room-badge badge-featured">Most Popular</span>
+                <h2>Premium Balcony Room</h2>
+                <div class="room-price">From $350 <span>/ night</span></div>
+                <p class="room-desc">Wake up to the rhythm of the ocean from your own private balcony. This elegantly
+                    appointed suite blends crisp white linen with warm gold accents, offering a sanctuary above the sea
+                    that is as calming as it is beautiful.</p>
+                <div class="room-features">
+                    <span class="room-feature-tag">Max 2 guests</span>
+                    <span class="room-feature-tag">52 m²</span>
+                    <span class="room-feature-tag"><i class="fa-solid fa-bed"></i> King bed</span>
+                    <span class="room-feature-tag">Private balcony</span>
+                    <span class="room-feature-tag">Ocean view</span>
+                    <span class="room-feature-tag">Nespresso machine</span>
+                </div>
+                <div class="room-actions">
+                    <a href="booking.html" class="btn btn-primary">Book Direct</a>
+                    <a href="gallery.html" class="btn btn-outline">View Photos</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Room 3 -->
+        <div class="room-card-full reveal" data-room="penthouse">
+            <div class="room-card-full-img">
+                <img src="https://images.unsplash.com/photo-1631049552240-59c37f38802b?auto=format&w=800&q=80"
+                    alt="The Haven Penthouse" loading="lazy">
+                <span class="img-overlay-tag">Panoramic Views</span>
+            </div>
+            <div class="room-card-full-body">
+                <span class="room-badge badge-exclusive">Exclusive</span>
+                <h2>The Haven Penthouse</h2>
+                <div class="room-price">From $599 <span>/ night</span></div>
+                <p class="room-desc">The pinnacle of luxury at Haven Retreat. An entire floor dedicated to uncompromised
+                    indulgence — featuring a private rooftop terrace with a plunge pool, a grand marble bathroom, and a
+                    personal butler on call 24 hours a day.</p>
+                <div class="room-features">
+                    <span class="room-feature-tag">Max 4 guests</span>
+                    <span class="room-feature-tag">120 m²</span>
+                    <span class="room-feature-tag"><i class="fa-solid fa-bed"></i> 2 King beds</span>
+                    <span class="room-feature-tag"><i class="fa-solid fa-person-swimming"></i> Private plunge
+                        pool</span>
+                    <span class="room-feature-tag"><i class="fa-solid fa-bell-concierge"></i> Personal butler</span>
+                    <span class="room-feature-tag"><i class="fa-solid fa-wine-bottle"></i> Welcome champagne</span>
+                </div>
+                <div class="room-actions">
+                    <a href="booking.html" class="btn btn-primary">Book Direct</a>
+                    <a href="gallery.html" class="btn btn-outline">View Photos</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Room 4 -->
+        <div class="room-card-full reverse reveal" data-room="villa">
+            <div class="room-card-full-img">
+                <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&w=800&q=80"
+                    alt="The Garden Villa" loading="lazy">
+                <span class="img-overlay-tag"><i class="fa-solid fa-seedling"></i> Private Garden</span>
+            </div>
+            <div class="room-card-full-body">
+                <span class="room-badge badge-luxury">Villa</span>
+                <h2>The Garden Villa</h2>
+                <div class="room-price">From $450 <span>/ night</span></div>
+                <p class="room-desc">A private villa surrounded by lush tropical gardens, designed for those who seek
+                    solitude and nature in equal measure. The outdoor living area with a private heated pool and shaded
+                    terrace makes this a world of its own.</p>
+                <div class="room-features">
+                    <span class="room-feature-tag">Max 3 guests</span>
+                    <span class="room-feature-tag">85 m²</span>
+                    <span class="room-feature-tag"><i class="fa-solid fa-bed"></i> King bed</span>
+                    <span class="room-feature-tag"><i class="fa-solid fa-person-swimming"></i> Private pool</span>
+                    <span class="room-feature-tag"><i class="fa-solid fa-seedling"></i> Garden terrace</span>
+                    <span class="room-feature-tag">Kitchenette</span>
+                </div>
+                <div class="room-actions">
+                    <a href="booking.html" class="btn btn-primary">Book Direct</a>
+                    <a href="gallery.html" class="btn btn-outline">View Photos</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Room 5 -->
+        <div class="room-card-full reveal" data-room="suite">
+            <div class="room-card-full-img">
+                <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&w=800&q=80"
+                    alt="Ocean View Suite" loading="lazy">
+                <span class="img-overlay-tag">Oceanfront</span>
+            </div>
+            <div class="room-card-full-body">
+                <span class="room-badge badge-featured">Oceanfront</span>
+                <h2>Ocean View Suite</h2>
+                <div class="room-price">From $520 <span>/ night</span></div>
+                <p class="room-desc">Perched directly above the shoreline, the Ocean View Suite offers an immersive
+                    sensory experience — hear the waves, feel the sea breeze from your floor-to-ceiling doors, and watch
+                    sunsets paint the horizon in colour every evening.</p>
+                <div class="room-features">
+                    <span class="room-feature-tag">Max 2 guests</span>
+                    <span class="room-feature-tag">68 m²</span>
+                    <span class="room-feature-tag"><i class="fa-solid fa-bed"></i> King bed</span>
+                    <span class="room-feature-tag">Unobstructed ocean</span>
+                    <span class="room-feature-tag">Freestanding bath</span>
+                    <span class="room-feature-tag">Minibar</span>
+                </div>
+                <div class="room-actions">
+                    <a href="booking.html" class="btn btn-primary">Book Direct</a>
+                    <a href="gallery.html" class="btn btn-outline">View Photos</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Room 6 -->
+        <div class="room-card-full reverse reveal" data-room="suite">
+            <div class="room-card-full-img">
+                <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&w=800&q=80"
+                    alt="Executive Loft" loading="lazy">
+                <span class="img-overlay-tag">City &amp; Sea</span>
+            </div>
+            <div class="room-card-full-body">
+                <span class="room-badge badge-exclusive">Executive</span>
+                <h2>Executive Loft</h2>
+                <div class="room-price">From $380 <span>/ night</span></div>
+                <p class="room-desc">The Executive Loft is designed for the discerning traveller who demands both style
+                    and function. A striking double-height ceiling, dedicated workspace, and curated art collection set
+                    the stage for a stay that balances productivity with pleasure.</p>
+                <div class="room-features">
+                    <span class="room-feature-tag">Max 2 guests</span>
+                    <span class="room-feature-tag">60 m²</span>
+                    <span class="room-feature-tag"><i class="fa-solid fa-bed"></i> King bed</span>
+                    <span class="room-feature-tag">💻 Executive desk</span>
+                    <span class="room-feature-tag">Curated art</span>
+                    <span class="room-feature-tag">Dual screens</span>
+                </div>
+                <div class="room-actions">
+                    <a href="booking.html" class="btn btn-primary">Book Direct</a>
+                    <a href="gallery.html" class="btn btn-outline">View Photos</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Elevated CTA Section -->
+    <style>
+        @keyframes subtleFloat {
+            0% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-15px) scale(1.05);
+            }
+
+            100% {
+                transform: translateY(0) scale(1);
+            }
+        }
+    </style>
+    <section class="section" style="position: relative; padding: 6rem 0; overflow: hidden; background: #1a1a1a;">
+        <!-- Background Image with Parallax/dark overlay -->
+        <div
+            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://images.unsplash.com/photo-1542314831-c6a4d27ce66b?auto=format&w=1600&q=80'); background-size: cover; background-position: center; background-attachment: fixed; opacity: 0.25; z-index: 1;">
+        </div>
+
+        <!-- Animated Light Orbs -->
+        <div
+            style="position: absolute; top: -10%; left: -5%; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, var(--primary) 0%, transparent 70%); opacity: 0.15; filter: blur(30px); z-index: 2; animation: subtleFloat 8s ease-in-out infinite;">
+        </div>
+        <div
+            style="position: absolute; bottom: -10%; right: 5%; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, var(--accent) 0%, transparent 70%); opacity: 0.1; filter: blur(40px); z-index: 2; animation: subtleFloat 10s ease-in-out infinite reverse;">
+        </div>
+
+        <div class="container reveal" style="position: relative; z-index: 3; max-width: 900px;">
+            <div
+                style="background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: var(--radius-lg); padding: 4rem 3rem; text-align: center; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);">
+                <div
+                    style="display: inline-flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 50%; background: rgba(168,134,85,0.15); color: var(--primary); font-size: 1.5rem; margin-bottom: 1.5rem; border: 1px solid rgba(168,134,85,0.3);">
+                    <i class="fa-solid fa-key"></i>
+                </div>
+                <h2 style="color: #fff; font-size: 2.25rem; margin-bottom: 1rem; font-family: var(--font-heading);">Not
+                    Sure Which Room?</h2>
+                <p
+                    style="color: rgba(255,255,255,0.85); margin: 0 auto 2.5rem; max-width: 600px; font-size: 1.05rem; line-height: 1.6;">
+                    Our dedicated concierge team is available 24/7 to help tailor your perfect stay. Whether you need an
+                    ocean view, spa access, or a quiet retreat, we'll find your match.</p>
+
+                <div style="display:flex; gap:1.25rem; justify-content:center; flex-wrap:wrap;">
+                    <a href="booking.html" class="btn btn-primary"
+                        style="font-size:1.05rem; padding:1rem 2.5rem; display: flex; align-items: center; gap: 0.6rem; transition: transform 0.3s ease, box-shadow 0.3s ease;"
+                        onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 10px 25px rgba(168,134,85,0.4)';"
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">Book Your Stay
+                        <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="contact.html" class="btn btn-outline"
+                        style="font-size:1.05rem; padding:1rem 2.5rem; color:#fff; border-color:rgba(255,255,255,0.3); background: transparent; display: flex; align-items: center; gap: 0.6rem; transition: all 0.3s ease;"
+                        onmouseover="this.style.background='rgba(255,255,255,0.15)'; this.style.borderColor='rgba(255,255,255,0.6)';"
+                        onmouseout="this.style.background='transparent'; this.style.borderColor='rgba(255,255,255,0.3)';"><i
+                            class="fa-solid fa-bell-concierge"></i> Ask Concierge</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <footer>
+        <div class="container">
+
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="footer-brand">
+                        <img src="../assets/images/logo.svg" alt="Haven Retreat">
+                        <span class="logo-text">
+                            <span class="logo-name">Haven Retreat</span>
+                            <span class="logo-sub">Luxury Boutique</span>
+                        </span>
+                    </a>
+                    <p style="margin-bottom: 1.5rem; line-height: 1.6;">A luxury boutique hotel offering personalized
+                        experiences in the heart of nature. Escape the ordinary and discover your sanctuary.</p>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-x-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="services.html">Spa &amp; Dining</a></li>
+                        <li><a href="gallery.html">Photo Gallery</a></li>
+                        <li><a href="about.html">Our Story</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Guest Information</h4>
+                    <ul>
+                        <li><a href="#">Check-in &amp; Check-out</a></li>
+                        <li><a href="#">Cancellation Policy</a></li>
+                        <li><a href="#">FAQ &amp; Support</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms &amp; Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul style="gap: 0.75rem;">
+                        <li style="display: flex; gap: 0.5rem; align-items: flex-start;"><i
+                                class="fa-solid fa-location-dot" style="margin-top: 4px; color: var(--primary);"></i>
+                            <span>123 Luxury Lane, Nature Valley<br>Nassau, Bahamas</span></li>
+                        <li style="display: flex; gap: 0.5rem; align-items: center;"><i class="fa-solid fa-phone"
+                                style="color: var(--primary);"></i> +1 (555) 123-4567</li>
+                        <li style="display: flex; gap: 0.5rem; align-items: center;"><i class="fa-solid fa-envelope"
+                                style="color: var(--primary);"></i> hello@havenretreat.com</li>
+                    </ul>
+                    <a href="#" class="footer-subscribe-btn-sm" id="footer-subscribe-btn"
+                        style="margin-top:1.25rem;display:inline-flex;align-items:center;gap:0.5rem;padding:0.55rem 1.25rem;background:var(--primary);color:#fff;border:none;border-radius:var(--radius-sm);font-size:0.85rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background 0.2s,transform 0.2s;"
+                        onmouseover="this.style.background='var(--primary-hover)';this.style.transform='translateY(-1px)'"
+                        onmouseout="this.style.background='var(--primary)';this.style.transform=''">
+                        <i class="fa-solid fa-envelope"></i> Subscribe Now
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Haven Retreat Boutique Hotel. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+    <script>
+        // Room filter
+        const filterBtns = document.querySelectorAll('.rooms-filter-btn');
+        const roomCards = document.querySelectorAll('.room-card-full[data-room]');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const f = btn.dataset.filter;
+                roomCards.forEach(card => {
+                    card.style.display = (f === 'all' || card.dataset.room === f) ? '' : 'none';
+                });
+            });
+        });
+    </script>
+    <script>
+        var nlForm = document.getElementById('newsletter-form');
+        if (nlForm) { nlForm.addEventListener('submit', function (e) { e.preventDefault(); var v = document.getElementById('nl-email').value; if (v && v.includes('@')) { document.getElementById('nl-success').style.display = 'block'; nlForm.style.display = 'none'; } }); }
+    </script>
+</body>
+
+</html>

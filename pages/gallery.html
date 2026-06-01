@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+    <link rel="shortcut icon" href="../assets/images/favicon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery | Haven Retreat</title>
+    <meta name="description"
+        content="Browse our photo gallery — rooms, spa, dining, and the natural beauty surrounding Haven Retreat boutique hotel.">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dark-mode.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        .gallery-tabs {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+
+        .gallery-tab {
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .gallery-tab.active,
+        .gallery-tab:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        .gallery-masonry {
+            columns: 3;
+            gap: 1rem;
+        }
+
+        @media (max-width: 900px) {
+            .gallery-masonry {
+                columns: 2;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .gallery-masonry {
+                columns: 1;
+            }
+        }
+
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 1rem;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            display: block;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.04);
+        }
+
+        .gallery-item-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .gallery-item:hover .gallery-item-overlay {
+            background: rgba(0, 0, 0, 0.35);
+        }
+
+        .gallery-item-overlay span {
+            color: #fff;
+            font-size: 2rem;
+            opacity: 0;
+            transform: scale(0.7);
+            transition: all 0.3s;
+        }
+
+        .gallery-item:hover .gallery-item-overlay span {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .lightbox.open {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: var(--radius-md);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            line-height: 1;
+        }
+
+        .lightbox-caption {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        .gallery-item[data-cat].hidden {
+            display: none;
+        }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LodgingBusiness",
+      "name": "Haven Retreat",
+      "description": "A luxury boutique hotel offering personalized experiences in the heart of nature.",
+      "url": "https://www.havenretreat.com",
+      "telephone": "+1-555-123-4567",
+      "email": "hello@havenretreat.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "123 Luxury Lane",
+        "addressLocality": "Nature Valley",
+        "addressCountry": "BS"
+      },
+      "starRating": { "@type": "Rating", "ratingValue": "5" },
+      "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "15420" },
+      "amenityFeature": [
+        {"@type": "LocationFeatureSpecification", "name": "Free WiFi", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Spa", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Pool", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Restaurant", "value": true}
+      ]
+    }
+    </script>
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="../assets/images/logo.svg" alt="Haven Retreat">
+                <span class="logo-text">
+                    <span class="logo-name">Haven Retreat</span>
+                    <span class="logo-sub">Luxury Boutique</span>
+                </span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Toggle Navigation"><i class="fa-solid fa-bars"></i></button>
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="#">Home <i class="fa-solid fa-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html">Home 1</a></li>
+                        <li><a href="index-2.html">Home 2</a></li>
+                    </ul>
+                </li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="rooms.html">Rooms</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="dropdown">
+                    <a href="#">Dashboard <i class="fa-solid fa-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="guest-dashboard.html"><i class="fa-solid fa-user"
+                                    style="margin-right:0.4rem;color:var(--primary);"></i>Guest Dashboard</a></li>
+                        <li><a href="admin-dashboard.html"><i class="fa-solid fa-shield-halved"
+                                    style="margin-right:0.4rem;color:var(--primary);"></i>Admin Dashboard</a></li>
+                    </ul>
+                </li>
+                <li class="nav-appearance-mobile">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:0.88rem;font-weight:500;color:var(--text-main);">Appearance</span>
+                        <div style="display:flex;align-items:center;gap:0.6rem;">
+                            <button id="rtl-toggle" aria-label="Toggle RTL" title="Toggle RTL / LTR"
+                                style="background:none;border:1px solid var(--border-color);border-radius:6px;cursor:pointer;color:var(--text-main);font-size:0.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;padding:0.3rem 0.6rem;font-family:inherit;">RTL</button>
+                            <button id="theme-toggle" aria-label="Toggle Dark Mode"
+                                style="background:none;border:1px solid var(--border-color);border-radius:6px;cursor:pointer;color:var(--text-main);font-size:1rem;display:flex;align-items:center;padding:0.3rem 0.5rem;"><i
+                                    class="fa-solid fa-moon"></i></button>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-utils-mobile">
+                    <a href="login.html" class="btn btn-outline"
+                        style="display:flex;align-items:center;justify-content:center;width:100%;text-align:center;padding:0.7rem 1rem;font-size:0.88rem;font-weight:600;border-radius:8px;margin-bottom:0.75rem;">Login</a>
+                    <a href="booking.html" class="btn btn-primary"
+                        style="display:flex;align-items:center;justify-content:center;width:100%;text-align:center;padding:0.7rem 1rem;font-size:0.88rem;font-weight:700;border-radius:8px;">Book
+                        Now</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero"
+        style="background-image: url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&w=1600&q=80'); height: 55vh; min-height: 380px;">
+        <div class="hero-content">
+            <h1>Photo Gallery</h1>
+            <p>A glimpse into the world of Haven Retreat — where every corner tells a story.</p>
+
+
+        </div>
+    </section>
+
+    <section class="section container">
+
+
+
+        <!-- Introduction -->
+        <div class="text-center reveal" style="margin-bottom: 2.5rem;">
+            <span class="section-tag">Visual Journey</span>
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Our Gallery</h2>
+            <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto; font-size: 1.05rem;">A glimpse into
+                the world of Haven Retreat — where every corner tells a story. Immerse yourself in our serene spaces,
+                exquisite dining, and world-class wellness facilities.</p>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="gallery-tabs" id="gallery-tabs">
+            <button class="gallery-tab active" data-filter="all" id="tab-all">All</button>
+            <button class="gallery-tab" data-filter="rooms" id="tab-rooms">Rooms</button>
+            <button class="gallery-tab" data-filter="exterior" id="tab-exterior">Exterior &amp; Views</button>
+            <button class="gallery-tab" data-filter="dining" id="tab-dining">Dining</button>
+            <button class="gallery-tab" data-filter="spa" id="tab-spa">Spa &amp; Wellness</button>
+        </div>
+
+        <!-- Masonry Gallery -->
+        <div class="gallery-masonry" id="gallery-grid">
+
+            <!-- ROOMS & SUITES (6 unique images) -->
+            <div class="gallery-item reveal" data-cat="rooms" data-caption="Deluxe King Suite">
+                <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&w=800&q=80"
+                    alt="Deluxe King Suite" loading="lazy">
+                <div class="gallery-item-overlay"><span
+                        style="font-family: var(--font-heading); font-size: 1.3rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem; align-items: center; padding: 1rem;"><i
+                            class="fa-solid fa-magnifying-glass-plus" style="font-size: 1.8rem;"></i> Deluxe King
+                        Suite</span></div>
+            </div>
+            <div class="gallery-item reveal" data-cat="rooms" data-caption="Premium Balcony Room">
+                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&w=800&q=80"
+                    alt="Premium Balcony Room" loading="lazy">
+                <div class="gallery-item-overlay"><span
+                        style="font-family: var(--font-heading); font-size: 1.3rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem; align-items: center; padding: 1rem;"><i
+                            class="fa-solid fa-magnifying-glass-plus" style="font-size: 1.8rem;"></i> Premium Balcony
+                        Room</span></div>
+            </div>
+            <div class="gallery-item reveal" data-cat="rooms" data-caption="The Haven Penthouse">
+                <img src="https://images.unsplash.com/photo-1631049552240-59c37f38802b?auto=format&w=800&q=80"
+                    alt="The Haven Penthouse" loading="lazy">
+                <div class="gallery-item-overlay"><span
+                        style="font-family: var(--font-heading); font-size: 1.3rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem; align-items: center; padding: 1rem;"><i
+                            class="fa-solid fa-magnifying-glass-plus" style="font-size: 1.8rem;"></i> The Haven
+                        Penthouse</span></div>
+            </div>
+            <div class="gallery-item reveal" data-cat="rooms" data-caption="Garden Villa">
+                <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&w=800&q=80"
+                    alt="Garden Villa" loading="lazy">
+                <div class="gallery-item-overlay"><span
+                        style="font-family: var(--font-heading); font-size: 1.3rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem; align-items: center; padding: 1rem;"><i
+                            class="fa-solid fa-magnifying-glass-plus" style="font-size: 1.8rem;"></i> Garden
+                        Villa</span></div>
+            </div>
+
+            <div class="gallery-item reveal" data-cat="rooms" data-caption="Presidential Bathroom">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&w=800&q=80"
+                    alt="Presidential Bathroom" loading="lazy">
+                <div class="gallery-item-overlay"><span
+                        style="font-family: var(--font-heading); font-size: 1.3rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem; align-items: center; padding: 1rem;"><i
+                            class="fa-solid fa-magnifying-glass-plus" style="font-size: 1.8rem;"></i> Presidential
+                        Bathroom</span></div>
+            </div>
+
+            <!-- EXTERIOR & VIEWS (6 unique images) -->
+
+            <div class="gallery-item reveal" data-cat="exterior" data-caption="Infinity Pool at Dusk">
+                <img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&w=800&q=80"
+                    alt="Infinity Pool at Dusk" loading="lazy">
+                <div class="gallery-item-overlay"><span
+                        style="font-family: var(--font-heading); font-size: 1.3rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem; align-items: center; padding: 1rem;"><i
+                            class="fa-solid fa-magnifying-glass-plus" style="font-size: 1.8rem;"></i> Infinity Pool at
+                        Dusk</span></div>
+            </div>
+            <div class="gallery-item reveal" data-cat="exterior" data-caption="Tropical Gardens">
+                <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&w=800&q=80"
+                    alt="Tropical Gardens" loading="lazy">
+                <div class="gallery-item-overlay"><span
+                        style="font-family: var(--font-heading); font-size: 1.3rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem; align-items: center; padding: 1rem;"><i
+                            class="fa-solid fa-magnifying-glass-plus" style="font-size: 1.8rem;"></i> Tropical
+                        Gardens</span></div>
+            </div>
+            <div class="gallery-item reveal" data-cat="exterior" data-caption="Nature Trails">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&w=800&q=80"
+                    alt="Nature Trails" loading="lazy">
+                <div class="gallery-item-overlay"><span
+                        style="font-family: var(--font-heading); font-size: 1.3rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem; align-items: center; padding: 1rem;"><i
+                            class="fa-solid fa-magnifying-glass-plus" style="font-size: 1.8rem;"></i> Nature
+                        Trails</span></div>
+            </div>
+            <div class="gallery-item reveal" data-cat="exterior" data-caption="Private Beach Access">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&w=800&q=80"
+                    alt="Private Beach Access" loading="lazy">
+                <div class="gallery-item-overlay"><span
+                        style="font-family: var(--font-heading); font-size: 1.3rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem; align-items: center; padding: 1rem;"><i
+                            class="fa-solid fa-magnifying-glass-plus" style="font-size: 1.8rem;"></i> Private Beach
+                        Access</span></div>
+            </div>
+
+
+            <!-- DINING (6 unique images) -->
+            <div class="gallery-item reveal" data-cat="dining" data-caption="The Canopy Restaurant">
+                <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&w=800&q=80"
+                    alt="The Canopy Restaurant" loading="lazy">
+                <div class="gallery-item-overlay"><span
+                        style="font-family: var(--font-heading); font-size: 1.3rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem; align-items: center; padding: 1rem;"><i
+                            class="fa-solid fa-magnifying-glass-plus" style="font-size: 1.8rem;"></i> The Canopy
+                        Restaurant</span></div>
+            </div>
+            <div class="gallery-item reveal" data-cat="dining" data-caption="Gourmet Breakfast Spread">
+                <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&w=800&q=80"
+                    alt="Gourmet Breakfast Spread" loading="lazy">
+                <div class="gallery-item-overlay"><span
+                        style="font-family: var(--font-heading); font-size: 1.3rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem; align-items: center; padding: 1rem;"><i
+                            class="fa-solid fa-magnifying-glass-plus" style="font-size: 1.8rem;"></i> Gourmet Breakfast
+                        Spread</span></div>
+            </div>
+            <div class="gallery-item reveal" data-cat="dining" data-caption="Sunset Cocktail Hour">
+                <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&w=800&q=80"
+                    alt="Sunset Cocktail Hour" loading="lazy">
+                <div class="gallery-item-overlay"><span
+                        style="font-family: var(--font-heading); font-size: 1.3rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem; align-items: center; padding: 1rem;"><i
+                            class="fa-solid fa-magnifying-glass-plus" style="font-size: 1.8rem;"></i> Sunset Cocktail
+                        Hour</span></div>
+            </div>
+            <div class="gallery-item reveal" data-cat="dining" data-caption="Local Artisan Cheese Board">
+                <img src="https://images.unsplash.com/photo-1481070555726-e2fe8357725c?auto=format&w=800&q=80"
+                    alt="Local Artisan Cheese Board" loading="lazy">
+                <div class="gallery-item-overlay"><span
+                        style="font-family: var(--font-heading); font-size: 1.3rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem; align-items: center; padding: 1rem;"><i
+                            class="fa-solid fa-magnifying-glass-plus" style="font-size: 1.8rem;"></i> Local Artisan
+                        Cheese Board</span></div>
+            </div>
+            <div class="gallery-item reveal" data-cat="dining" data-caption="Chef's Tasting Menu">
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&w=800&q=80"
+                    alt="Chef's Tasting Menu" loading="lazy">
+                <div class="gallery-item-overlay"><span
+                        style="font-family: var(--font-heading); font-size: 1.3rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem; align-items: center; padding: 1rem;"><i
+                            class="fa-solid fa-magnifying-glass-plus" style="font-size: 1.8rem;"></i> Chef's Tasting
+                        Menu</span></div>
+            </div>
+            <div class="gallery-item reveal" data-cat="dining" data-caption="Alfresco Terrace Dining">
+                <img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?auto=format&w=800&q=80"
+                    alt="Alfresco Terrace Dining" loading="lazy">
+                <div class="gallery-item-overlay"><span
+                        style="font-family: var(--font-heading); font-size: 1.3rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem; align-items: center; padding: 1rem;"><i
+                            class="fa-solid fa-magnifying-glass-plus" style="font-size: 1.8rem;"></i> Alfresco Terrace
+                        Dining</span></div>
+            </div>
+
+            <!-- SPA & WELLNESS (6 unique images) -->
+            <div class="gallery-item reveal" data-cat="spa" data-caption="Spa & Wellness Centre">
+                <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&w=800&q=80"
+                    alt="Spa & Wellness Centre" loading="lazy">
+                <div class="gallery-item-overlay"><span
+                        style="font-family: var(--font-heading); font-size: 1.3rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem; align-items: center; padding: 1rem;"><i
+                            class="fa-solid fa-magnifying-glass-plus" style="font-size: 1.8rem;"></i> Spa & Wellness
+                        Centre</span></div>
+            </div>
+            <div class="gallery-item reveal" data-cat="spa" data-caption="Hot Stone Massage">
+                <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&w=800&q=80"
+                    alt="Hot Stone Massage" loading="lazy">
+                <div class="gallery-item-overlay"><span
+                        style="font-family: var(--font-heading); font-size: 1.3rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem; align-items: center; padding: 1rem;"><i
+                            class="fa-solid fa-magnifying-glass-plus" style="font-size: 1.8rem;"></i> Hot Stone
+                        Massage</span></div>
+            </div>
+            <div class="gallery-item reveal" data-cat="spa" data-caption="Meditation Pavilion">
+                <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&w=800&q=80"
+                    alt="Meditation Pavilion" loading="lazy">
+                <div class="gallery-item-overlay"><span
+                        style="font-family: var(--font-heading); font-size: 1.3rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem; align-items: center; padding: 1rem;"><i
+                            class="fa-solid fa-magnifying-glass-plus" style="font-size: 1.8rem;"></i> Meditation
+                        Pavilion</span></div>
+            </div>
+            <div class="gallery-item reveal" data-cat="spa" data-caption="Yoga Retreat Deck">
+                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&w=800&q=80"
+                    alt="Yoga Retreat Deck" loading="lazy">
+                <div class="gallery-item-overlay"><span
+                        style="font-family: var(--font-heading); font-size: 1.3rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem; align-items: center; padding: 1rem;"><i
+                            class="fa-solid fa-magnifying-glass-plus" style="font-size: 1.8rem;"></i> Yoga Retreat
+                        Deck</span></div>
+            </div>
+            <div class="gallery-item reveal" data-cat="spa" data-caption="Hydrotherapy Pool">
+                <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&w=800&q=80"
+                    alt="Hydrotherapy Pool" loading="lazy">
+                <div class="gallery-item-overlay"><span
+                        style="font-family: var(--font-heading); font-size: 1.3rem; text-align: center; display: flex; flex-direction: column; gap: 0.4rem; align-items: center; padding: 1rem;"><i
+                            class="fa-solid fa-magnifying-glass-plus" style="font-size: 1.8rem;"></i> Hydrotherapy
+                        Pool</span></div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Close lightbox">&times;</button>
+        <img src="" alt="" id="lightbox-img">
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+
+    <!-- CTA -->
+    <section class="section" style="background: linear-gradient(135deg, var(--secondary), #3a3228); text-align:center;">
+        <div class="container reveal">
+            <h2 style="color:#fff;">Love What You See?</h2>
+            <p style="color:rgba(255,255,255,0.7); margin:1rem auto 2.5rem; max-width:500px;">Experience Haven Retreat
+                in person. Book your stay and create your own memories.</p>
+            <a href="booking.html" class="btn btn-primary" style="font-size:1rem; padding:1rem 2.5rem;">Book Your
+                Stay</a>
+        </div>
+    </section>
+
+
+    <!-- Gallery Custom CTA -->
+    <style>
+        .gallery-cta-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .gallery-cta-images {
+            position: relative;
+            height: 400px;
+        }
+
+        @media (max-width: 900px) {
+            .gallery-cta-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .gallery-cta-container h2 {
+                font-size: 2.5rem !important;
+            }
+
+            .gallery-cta-container p {
+                margin: 0 auto 2rem auto !important;
+            }
+
+            .gallery-cta-images {
+                display: none !important;
+            }
+        }
+    </style>
+    <section class="section"
+        style="background: #111; color: #fff; position: relative; padding: 7rem 0; overflow: hidden;">
+        <div class="container gallery-cta-container">
+            <div>
+                <h2 style="font-size: 3.5rem; line-height: 1.1; margin-bottom: 2rem; font-family: var(--font-heading);">
+                    Picture Yourself <br><span style="color: var(--primary); font-style: italic;">Right Here.</span>
+                </h2>
+                <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 3rem; max-width: 400px;">Stop
+                    dreaming and start packing. The breathtaking views and luxurious moments you see in our gallery are
+                    just one click away.</p>
+                <a href="booking.html" class="btn btn-primary"
+                    style="font-size: 1.1rem; padding: 1.2rem 3rem; letter-spacing: 1px;">Make It Reality &rarr;</a>
+            </div>
+            <div class="gallery-cta-images">
+                <img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&w=600&q=80"
+                    style="position: absolute; width: 60%; right: 0; top: 0; border-radius: 10px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); z-index: 2; transition: transform 0.4s;"
+                    onmouseover="this.style.transform='translateY(-10px)';"
+                    onmouseout="this.style.transform='translateY(0)';">
+                <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&w=600&q=80"
+                    style="position: absolute; width: 55%; left: 0; bottom: 0; border-radius: 10px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); z-index: 3; transition: transform 0.4s;"
+                    onmouseover="this.style.transform='translateY(-10px)';"
+                    onmouseout="this.style.transform='translateY(0)';">
+                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&w=600&q=80"
+                    style="position: absolute; width: 55%; left: 0; top: 0; border-radius: 10px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); z-index: 1; transition: transform 0.4s;"
+                    onmouseover="this.style.transform='translateY(-10px)';"
+                    onmouseout="this.style.transform='translateY(0)';">
+            </div>
+        </div>
+    </section>
+
+
+    <footer>
+        <div class="container">
+
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="footer-brand">
+                        <img src="../assets/images/logo.svg" alt="Haven Retreat">
+                        <span class="logo-text">
+                            <span class="logo-name">Haven Retreat</span>
+                            <span class="logo-sub">Luxury Boutique</span>
+                        </span>
+                    </a>
+                    <p style="margin-bottom: 1.5rem; line-height: 1.6;">A luxury boutique hotel offering personalized
+                        experiences in the heart of nature. Escape the ordinary and discover your sanctuary.</p>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-x-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="services.html">Spa &amp; Dining</a></li>
+                        <li><a href="gallery.html">Photo Gallery</a></li>
+                        <li><a href="about.html">Our Story</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Guest Information</h4>
+                    <ul>
+                        <li><a href="#">Check-in &amp; Check-out</a></li>
+                        <li><a href="#">Cancellation Policy</a></li>
+                        <li><a href="#">FAQ &amp; Support</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms &amp; Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul style="gap: 0.75rem;">
+                        <li style="display: flex; gap: 0.5rem; align-items: flex-start;"><i
+                                class="fa-solid fa-location-dot" style="margin-top: 4px; color: var(--primary);"></i>
+                            <span>123 Luxury Lane, Nature Valley<br>Nassau, Bahamas</span></li>
+                        <li style="display: flex; gap: 0.5rem; align-items: center;"><i class="fa-solid fa-phone"
+                                style="color: var(--primary);"></i> +1 (555) 123-4567</li>
+                        <li style="display: flex; gap: 0.5rem; align-items: center;"><i class="fa-solid fa-envelope"
+                                style="color: var(--primary);"></i> hello@havenretreat.com</li>
+                    </ul>
+                    <a href="#" class="footer-subscribe-btn-sm" id="footer-subscribe-btn"
+                        style="margin-top:1.25rem;display:inline-flex;align-items:center;gap:0.5rem;padding:0.55rem 1.25rem;background:var(--primary);color:#fff;border:none;border-radius:var(--radius-sm);font-size:0.85rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background 0.2s,transform 0.2s;"
+                        onmouseover="this.style.background='var(--primary-hover)';this.style.transform='translateY(-1px)'"
+                        onmouseout="this.style.background='var(--primary)';this.style.transform=''">
+                        <i class="fa-solid fa-envelope"></i> Subscribe Now
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Haven Retreat Boutique Hotel. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+    <script>
+        // Gallery Filter
+        const tabs = document.querySelectorAll('.gallery-tab');
+        const items = document.querySelectorAll('.gallery-item[data-cat]');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                const filter = tab.dataset.filter;
+                items.forEach(item => {
+                    if (filter === 'all' || item.dataset.cat === filter) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // Lightbox
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        const lightboxClose = document.getElementById('lightbox-close');
+
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                lightboxCaption.textContent = item.dataset.caption || img.alt;
+                lightbox.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+        function closeLightbox() {
+            lightbox.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+    </script>
+    <script>
+        var nlForm = document.getElementById('newsletter-form');
+        if (nlForm) { nlForm.addEventListener('submit', function (e) { e.preventDefault(); var v = document.getElementById('nl-email').value; if (v && v.includes('@')) { document.getElementById('nl-success').style.display = 'block'; nlForm.style.display = 'none'; } }); }
+    </script>
+</body>
+
+</html>

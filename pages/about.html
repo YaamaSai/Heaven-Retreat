@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+    <link rel="shortcut icon" href="../assets/images/favicon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Story | Haven Retreat Boutique Hotel</title>
+    <meta name="description"
+        content="Discover the story behind Haven Retreat � a luxury boutique hotel built on a passion for personalized hospitality and natural beauty.">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dark-mode.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LodgingBusiness",
+      "name": "Haven Retreat",
+      "description": "A luxury boutique hotel offering personalized experiences in the heart of nature.",
+      "url": "https://www.havenretreat.com",
+      "telephone": "+1-555-123-4567",
+      "email": "hello@havenretreat.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "123 Luxury Lane",
+        "addressLocality": "Nature Valley",
+        "addressCountry": "BS"
+      },
+      "starRating": { "@type": "Rating", "ratingValue": "5" },
+      "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "15420" },
+      "amenityFeature": [
+        {"@type": "LocationFeatureSpecification", "name": "Free WiFi", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Spa", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Pool", "value": true},
+        {"@type": "LocationFeatureSpecification", "name": "Restaurant", "value": true}
+      ]
+    }
+    </script>
+    <link rel="stylesheet" href="../assets/css/rtl.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="../assets/images/logo.svg" alt="Haven Retreat">
+                <span class="logo-text">
+                    <span class="logo-name">Haven Retreat</span>
+                    <span class="logo-sub">Luxury Boutique</span>
+                </span>
+            </a>
+            <button class="mobile-menu-btn" aria-label="Toggle Navigation"><i class="fa-solid fa-bars"></i></button>
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="#">Home <i class="fa-solid fa-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="index.html">Home 1</a></li>
+                        <li><a href="index-2.html">Home 2</a></li>
+                    </ul>
+                </li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="rooms.html">Rooms</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="dropdown">
+                    <a href="#">Dashboard <i class="fa-solid fa-caret-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="guest-dashboard.html"><i class="fa-solid fa-user"
+                                    style="margin-right:0.4rem;color:var(--primary);"></i>Guest Dashboard</a></li>
+                        <li><a href="admin-dashboard.html"><i class="fa-solid fa-shield-halved"
+                                    style="margin-right:0.4rem;color:var(--primary);"></i>Admin Dashboard</a></li>
+                    </ul>
+                </li>
+                <li class="nav-appearance-mobile">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:0.88rem;font-weight:500;color:var(--text-main);">Appearance</span>
+                        <div style="display:flex;align-items:center;gap:0.6rem;">
+                            <button id="rtl-toggle" aria-label="Toggle RTL" title="Toggle RTL / LTR"
+                                style="background:none;border:1px solid var(--border-color);border-radius:6px;cursor:pointer;color:var(--text-main);font-size:0.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;padding:0.3rem 0.6rem;font-family:inherit;">RTL</button>
+                            <button id="theme-toggle" aria-label="Toggle Dark Mode"
+                                style="background:none;border:1px solid var(--border-color);border-radius:6px;cursor:pointer;color:var(--text-main);font-size:1rem;display:flex;align-items:center;padding:0.3rem 0.5rem;"><i
+                                    class="fa-solid fa-moon"></i></button>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-utils-mobile">
+                    <a href="login.html" class="btn btn-outline"
+                        style="display:flex;align-items:center;justify-content:center;width:100%;text-align:center;padding:0.7rem 1rem;font-size:0.88rem;font-weight:600;border-radius:8px;margin-bottom:0.75rem;">Login</a>
+                    <a href="booking.html" class="btn btn-primary"
+                        style="display:flex;align-items:center;justify-content:center;width:100%;text-align:center;padding:0.7rem 1rem;font-size:0.88rem;font-weight:700;border-radius:8px;">Book
+                        Now</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero"
+        style="background-image: url('https://images.unsplash.com/photo-1455587734955-081b22074882?auto=format&w=1600&q=80'); height: 78vh; min-height: 500px;">
+        <div class="hero-content">
+            <h1>Our Story</h1>
+            <p>A sanctuary born from a love of nature, art, and genuine hospitality.</p>
+        </div>
+    </section>
+
+
+    <!-- Stats Bar -->
+    <div class="about-stats-bar">
+        <div class="container">
+            <div class="about-stats-grid">
+                <div class="about-stat reveal">
+                    <span class="about-stat-number" data-target="12">0</span><span class="stat-symbol">+</span>
+                    <span class="about-stat-label">Years of Excellence</span>
+                </div>
+                <div class="about-stat reveal">
+                    <span class="about-stat-number" data-target="48">0</span>
+                    <span class="about-stat-label">Luxury Rooms</span>
+                </div>
+                <div class="about-stat reveal">
+                    <span class="about-stat-number" data-target="15420">0</span><span class="stat-symbol">+</span>
+                    <span class="about-stat-label">Happy Guests</span>
+                </div>
+                <div class="about-stat reveal">
+                    <span class="about-stat-number" data-target="98">0</span><span class="stat-symbol">%</span>
+                    <span class="about-stat-label">Guest Satisfaction</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vision Section -->
+    <section class="section">
+        <div class="container">
+            <div class="about-split reveal">
+                <div class="about-text-block">
+                    <span class="section-tag">Our Vision</span>
+                    <h2>Where Luxury Meets Nature</h2>
+                    <p>Founded in 2014 by the Whitmore family, Haven Retreat was built on one simple belief: that true
+                        luxury is not about opulence alone, but about feeling completely at peace. Nestled among ancient
+                        trees and ocean breezes, our retreat was designed to be a living, breathing sanctuary.</p>
+                    <p style="margin-top: 1rem;">Every corner of Haven Retreat tells a story � from the hand-carved
+                        furniture sourced from local artisans, to the organic gardens that supply our kitchen each
+                        morning. We believe hospitality is an art form, and we practice it with quiet dedication every
+                        single day.</p>
+                    <a href="booking.html" class="btn btn-primary" style="margin-top: 2rem;">Book Your Stay</a>
+                </div>
+                <div class="about-img-block">
+                    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&w=800&q=80"
+                        alt="Haven Retreat Interior" class="about-img">
+                    <div class="about-img-badge">
+                        <span class="badge-number">4.9</span>
+                        <span class="badge-label"><i class="fa-solid fa-star" style="color: #fbbc04;"></i> Google
+                            Rating</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="section" style="background-color: var(--bg-secondary);">
+        <div class="container">
+            <div class="text-center reveal" style="margin-bottom: 3rem;">
+                <span class="section-tag">What Guides Us</span>
+                <h2>Our Core Values</h2>
+            </div>
+            <div class="values-grid">
+                <div class="value-card reveal">
+                    <div class="value-icon"><i class="fa-solid fa-leaf"></i></div>
+                    <h3>Sustainability</h3>
+                    <p>We operate with a deep commitment to the environment. From solar energy to zero-waste kitchens,
+                        every decision is guided by respect for our natural surroundings.</p>
+                </div>
+                <div class="value-card reveal">
+                    <div class="value-icon"><i class="fa-solid fa-earth-americas"></i></div>
+                    <h3>Authenticity</h3>
+                    <p>We celebrate local culture, partnering with nearby artisans, farmers, and guides to create
+                        experiences that are genuinely rooted in our location.</p>
+                </div>
+                <div class="value-card reveal">
+                    <div class="value-icon"><i class="fa-solid fa-star"></i></div>
+                    <h3>Excellence</h3>
+                    <p>We pursue perfection in every detail from the thread count of our linens to the timing of your
+                        morning coffee, nothing is left to chance.</p>
+                </div>
+                <div class="value-card reveal">
+                    <div class="value-icon"><i class="fa-solid fa-heart"></i></div>
+                    <h3>Warmth</h3>
+                    <p>Behind every great hotel is a great team. Our staff are trained not just in service, but in
+                        empathy because we believe every guest deserves to feel truly welcomed.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="section">
+        <div class="container">
+            <div class="text-center reveal" style="margin-bottom: 3rem;">
+                <span class="section-tag">Our Journey</span>
+                <h2>Milestones</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">2014</span>
+                        <h3>The Beginning</h3>
+                        <p>Haven Retreat opens its doors with just 12 rooms � a passion project of the Whitmore family,
+                            designed by award-winning architect Elena Vasquez.</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">2016</span>
+                        <h3>First Award</h3>
+                        <p>Recognized as "Best Boutique Hotel in the Region" by Luxury Travel Magazine. The spa wing is
+                            inaugurated with four treatment rooms.</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">2019</span>
+                        <h3>The Expansion</h3>
+                        <p>We expanded to 48 rooms, adding the iconic Haven Penthouse and Ocean View Suites. Our
+                            signature farm-to-table restaurant, The Canopy, is launched.</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">2022</span>
+                        <h3>Green Certification</h3>
+                        <p>Haven Retreat becomes the first hotel in the valley to achieve Platinum Green Certification,
+                            running 100% on renewable energy.</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-year">2026</span>
+                        <h3>Today & Beyond</h3>
+                        <p>With over 15,000 happy guests and a 4.9&#11088; Google rating, we continue to redefine what
+                            it means to offer a boutique luxury experience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section" style="background-color: var(--bg-secondary);">
+        <div class="container">
+            <div class="text-center reveal" style="margin-bottom: 3rem;">
+                <span class="section-tag">The People</span>
+                <h2>Meet Our Team</h2>
+                <p>A passionate group of hospitality professionals dedicated to your comfort.</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-card reveal">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&w=400&q=80"
+                        alt="James Whitmore" class="team-avatar-img">
+                    <h3>James Whitmore</h3>
+                    <span class="team-role">Founder & CEO</span>
+                    <p>With 20 years in luxury hospitality, James built Haven Retreat from the ground up with a vision
+                        for intimate, nature-first luxury.</p>
+                </div>
+                <div class="team-card reveal">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&w=400&q=80"
+                        alt="Sofia Laurent" class="team-avatar-img">
+                    <h3>Sofia Laurent</h3>
+                    <span class="team-role">Head of Guest Experience</span>
+                    <p>Sofia leads our guest relations team with an unmatched attention to detail and a talent for
+                        anticipating every need before it's expressed.</p>
+                </div>
+                <div class="team-card reveal">
+                    <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&w=400&q=80"
+                        alt="Marco Reyes" class="team-avatar-img">
+                    <h3>Marco Reyes</h3>
+                    <span class="team-role">Executive Chef</span>
+                    <p>Chef Marco crafts our celebrated farm-to-table menus using produce harvested fresh each morning
+                        from our organic gardens and local suppliers.</p>
+                </div>
+                <div class="team-card reveal">
+                    <img src="https://images.unsplash.com/photo-1614644147798-f8c0fc9da7f6?auto=format&w=400&q=80"
+                        alt="Anika Nair" class="team-avatar-img">
+                    <h3>Anika Nair</h3>
+                    <span class="team-role">Spa & Wellness Director</span>
+                    <p>Anika brings a decade of holistic wellness expertise to our spa, creating deeply restorative
+                        experiences that guests return for year after year.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section"
+        style="background: linear-gradient(135deg, var(--secondary) 0%, #3a3228 100%); text-align:center;">
+        <div class="container reveal">
+            <h2 style="color:#fff; font-size: 2.5rem;">Experience Haven Retreat</h2>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin: 1rem auto 2.5rem; max-width: 600px;">Join
+                thousands of guests who have discovered their perfect escape. Your story begins the moment you arrive.
+            </p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="booking.html" class="btn btn-primary" style="font-size: 1rem; padding: 1rem 2.5rem;">Book Your
+                    Stay</a>
+                <a href="contact.html" class="btn btn-outline"
+                    style="font-size: 1rem; padding: 1rem 2.5rem; color: #fff; border-color: rgba(255,255,255,0.4);">Get
+                    in Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="footer-brand">
+                        <img src="../assets/images/logo.svg" alt="Haven Retreat">
+                        <span class="logo-text">
+                            <span class="logo-name">Haven Retreat</span>
+                            <span class="logo-sub">Luxury Boutique</span>
+                        </span>
+                    </a>
+                    <p style="margin-bottom: 1.5rem; line-height: 1.6;">A luxury boutique hotel offering personalized
+                        experiences in the heart of nature. Escape the ordinary and discover your sanctuary.</p>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" style="color: var(--primary); font-size: 1.2rem;"><i
+                                class="fa-brands fa-x-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="services.html">Spa &amp; Dining</a></li>
+                        <li><a href="gallery.html">Photo Gallery</a></li>
+                        <li><a href="about.html">Our Story</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Guest Information</h4>
+                    <ul>
+                        <li><a href="#">Check-in &amp; Check-out</a></li>
+                        <li><a href="#">Cancellation Policy</a></li>
+                        <li><a href="#">FAQ &amp; Support</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms &amp; Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul style="gap: 0.75rem;">
+                        <li style="display: flex; gap: 0.5rem; align-items: flex-start;"><i
+                                class="fa-solid fa-location-dot" style="margin-top: 4px; color: var(--primary);"></i>
+                            <span>123 Luxury Lane, Nature Valley<br>Nassau, Bahamas</span>
+                        </li>
+                        <li style="display: flex; gap: 0.5rem; align-items: center;"><i class="fa-solid fa-phone"
+                                style="color: var(--primary);"></i> +1 (555) 123-4567</li>
+                        <li style="display: flex; gap: 0.5rem; align-items: center;"><i class="fa-solid fa-envelope"
+                                style="color: var(--primary);"></i> hello@havenretreat.com</li>
+                    </ul>
+                    <a href="#" class="footer-subscribe-btn-sm"
+                        style="margin-top:1.25rem;display:inline-flex;align-items:center;gap:0.5rem;padding:0.55rem 1.25rem;background:var(--primary);color:#fff;border:none;border-radius:var(--radius-sm);font-size:0.85rem;font-weight:600;cursor:pointer;text-decoration:none;transition:background 0.2s,transform 0.2s;"
+                        onmouseover="this.style.background='var(--primary-hover)';this.style.transform='translateY(-1px)'"
+                        onmouseout="this.style.background='var(--primary)';this.style.transform=''">
+                        <i class="fa-solid fa-envelope"></i> Subscribe Now
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Haven Retreat Boutique Hotel. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+
+</html>

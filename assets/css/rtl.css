@@ -1,0 +1,105 @@
+/* RTL Layout Compatibility overrides for Arabic / Hebrew */
+[dir="rtl"] {
+    text-align: right;
+}
+
+/* Navbar Alignment */
+[dir="rtl"] .navbar .nav-links { margin-left: 0; }
+[dir="rtl"] .mobile-menu-btn { margin-left: 0; margin-right: auto; }
+[dir="rtl"] .dropdown-menu { left: auto; right: 0; }
+[dir="rtl"] .dropdown-menu li a { text-align: right; }
+
+/* Font Awesome Icon Flipping */
+[dir="rtl"] i.fa-arrow-right { transform: rotate(180deg); }
+[dir="rtl"] i.fa-chevron-right { transform: rotate(180deg); }
+
+/* Booking Bar borders (flip from right to left) */
+[dir="rtl"] .m-field {
+    border-right: none !important;
+    border-left: 1px solid var(--border-color) !important;
+    padding-right: 0 !important;
+    padding-left: 1.5rem !important;
+}
+[dir="rtl"] .m-field:last-of-type { border-left: none !important; }
+
+[dir="rtl"] .booking-field {
+    border-right: none;
+    border-left: 1px solid var(--border-color);
+    padding-right: 0;
+    padding-left: 1rem;
+}
+[dir="rtl"] .booking-field:last-of-type { border-left: none; }
+
+@media (max-width: 900px) {
+    [dir="rtl"] .m-field, [dir="rtl"] .booking-field {
+        border-left: none !important;
+        padding-left: 0 !important;
+    }
+}
+
+/* Testimonial Quotes & Cards */
+[dir="rtl"] .testimonial-author { text-align: right; }
+[dir="rtl"] .testimonial-quote { right: 2rem; left: auto; transform: scaleX(-1); } /* flip quotes visually */
+
+/* Checkbox and List items */
+[dir="rtl"] .service-feature-list li, [dir="rtl"] .room-amenities li { gap: 0.5rem; }
+
+/* Timeline (About page) */
+[dir="rtl"] .timeline::before { left: auto; right: 19px; }
+[dir="rtl"] .timeline-item { padding-left: 0; padding-right: 0; }
+
+/* Footer */
+[dir="rtl"] .footer-brand { text-align: right; }
+[dir="rtl"] .footer-col ul li a, [dir="rtl"] .footer-col ul li { text-align: right; justify-content: flex-start; }
+
+/* Forms */
+[dir="rtl"] .auth-box { text-align: right; }
+[dir="rtl"] .form-group label { text-align: right; }
+[dir="rtl"] .newsletter-form { flex-direction: row; } /* Native flex handles the swap */
+[dir="rtl"] .newsletter-input { border-radius: 0 50px 50px 0; border-right: 1px solid var(--border-color); border-left: none; }
+[dir="rtl"] .newsletter-btn { border-radius: 50px 0 0 50px; }
+
+/* Auth Pages - RTL fixes */
+[dir="rtl"] .auth-wrap {
+    direction: rtl;
+}
+/* Move RTL toggle to the right in RTL mode to avoid blocking the left form panel */
+[dir="rtl"] body > button.btn-outline[style*="position: fixed"] {
+    left: auto !important;
+    right: 20px !important;
+}
+[dir="rtl"] .auth-theme-toggle {
+    right: auto;
+    left: 1.25rem;
+}
+[dir="rtl"] .go-home i.fa-arrow-left {
+    transform: rotate(180deg);
+}
+[dir="rtl"] .input-toggle-pw {
+    right: auto;
+    left: 0.75rem;
+}
+[dir="rtl"] .auth-divider::before,
+[dir="rtl"] .auth-divider::after {
+    flex: 1;
+}
+
+/* RTL Mobile Drawer */
+@media (max-width: 768px) {
+    [dir="rtl"] .nav-links {
+        right: auto !important;
+        left: -100% !important;
+        transition: left 0.38s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        box-shadow: 10px 0 30px rgba(0,0,0,0.15) !important;
+        
+        
+    }
+    [dir="rtl"] .nav-links.active {
+        left: 0 !important;
+    }
+}
+
+/* Tablet Navbar RTL overrides */
+@media (min-width: 769px) and (max-width: 1050px) {
+  [dir="rtl"] .nav-links { margin-left: 0 !important; margin-right: auto !important; }
+}
