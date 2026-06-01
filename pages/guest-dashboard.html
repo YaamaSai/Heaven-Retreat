@@ -2228,6 +2228,9 @@
       const titles = { overview: 'My Dashboard', bookings: 'My Bookings', services: 'Services', loyalty: 'Loyalty Program', profile: 'My Profile' };
       document.getElementById('pageTitle').textContent = titles[id] || 'Dashboard';
       if (window.innerWidth <= 1024 && typeof closeSb === 'function') closeSb();
+      const content = document.querySelector('.content');
+      if (content) content.scrollTo(0, 0);
+      window.scrollTo(0, 0);
     }
     const sbToggle = document.getElementById('sbToggle');
     const sidebar = document.getElementById('sidebar');

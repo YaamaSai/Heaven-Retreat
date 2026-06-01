@@ -169,12 +169,13 @@
             transform: translateY(-1px);
             box-shadow: 0 4px 16px rgba(168,134,85,0.5);
         }
-        /* Mobile brand label — logo + name above heading */
+        /* Mobile brand label — logo + name in same row */
         .auth-mobile-logo {
             display: none;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
             justify-content: center;
+            gap: 0.65rem;
             margin-bottom: 0.75rem;
             padding-bottom: 0.75rem;
             border-bottom: 1px solid var(--border-color);
@@ -182,12 +183,13 @@
             color: inherit;
         }
         .auth-mobile-logo img {
-            height: 48px;
-            margin-bottom: 0.5rem;
+            height: 40px;
+            width: auto;
+            flex-shrink: 0;
         }
         .auth-mobile-logo span {
             font-family: 'Playfair Display', serif;
-            font-size: 1.35rem;
+            font-size: 1.2rem;
             font-weight: 700;
             letter-spacing: 0;
             text-transform: none;
@@ -196,12 +198,12 @@
         }
         .auth-mobile-logo .s {
             font-family: 'Inter', sans-serif;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             font-weight: 600;
             letter-spacing: 2.5px;
             text-transform: uppercase;
             color: var(--text-muted);
-            margin-top: 0.2rem;
+            margin-top: 0.15rem;
         }
         /* RTL layout swap for auth pages */
         [dir="rtl"] .auth-wrap {
@@ -266,7 +268,7 @@
                 <div class="auth-header">
                     <a href="index.html" class="auth-mobile-logo">
                         <img src="../assets/images/logo.svg" alt="Haven Retreat">
-                        <div style="text-align: center;">
+                        <div style="display:flex; flex-direction:column; text-align:left;">
                             <span>Haven Retreat</span>
                             <div class="s">Luxury Boutique</div>
                         </div>

@@ -3341,6 +3341,9 @@
       const titles = { overview: 'Overview', bookings: 'Bookings', guests: 'Guests', rooms: 'Rooms', settings: 'Settings', analytics: 'Analytics', reports: 'Reports' };
       document.getElementById('pageTitle').textContent = titles[id] || 'Dashboard';
       if (window.innerWidth <= 1024 && typeof closeSb === 'function') closeSb();
+      const content = document.querySelector('.content');
+      if (content) content.scrollTo(0, 0);
+      window.scrollTo(0, 0);
     }
     // Sidebar toggle (mobile)
     const sbToggle = document.getElementById('sbToggle');
